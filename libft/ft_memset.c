@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 09:57:06 by okim              #+#    #+#             */
-/*   Updated: 2020/11/13 10:41:59 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/13 11:08:59 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	int i;
+	size_t i;
 
 	i = 0;
 	while (i < len)
 	{
-		*((int*)b + i) = c;
+		*((size_t*)b + i) = c;
 		i++;
 	}
 	return (b);

@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: okim </var/mail/okim>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 09:57:06 by okim              #+#    #+#             */
-/*   Updated: 2020/11/14 13:27:28 by okim             ###   ########.fr       */
+/*   Created: 2020/11/14 13:30:45 by okim              #+#    #+#             */
+/*   Updated: 2020/11/14 13:37:14 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+void	ft_bzero(void *s, size_t n)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
-	while (i < len)
+	while (i < n)
 	{
-		*((char *)b + (sizeof(char) * i)) = c;
+		*((char *)s + sizeof(char) * i) = 0;
 		i++;
 	}
-	return (b);
 }

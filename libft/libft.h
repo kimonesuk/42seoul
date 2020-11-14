@@ -1,8 +1,8 @@
-#ifdef LIBFT_H
+#ifndef LIBFT_H
 # define LIBFT_H
 
-typedef	int	size_t;
+typedef unsigned long size_t;
 
-void	*ft_memset(void *s, int c, size_t n);
+void	*ft_memset(void *b, int c, size_t len);
 
 #endif

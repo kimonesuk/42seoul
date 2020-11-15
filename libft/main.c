@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:33:10 by okim              #+#    #+#             */
-/*   Updated: 2020/11/14 13:41:37 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/15 12:24:22 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ int	main(void)
 	for(int i = 0; i < (int)sizeof(test); i++)
 		printf("%c", test[i]);
 	printf("\n\n");
+
+///////////////////////////////////////////////////////////
+
+	const char *src = "Hello World!";
+	char dst[10];
+	char *c;
+	char *d;
+
+	c = memcpy(dst, src, 10);
+	printf("c : %p\nsrc = %s\ndst = %s\n\n", c, src, dst);
+	memset (dst, 0, sizeof(test));
+
+	d = ft_memcpy(dst, src, 10);
+	printf("d : %p\nsrc = %s\ndst = %s\n\n", d, src, dst);
 
 	return (0);
 }

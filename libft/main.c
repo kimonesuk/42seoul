@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:33:10 by okim              #+#    #+#             */
-/*   Updated: 2020/11/15 12:24:22 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/16 00:25:03 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,23 @@ int	main(void)
 ///////////////////////////////////////////////////////////
 
 	const char *src = "Hello World!";
-	char dst[10];
+	char dst[13];
 	char *c;
 	char *d;
 
-	c = memcpy(dst, src, 10);
+	c = memcpy(dst, src, 12);
 	printf("c : %p\nsrc = %s\ndst = %s\n\n", c, src, dst);
-	memset (dst, 0, sizeof(test));
+	memset (dst, 0, sizeof(dst));
+	
+	d = ft_memcpy(dst, src, 12);
+	printf("d : %p\nsrc = %s\ndst = %s\n\n", d, src, dst);
+	memset (dst, 0, sizeof(dst));
+	
+	c = memccpy(dst, src, 'w', 10);
+	printf("c : %p\nsrc = %s\ndst = %s\n\n", c, src, dst);
+	memset (dst, 0, sizeof(dst));
 
-	d = ft_memcpy(dst, src, 10);
+	d = ft_memccpy(dst, src, 'w', 10);
 	printf("d : %p\nsrc = %s\ndst = %s\n\n", d, src, dst);
 
 	return (0);

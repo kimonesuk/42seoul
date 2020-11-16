@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:33:10 by okim              #+#    #+#             */
-/*   Updated: 2020/11/16 00:25:03 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/16 17:15:18 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,15 @@ int	main(void)
 
 	d = ft_memccpy(dst, src, 'w', 10);
 	printf("d : %p\nsrc = %s\ndst = %s\n\n", d, src, dst);
+	memset (dst, 0, sizeof(dst));
+
+	c = memmove(dst, src, 10);
+	printf("c : %p\nsrc = %s\ndst = %s\n\n", c, src, dst);
+	memset (dst, 0, sizeof(dst));
+
+	d = ft_memmove(dst, src, 10);
+	printf("d : %p\nsrc = %s\ndst = %s\n\n", d, src, dst);
+
 
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:33:10 by okim              #+#    #+#             */
-/*   Updated: 2020/11/17 22:35:57 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/17 23:10:56 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,17 +113,30 @@ int	main(void)
 	n2 = ft_strlcat(s6, s2, 10);
 	printf("ft_strlcat : %d, %s\n\n", n2, s6);
 
-	a = strchr(s1, 'H');
+	a = strchr(s1, 'o');
 	printf("strchr a : %p\n", a);
 
-	a = ft_strchr(s1, 'H');
+	a = ft_strchr(s1, 'o');
 	printf("ft_strchr a : %p\n\n", a);
 
-	a = strrchr(s1, 'H');
+	a = strrchr(s1, 'o');
 	printf("strrchr a : %p\n", a);
 
-	a = ft_strrchr(s1, 'H');
-	printf("ft_strrchr a : %p\n", a);
+	a = ft_strrchr(s1, 'o');
+	printf("ft_strrchr a : %p\n\n", a);
+
+/////////////////////////////////////////////////
+
+	char *ss1 = "Hello World!?!";
+	char *ss2 = "!?!";
+	char *ptr1;
+	char *ptr2;
+
+	ptr1 = strnstr(ss1, ss2, 15);
+	printf("strnstr : %p\n", ptr1);
+
+	ptr2 = ft_strnstr(ss1, ss2, 15);
+	printf("ft_strnstr : %p\n", ptr2);
 
 	return (0);
 }

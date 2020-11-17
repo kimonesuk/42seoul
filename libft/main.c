@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:33:10 by okim              #+#    #+#             */
-/*   Updated: 2020/11/17 21:33:27 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/17 22:14:49 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ int	main(void)
 
 	char *s1 = "Hello World!?";
 	char *s2 = "Hello World!!";
-//	char s3[10] = "";
+	char s3[14];
+	char s4[14];
+	char s5[17] = "Hi ";
+	char s6[17] = "Hi ";
 	int n1;
 	int	n2;
 
@@ -97,6 +100,18 @@ int	main(void)
 
 	n2 = ft_strlen(s2);
 	printf("ft_strlen : %d\n\n", n2);
+
+	n1 = strlcpy(s3, s2, 10);
+	printf("strlcpy : %d, %s\n", n1, s3);
+
+	n2 = ft_strlcpy(s4, s2, 10);
+	printf("ft_strlcpy : %d, %s\n\n", n2, s4);
+
+	n1 = strlcat(s5, s2, 10);
+	printf("strlcat : %d, %s\n", n1, s5);
+
+	n2 = ft_strlcat(s6, s2, 10);
+	printf("ft_strlcat : %d, %s\n\n", n2, s6);
 
 	return (0);
 }

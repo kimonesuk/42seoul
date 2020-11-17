@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:33:10 by okim              #+#    #+#             */
-/*   Updated: 2020/11/17 20:39:17 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/17 21:33:27 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	main(void)
 
 	char *s1 = "Hello World!?";
 	char *s2 = "Hello World!!";
+//	char s3[10] = "";
 	int n1;
 	int	n2;
 
@@ -90,6 +91,12 @@ int	main(void)
 
 	n2 = ft_memcmp(s1, s2, 0);
 	printf("ft_memcmp : %d\n\n", n2);
+
+	n1 = strlen(s2);
+	printf("strlen : %d\n", n1);
+
+	n2 = ft_strlen(s2);
+	printf("ft_strlen : %d\n\n", n2);
 
 	return (0);
 }

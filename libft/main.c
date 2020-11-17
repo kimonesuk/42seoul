@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:33:10 by okim              #+#    #+#             */
-/*   Updated: 2020/11/17 22:14:49 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/17 22:35:57 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,18 @@ int	main(void)
 
 	n2 = ft_strlcat(s6, s2, 10);
 	printf("ft_strlcat : %d, %s\n\n", n2, s6);
+
+	a = strchr(s1, 'H');
+	printf("strchr a : %p\n", a);
+
+	a = ft_strchr(s1, 'H');
+	printf("ft_strchr a : %p\n\n", a);
+
+	a = strrchr(s1, 'H');
+	printf("strrchr a : %p\n", a);
+
+	a = ft_strrchr(s1, 'H');
+	printf("ft_strrchr a : %p\n", a);
 
 	return (0);
 }

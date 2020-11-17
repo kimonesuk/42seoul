@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 11:33:10 by okim              #+#    #+#             */
-/*   Updated: 2020/11/17 20:31:45 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/17 20:39:17 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,15 @@ int	main(void)
 	d = ft_memchr(src, '?', sizeof(src));
 	printf("d : %p\n\n", d);
 
-	char *s1 = "Hello World!!";
-	char *s2 = "Hello World!?";
-	int n1, n2;
+	char *s1 = "Hello World!?";
+	char *s2 = "Hello World!!";
+	int n1;
+	int	n2;
 
-	n1 = memcmp(s1, s2, 14);
+	n1 = memcmp(s1, s2, 0);
 	printf("memcmp : %d\n", n1);
 
-	n2 = ft_memcmp(s1, s2, 14);
+	n2 = ft_memcmp(s1, s2, 0);
 	printf("ft_memcmp : %d\n\n", n2);
 
 	return (0);

@@ -6,14 +6,14 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:30:24 by okim              #+#    #+#             */
-/*   Updated: 2020/11/23 19:52:00 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/23 22:40:21 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-int		trm_start(const char *s1, const char *set)
+static int	trm_start(const char *s1, const char *set)
 {
 	int	len;
 	int	i;
@@ -29,7 +29,7 @@ int		trm_start(const char *s1, const char *set)
 	return (i);
 }
 
-int		trm_end(const char *s1, const char *set)
+static int	trm_end(const char *s1, const char *set)
 {
 	int	len;
 	int	i;

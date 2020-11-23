@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/22 17:25:37 by okim              #+#    #+#             */
-/*   Updated: 2020/11/22 17:26:03 by okim             ###   ########.fr       */
+/*   Created: 2020/11/22 17:30:24 by okim              #+#    #+#             */
+/*   Updated: 2020/11/23 18:23:17 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stdlib.h>
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+char	*ft_strtrim(char const *s1, char const *set)
 {
+	char *trmstr;
+
+	if (!(trmstr = (char *)malloc(sizeof(char) * )))
+		return (0);
+	return (trmstr);
 }

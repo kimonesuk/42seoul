@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 09:32:59 by okim              #+#    #+#             */
-/*   Updated: 2020/11/19 09:59:59 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/23 19:57:01 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	size_t	*ptr;
+	void	*ptr;
+	int		i;
 
-	if (!(ptr = (size_t *)malloc(count * size)))
-		return (NULL);
-	for(size_t i = 0; i < count; i++)
+	if (!(ptr = malloc(count * size)))
+		return (0);
+	i = 0;
+	while (i < count)
+	{
 		ptr[i] = 0;
-	return ((void *)ptr);
+		i++;
+	}
+	return (ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:30:24 by okim              #+#    #+#             */
-/*   Updated: 2020/11/22 17:30:58 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/23 17:27:54 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,9 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	return ();
+	char *trmstr;
+
+	if (!(trmstr = (char *)malloc(sizeof(char) * )))
+		return (0);
+	return (trmstr);
 }

@@ -51,9 +51,9 @@ BONUS = ft_lstnew.c \
 	    ft_lstiter.c \
 	    ft_lstmap.c \
 
-OBJS = $(SRCS: .c=.o)
+OBJS = $(SRCS:.c=.o)
 
-BONUS_OBJS = $(BONUS: .c=.o)
+BONUS_OBJS = $(BONUS:.c=.o)
 
 all: $(NAME)
 

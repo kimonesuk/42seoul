@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 17:40:04 by okim              #+#    #+#             */
-/*   Updated: 2020/11/24 17:40:34 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/24 21:12:06 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,13 @@
 
 int	ft_lstsize(t_list *lst)
 {
-	return ();
+	int	size;
+	
+	size = 0;
+	while (lst != NULL)
+	{
+		lst = lst -> next;
+		size++;
+	}
+	return (size);
 }

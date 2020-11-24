@@ -6,13 +6,15 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 17:44:11 by okim              #+#    #+#             */
-/*   Updated: 2020/11/24 17:45:01 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/24 21:49:12 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
+
 	return ();
 }

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:26:47 by okim              #+#    #+#             */
-/*   Updated: 2020/11/23 23:49:35 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/24 10:40:33 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	get_count(const char *s, char c)
 	int	count;
 	int	i;
 
-	count = 0;
+	count = (s[0] == c) ? -1 : 0;
 	i = 0;
 	while (s[i])
 	{
@@ -27,6 +27,7 @@ static int	get_count(const char *s, char c)
 			count++;
 		i++;
 	}
+	count = (s[i] == c) ? count - 1 : count;
 	return (count);
 }
 

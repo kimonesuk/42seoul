@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 17:39:25 by okim              #+#    #+#             */
-/*   Updated: 2020/11/24 21:09:11 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/25 15:57:07 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	if (lst == NULL || new == NULL)
 		return ;
-	new -> next = *lst;
+	new->next = *lst;
 	*lst = new;
 }

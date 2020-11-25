@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 17:43:23 by okim              #+#    #+#             */
-/*   Updated: 2020/11/24 21:36:19 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/25 15:57:21 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	ft_lstclear(t_list *lst, void (*del)(void *))
 		return ;
 	while (lst != NULL)
 	{
-		tmp = lst -> next;
-		del(lst -> content);
+		tmp = lst->next;
+		del(lst->content);
 		free(lst);
 		lst = tmp;
 	}

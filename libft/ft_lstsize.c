@@ -6,20 +6,20 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 17:40:04 by okim              #+#    #+#             */
-/*   Updated: 2020/11/24 21:12:06 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/25 15:59:32 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+int		ft_lstsize(t_list *lst)
 {
 	int	size;
-	
+
 	size = 0;
 	while (lst != NULL)
 	{
-		lst = lst -> next;
+		lst = lst->next;
 		size++;
 	}
 	return (size);

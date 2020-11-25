@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 17:41:29 by okim              #+#    #+#             */
-/*   Updated: 2020/11/24 21:24:29 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/25 15:56:51 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		return ;
 	}
 	last = ft_lstlast(*lst);
-	new -> next = last -> next;
-	last -> next = new;
+	new->next = last->next;
+	last->next = new;
 }

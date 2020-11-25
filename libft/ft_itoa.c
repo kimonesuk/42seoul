@@ -6,21 +6,21 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:27:34 by okim              #+#    #+#             */
-/*   Updated: 2020/11/23 20:35:40 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/25 16:01:25 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-long int	n_abs(long int n)
+static long int	n_abs(long int n)
 {
 	return (n < 0 ? n * -1 : n);
 }
 
-int		nbr_len(int n)
+static int		nbr_len(int n)
 {
-	int	len;
+	int		len;
 
 	len = n <= 0 ? 1 : 0;
 	while (n != 0)
@@ -29,10 +29,9 @@ int		nbr_len(int n)
 		len++;
 	}
 	return (len);
-
 }
 
-char	*ft_itoa(int n)
+char			*ft_itoa(int n)
 {
 	char	*str;
 	int		len;

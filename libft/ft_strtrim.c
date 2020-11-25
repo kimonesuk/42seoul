@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:30:24 by okim              #+#    #+#             */
-/*   Updated: 2020/11/23 22:40:21 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/25 16:02:01 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	trm_end(const char *s1, const char *set)
 	return (len - i);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char		*ft_strtrim(char const *s1, char const *set)
 {
 	int		start;
 	int		end;

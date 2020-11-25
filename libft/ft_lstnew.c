@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 17:36:44 by okim              #+#    #+#             */
-/*   Updated: 2020/11/24 21:25:26 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/25 15:58:39 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_list	*ft_lstnew(void *content)
 
 	if (!(newlst = (t_list *)malloc(sizeof(t_list))))
 		return (NULL);
-	newlst -> content = content;
-	newlst -> next = NULL;
+	newlst->content = content;
+	newlst->next = NULL;
 	return (newlst);
 }

@@ -6,14 +6,14 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 17:43:23 by okim              #+#    #+#             */
-/*   Updated: 2020/11/25 15:57:21 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/25 16:35:25 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-void	ft_lstclear(t_list *lst, void (*del)(void *))
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*tmp;
 
@@ -21,10 +21,10 @@ void	ft_lstclear(t_list *lst, void (*del)(void *))
 		return ;
 	while (lst != NULL)
 	{
-		tmp = lst->next;
-		del(lst->content);
-		free(lst);
-		lst = tmp;
+		tmp = *lst->next;
+		del(*lst->content);
+		free(*lst);
+		*lst = tmp;
 	}
 	*lst = NULL;
 }

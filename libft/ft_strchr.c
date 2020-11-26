@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 22:20:43 by okim              #+#    #+#             */
-/*   Updated: 2020/11/26 11:46:53 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/26 14:56:58 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	unsigned int i;
-
-	i = 0;
-	while (s[i] != '\0')
+	if (!s)
+		return (0);
+	while (*s != '\0')
 	{
-		if (s[i] == c)
-			return (&((char *)s)[i]);
-		i++;
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
 	}
-	if (s[i] == '\0')
-		return (&((char *)s)[i]);
+	if (*s == (char)c)
+		return ((char *)s);
 	return (0);
 }

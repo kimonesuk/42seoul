@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 22:23:11 by okim              #+#    #+#             */
-/*   Updated: 2020/11/26 10:43:40 by okim             ###   ########.fr       */
+/*   Created: 2020/11/19 00:01:35 by okim              #+#    #+#             */
+/*   Updated: 2020/11/19 00:12:24 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+int	ft_isprint(int c)
 {
-	unsigned int	s_len;
-
-	s_len = ft_strlen(s);
-	while (s_len)
-	{
-		if (s[s_len] == c)
-			return ((char *)s + sizeof(char) * s_len);
-		s_len--;
-	}
-	if (s[0] == c)
-		return ((char *)s);
-	return (0);
+	if (c >= 32 && c <= 126)
+		return (1);
+	else
+		return (0);
 }

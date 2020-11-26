@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 22:23:11 by okim              #+#    #+#             */
-/*   Updated: 2020/11/26 10:43:40 by okim             ###   ########.fr       */
+/*   Created: 2020/11/22 17:20:24 by okim              #+#    #+#             */
+/*   Updated: 2020/11/23 19:48:46 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+void	plsnbr(int n, int fd)
 {
-	unsigned int	s_len;
+	int nbr;
 
-	s_len = ft_strlen(s);
-	while (s_len)
+	if (n > 9)
+		plsnbr(n / 10, fd);
+	nbr = n % 10 + 48;
+	write(fd, &nbr, 1);
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	if (fd < 0)
+		return ;
+	if (n == -2147483648)
 	{
-		if (s[s_len] == c)
-			return ((char *)s + sizeof(char) * s_len);
-		s_len--;
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	if (s[0] == c)
-		return ((char *)s);
-	return (0);
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		n *= -1;
+	}
+	plsnbr(n, fd);
 }

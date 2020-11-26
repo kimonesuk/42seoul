@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 22:23:11 by okim              #+#    #+#             */
-/*   Updated: 2020/11/26 10:43:40 by okim             ###   ########.fr       */
+/*   Created: 2020/11/22 17:28:22 by okim              #+#    #+#             */
+/*   Updated: 2020/11/23 20:47:00 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned int	s_len;
+	char	*after_str;
+	int		len;
+	int		i;
 
-	s_len = ft_strlen(s);
-	while (s_len)
+	if (s == 0 || f == 0)
+		return (0);
+	len = ft_strlen(s);
+	if (!(after_str = (char *)malloc(sizeof(char) * (len + 1))))
+		return (0);
+	i = 0;
+	while (s[i])
 	{
-		if (s[s_len] == c)
-			return ((char *)s + sizeof(char) * s_len);
-		s_len--;
+		after_str[i] = f(i, s[i]);
+		i++;
 	}
-	if (s[0] == c)
-		return ((char *)s);
-	return (0);
+	after_str[i] = '\0';
+	return (after_str);
 }

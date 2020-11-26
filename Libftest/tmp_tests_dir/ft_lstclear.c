@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 22:23:11 by okim              #+#    #+#             */
-/*   Updated: 2020/11/26 10:43:40 by okim             ###   ########.fr       */
+/*   Created: 2020/11/24 17:43:23 by okim              #+#    #+#             */
+/*   Updated: 2020/11/25 20:14:12 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	unsigned int	s_len;
+	t_list	*tmp;
+	t_list	*next;
 
-	s_len = ft_strlen(s);
-	while (s_len)
+	tmp = *lst;
+	while (tmp != NULL)
 	{
-		if (s[s_len] == c)
-			return ((char *)s + sizeof(char) * s_len);
-		s_len--;
+		next = tmp->next;
+		del(tmp->content);
+		free(tmp);
+		tmp = next;
 	}
-	if (s[0] == c)
-		return ((char *)s);
-	return (0);
+	*lst = NULL;
 }

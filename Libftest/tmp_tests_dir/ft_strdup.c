@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 22:23:11 by okim              #+#    #+#             */
-/*   Updated: 2020/11/26 10:43:40 by okim             ###   ########.fr       */
+/*   Created: 2020/11/19 09:55:11 by okim              #+#    #+#             */
+/*   Updated: 2020/11/19 09:57:12 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strdup(const char *s1)
 {
-	unsigned int	s_len;
+	char	*rtn;
+	int		len;
+	int		i;
 
-	s_len = ft_strlen(s);
-	while (s_len)
+	len = ft_strlen(s1);
+	if (!(rtn = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	i = 0;
+	while (i < len)
 	{
-		if (s[s_len] == c)
-			return ((char *)s + sizeof(char) * s_len);
-		s_len--;
+		rtn[i] = s1[i];
+		i++;
 	}
-	if (s[0] == c)
-		return ((char *)s);
-	return (0);
+	rtn[i] = '\0';
+	return (rtn);
 }

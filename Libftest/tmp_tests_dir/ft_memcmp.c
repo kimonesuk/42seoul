@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 22:23:11 by okim              #+#    #+#             */
-/*   Updated: 2020/11/26 10:43:40 by okim             ###   ########.fr       */
+/*   Created: 2020/11/17 20:19:35 by okim              #+#    #+#             */
+/*   Updated: 2020/11/25 21:30:34 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+int			ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned int	s_len;
+	size_t	i;
 
-	s_len = ft_strlen(s);
-	while (s_len)
+	if ((s1 == 0 && s2 == 0) || n == 0)
+		return (0);
+	i = 0;
+	while (n--)
 	{
-		if (s[s_len] == c)
-			return ((char *)s + sizeof(char) * s_len);
-		s_len--;
+		if (*((unsigned char *)s1 + i) != *((unsigned char *)s2 + i))
+			return (*((unsigned char *)s1 + i) - *((unsigned char *)s2 + i));
+		i++;
 	}
-	if (s[0] == c)
-		return ((char *)s);
 	return (0);
 }

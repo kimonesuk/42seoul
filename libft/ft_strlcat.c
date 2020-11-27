@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 21:50:16 by okim              #+#    #+#             */
-/*   Updated: 2020/11/17 22:01:40 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/27 16:18:13 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		dst[dst_len + i] = src[i];
 		i++;
 	}
-	dst[dst_len + i] = 0;
+	if (dstsize >= dst_len + i)
+		dst[dst_len + i] = 0;
 	if (dst_len < dstsize)
 		return (dst_len + src_len);
 	return (dstsize + src_len);

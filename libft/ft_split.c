@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:26:47 by okim              #+#    #+#             */
-/*   Updated: 2020/11/27 15:02:48 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/27 16:38:36 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ char		**ft_split(const char *s, char c)
 	char	count;
 	int		j;
 
+	if (!ft_strlen(s))
+		return (0);
 	count = get_count(s, c);
 	if (!(splt_strs = (char **)malloc(sizeof(char *) * (count + 1))))
 		return (0);

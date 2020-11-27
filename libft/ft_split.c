@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:26:47 by okim              #+#    #+#             */
-/*   Updated: 2020/11/27 17:41:26 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/27 18:54:48 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static unsigned int	get_count(const char *s, char c)
 		}
 		i++;
 	}
-	if (s[i - 1] != c)
+	if (ft_strlen(s) > 0 && s[i - 1] != c)
 		count++;
 	return (count);
 }
@@ -86,8 +86,8 @@ static unsigned int	*get_nums(const char *s, char c)
 char				**ft_split(const char *s, char c)
 {
 	char			**splt_strs;
-	unsigned int	*nums;
 	unsigned int	count;
+	unsigned int	*nums;
 	unsigned int	j;
 
 	if (!s)
@@ -97,9 +97,9 @@ char				**ft_split(const char *s, char c)
 		return (0);
 	j = 0;
 	nums = get_nums(s, c);
-	while (*s && j < count)
+	while (j < count && *s)
 	{
-		while (*s && *s == c)
+		while (*s == c && *s)
 			s++;
 		if (!(splt_strs[j] = (char *)malloc(sizeof(char) * (nums[j] + 1))))
 			return (clear_mem(splt_strs));

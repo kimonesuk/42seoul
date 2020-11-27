@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:26:47 by okim              #+#    #+#             */
-/*   Updated: 2020/11/27 16:38:36 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/27 17:20:13 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static int	*get_nums(const char *s, char c)
 	int	i;
 	int	j;
 
+	if (!s)
+		return (0);
 	count = get_count(s, c);
 	if (!(nums = (int *)malloc(sizeof(int) * count)))
 		return (0);
@@ -88,7 +90,7 @@ char		**ft_split(const char *s, char c)
 	char	count;
 	int		j;
 
-	if (!ft_strlen(s))
+	if (!s)
 		return (0);
 	count = get_count(s, c);
 	if (!(splt_strs = (char **)malloc(sizeof(char *) * (count + 1))))

@@ -6,16 +6,16 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:26:47 by okim              #+#    #+#             */
-/*   Updated: 2020/11/27 17:20:13 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/27 17:41:26 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-static char	**clear_mem(char **strs)
+static char			**clear_mem(char **strs)
 {
-	int		i;
+	unsigned int	i;
 
 	i = 0;
 	while (strs[i])
@@ -27,10 +27,10 @@ static char	**clear_mem(char **strs)
 	return (0);
 }
 
-static int	get_count(const char *s, char c)
+static unsigned int	get_count(const char *s, char c)
 {
-	int		count;
-	int		i;
+	unsigned int	count;
+	unsigned int	i;
 
 	if (!s)
 		return (0);
@@ -54,17 +54,17 @@ static int	get_count(const char *s, char c)
 	return (count);
 }
 
-static int	*get_nums(const char *s, char c)
+static unsigned int	*get_nums(const char *s, char c)
 {
-	int *nums;
-	int	count;
-	int	i;
-	int	j;
+	unsigned int	*nums;
+	unsigned int	count;
+	unsigned int	i;
+	unsigned int	j;
 
 	if (!s)
 		return (0);
 	count = get_count(s, c);
-	if (!(nums = (int *)malloc(sizeof(int) * count)))
+	if (!(nums = (unsigned int *)malloc(sizeof(unsigned int) * count)))
 		return (0);
 	i = 0;
 	j = 0;
@@ -83,12 +83,12 @@ static int	*get_nums(const char *s, char c)
 	return (nums);
 }
 
-char		**ft_split(const char *s, char c)
+char				**ft_split(const char *s, char c)
 {
-	char	**splt_strs;
-	int		*nums;
-	char	count;
-	int		j;
+	char			**splt_strs;
+	unsigned int	*nums;
+	unsigned int	count;
+	unsigned int	j;
 
 	if (!s)
 		return (0);

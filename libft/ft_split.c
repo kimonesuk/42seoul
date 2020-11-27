@@ -6,12 +6,26 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:26:47 by okim              #+#    #+#             */
-/*   Updated: 2020/11/27 11:18:25 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/27 15:02:48 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
+
+static char	**clear_mem(char **strs)
+{
+	int		i;
+
+	i = 0;
+	while (strs[i])
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
+	return (0);
+}
 
 static int	get_count(const char *s, char c)
 {
@@ -52,10 +66,10 @@ static int	*get_nums(const char *s, char c)
 		return (0);
 	i = 0;
 	j = 0;
-	while (s[i] && s[i] == c)
-		i++;
-	while (s[i])
+	while (s[i] && j < count)
 	{
+		while (s[i] == c)
+			i++;
 		nums[j] = 0;
 		while (s[i] && s[i] != c)
 		{
@@ -63,8 +77,6 @@ static int	*get_nums(const char *s, char c)
 			i++;
 		}
 		j++;
-		while (s[i] == c)
-			i++;
 	}
 	return (nums);
 }
@@ -77,18 +89,16 @@ char		**ft_split(const char *s, char c)
 	int		j;
 
 	count = get_count(s, c);
-	if (count == 0)
-		return (NULL);
 	if (!(splt_strs = (char **)malloc(sizeof(char *) * (count + 1))))
-		return (NULL);
+		return (0);
 	j = 0;
 	nums = get_nums(s, c);
-	while (*s)
+	while (*s && j < count)
 	{
 		while (*s && *s == c)
 			s++;
 		if (!(splt_strs[j] = (char *)malloc(sizeof(char) * (nums[j] + 1))))
-			return (NULL);
+			return (clear_mem(splt_strs));
 		ft_strlcpy(splt_strs[j], s, nums[j] + 1);
 		s += nums[j++];
 	}

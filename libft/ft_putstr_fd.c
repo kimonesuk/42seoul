@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:24:49 by okim              #+#    #+#             */
-/*   Updated: 2020/11/23 18:38:38 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/29 19:23:47 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	if (!(s) || fd < 0)
+	if (!s || fd < 0)
 		return ;
 	write(fd, s, ft_strlen(s));
 }

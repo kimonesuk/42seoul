@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:30:24 by okim              #+#    #+#             */
-/*   Updated: 2020/11/25 16:02:01 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/29 19:18:06 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char		*ft_strtrim(char const *s1, char const *set)
 	end = trm_end(s1, set);
 	if (start >= end)
 		return (ft_strdup(""));
-	if (!(trmstr = (char *)malloc(sizeof(char) * (end - start + 2))))
+	if (!(trmstr = (char *)malloc(sizeof(char) * (end - start + 1))))
 		return (0);
 	ft_strlcpy(trmstr, s1 + start, end - start + 1);
 	return (trmstr);

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 17:44:11 by okim              #+#    #+#             */
-/*   Updated: 2020/11/25 20:16:20 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/29 20:04:01 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,24 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*firstlst;
+	t_list	*newlst;
 	t_list	*nextlst;
-	t_list	*tmp;
 
-	if (lst == NULL || f == NULL || del == NULL)
-		return (NULL);
-	if (!(firstlst = ft_lstnew(f(lst->content))))
-	{
-		ft_lstclear(&firstlst, del);
-		return (NULL);
-	}
+	if (!lst || !f)
+		return (0);
+	if (!(nextlst = ft_lstnew(f(lst->content))))
+		return (0);
+	newlst = nextlst;
 	lst = lst->next;
-	tmp = firstlst;
-	while (lst != NULL)
+	while (lst)
 	{
 		if (!(nextlst = ft_lstnew(f(lst->content))))
 		{
-			ft_lstclear(&nextlst, del);
-			return (NULL);
+			ft_lstclear(&newlst, del);
+			return (0);
 		}
 		lst = lst->next;
-		tmp->next = nextlst;
-		tmp = nextlst;
+		ft_lstadd_back(&newlst, nextlst);
 	}
-	return (firstlst);
+	return (newlst);
 }

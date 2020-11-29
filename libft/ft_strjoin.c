@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:29:37 by okim              #+#    #+#             */
-/*   Updated: 2020/11/23 19:49:15 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/29 19:05:12 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		len1;
 	int		len2;
 
-	if (!s1 || !s2)
+	if (!s1 && !s2)
 		return (0);
+	else if (!s1)
+		return (ft_strdup(s2));
+	else if (!s2)
+		return (ft_strdup(s1));
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	if (!(jnstr = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))

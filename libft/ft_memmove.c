@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 17:12:09 by okim              #+#    #+#             */
-/*   Updated: 2020/11/26 11:36:17 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/29 09:36:46 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	size_t	i;
 
-	if (dst == src || src == 0 || len == 0)
+	if (dst == src || len == 0)
 		return (dst);
 	if (dst < src)
 	{

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 09:32:59 by okim              #+#    #+#             */
-/*   Updated: 2020/11/23 20:18:05 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/29 10:07:32 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ void	*ft_calloc(size_t count, size_t size)
 	if (!(ptr = malloc(count * size)))
 		return (0);
 	ft_bzero(ptr, count);
+	if (!ptr)
+		return (0);
 	return (ptr);
 }

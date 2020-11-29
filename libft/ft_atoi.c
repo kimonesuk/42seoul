@@ -6,13 +6,22 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 23:08:32 by okim              #+#    #+#             */
-/*   Updated: 2020/11/25 21:42:35 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/29 10:31:00 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		is_space(char c)
+static int			chk_over_range(unsigned long long int sum, int sign)
+{
+	if (sum > LLONG_MAX - 1 && sign == -1)
+		return (0);
+	if (sum > LLONG_MAX && sign == 1)
+		return (-1);
+	return (sum * sign);
+}
+
+static int			is_space(char c)
 {
 	if (c == ' ' || c == '\n' || c == '\t' ||
 		c == '\v' || c == '\f' || c == '\r')
@@ -21,11 +30,11 @@ static int		is_space(char c)
 		return (0);
 }
 
-int				ft_atoi(const char *s)
+int					ft_atoi(const char *s)
 {
-	long long	rtn;
-	long long	sign;
-	int			i;
+	unsigned long long int	rtn;
+	int						sign;
+	int						i;
 
 	rtn = 0;
 	sign = 1;
@@ -44,5 +53,5 @@ int				ft_atoi(const char *s)
 		rtn = rtn * 10 + (s[i] - 48);
 		i++;
 	}
-	return (sign * rtn);
+	return (chk_over_range(rtn, sign));
 }

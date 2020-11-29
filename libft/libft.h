@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 16:16:16 by okim              #+#    #+#             */
-/*   Updated: 2020/11/25 20:19:26 by okim             ###   ########.fr       */
+/*   Updated: 2020/11/29 10:18:25 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <wchar.h>
 # include <stdio.h>
+# include <limits.h>
 
 typedef struct	s_list
 {

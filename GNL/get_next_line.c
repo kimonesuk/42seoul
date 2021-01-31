@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:41:22 by okim              #+#    #+#             */
-/*   Updated: 2021/01/30 16:51:03 by okim             ###   ########.fr       */
+/*   Updated: 2021/01/31 09:54:45 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ int	get_next_line(int fd, char **line)
 		{
 			strcpy(*line, store);
 			strcat(*line, buff);
+			printf("read = 0 : %s\n", *line);
 			return (0);
 		}
 		else
 		{
 			strcpy(*line, store);
 			strcpy(store, buff);
+			printf("read != 0, appended : %s\n", *line);
 			while ((idx = have_end(store, BUFFER_SIZE)) != 0)
 			{
 				strcat(*line, store);
@@ -40,6 +42,7 @@ int	get_next_line(int fd, char **line)
 			}
 			strncat(*line, store, idx);
 			ft_strcpy_slice(store, buff, idx, BUFFER_SIZE);
+			printf("read != 0, finished line : %s\n", *line);
 			return (1);
 		}
 	}

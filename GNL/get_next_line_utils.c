@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:42:49 by okim              #+#    #+#             */
-/*   Updated: 2021/01/30 16:51:17 by okim             ###   ########.fr       */
+/*   Updated: 2021/01/31 22:05:08 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strcpy_slice(char *buf, char *str, size_t start, size_t end)
 	size_t	size;
 
 	size = end - start + 1;
-	if (ft_strlen(str) > start)
+	if (ft_strlen(str) > start && size >= 0)
 	{
 		str += start;
 		while (size-- && *str != '\0')

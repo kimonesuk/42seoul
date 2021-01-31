@@ -2,17 +2,18 @@
 
 int	main(void)
 {
-	char	*line = 0;
+	char	*line;
 	int		ret;
 	int		fd;
 
-	fd = open("testfile", O_RDONLY);
-	while ((ret = get_next_line(fd, &line)) > 0)
+	line = (char*)malloc(BUFFER_SIZE);
+	memset(line, '\0', BUFFER_SIZE);
+	fd = open("test.txt", O_RDONLY);
+	while ((ret = get_next_line(fd, &line)) >= 0)
 	{
 		printf("%s\n", line);
-		free(line);
+		memset(line, '\0', BUFFER_SIZE);
 	}
-	printf("%s\n", line);
 	free(line);
 	return (0);
 }

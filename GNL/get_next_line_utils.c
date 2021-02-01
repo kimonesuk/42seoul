@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:42:49 by okim              #+#    #+#             */
-/*   Updated: 2021/02/01 23:32:10 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/01 23:59:21 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,21 @@ char	*ft_strcpy_slice(char *buf, char *str, size_t start, size_t end)
 	return buf;
 }
 
-size_t	have_end(const char	*str, size_t size)
+size_t	idx_newline(const char *s)
 {
-	size_t	len;
+	size_t	idx;
 
-	len = ft_strlen(str);
-	if (len < size)
-		return (len);
-	else
-		return (0);
+	idx = 0;
+	while (s[idx])
+	{
+		if (s[idx] == '\n')
+			return (idx);
+		idx++;
+	}
+	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	char	*jnstr;
 	int		len1;
@@ -54,7 +57,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len2 = ft_strlen(s2);
 	if (!(jnstr = (char*)malloc(sizeof(char) * (len1 + len2 + 1))))
 		return (0);
-	ft_strlcpy(jnstr, s1, len + 1);
+	ft_strlcpy(jnstr, s1, len1 + 1);
 	free(s1);
 	ft_strlcat(jnstr, s2, len1 + len2 + 1);
 	return (jnstr);

@@ -6,40 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:42:49 by okim              #+#    #+#             */
-/*   Updated: 2021/02/01 23:59:21 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/02 08:57:18 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_strcpy_slice(char *buf, char *str, size_t start, size_t end)
-{
-	size_t	size;
-
-	size = end - start + 1;
-	if (ft_strlen(str) > start && size >= 0)
-	{
-		str += start;
-		while (size-- && *str != '\0')
-			*(buf++) = *(str++);
-		*buf = '\0';
-	}
-	return buf;
-}
-
-size_t	idx_newline(const char *s)
-{
-	size_t	idx;
-
-	idx = 0;
-	while (s[idx])
-	{
-		if (s[idx] == '\n')
-			return (idx);
-		idx++;
-	}
-	return (0);
-}
 
 char	*ft_strjoin(char *s1, char const *s2)
 {

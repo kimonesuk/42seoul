@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:41:22 by okim              #+#    #+#             */
-/*   Updated: 2021/02/02 09:31:17 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/02 18:24:15 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strcpy_slice(char *str, size_t start, size_t end)
 
 	size = end - start + 1;
 	idx = 0;
-	if (ft_strlen(str) > start && size >= 0)
+	if (ft_strlen(str) > start && size > 0)
 	{
 		while (size-- && str[idx + start] != '\0')
 		{	
@@ -58,17 +58,20 @@ int	get_next_line(int fd, char **line)
 	{
 		buff[readsize] = '\0';
 		stored[fd] = ft_strjoin(stored[fd], buff);
-		printf("stored : %zu\n", readsize);
-		printf("stored str : %s\n", stored[fd]);
 		if ((idx = idx_newline(stored[fd])) != 0)
 		{
-			printf("idx : %zu\n", idx);
-			*line = (char*)malloc(sizeof(char) * (idx));
-			strlcpy(*line, stored[fd], idx - 1);
-			printf("line : %s\n", *line);
+			*line = (char*)malloc(sizeof(char) * (idx + 2));
+			strlcpy(*line, stored[fd], idx + 1);
 			ft_strcpy_slice(stored[fd], idx + 1, ft_strlen(stored[fd]));
-			return (readsize == 0 ? 0 : 1);
+			return (1);
 		}
 	}
-	return (readsize == 0 ? 0 : 1);
+	if ((idx = idx_newline(stored[fd])) != 0)
+	{
+		*line = (char*)malloc(sizeof(char) * (idx + 2));
+		strlcpy(*line, stored[fd], idx + 1);
+		ft_strcpy_slice(stored[fd], idx + 1, ft_strlen(stored[fd]));
+		return (1);
+	}
+	return (0);
 }

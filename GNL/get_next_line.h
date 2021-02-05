@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:43:29 by okim              #+#    #+#             */
-/*   Updated: 2021/02/02 09:18:53 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/05 09:09:18 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
-
 
 # define FD_MAX 256
 

@@ -6,33 +6,36 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:41:22 by okim              #+#    #+#             */
-/*   Updated: 2021/02/06 23:29:39 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/07 04:22:27 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strcpy_slice(char *str, size_t start, size_t end)
+size_t	chk_slice(char **line, char **stored, size_t idx)
 {
-	size_t	size;
-	size_t	idx;
+	char	*tmp;
 
-	size = end - start + 1;
-	idx = 0;
-	if (ft_strlen(str) > start && size > 1)
+	if (*stored && idx > (size_t)-1)
 	{
-		while (size-- && str[idx + start] != '\0')
-		{
-			str[idx] = str[idx + start];
-			idx++;
-		}
+		*stored[idx] = '\0';
+		*line = ft_strdup(*stored);
+		if (*(*stored + idx + 1))
+			tmp = ft_strdup(*stored + idx + 1);
+		else
+			tmp = 0;
+		free(*stored);
+		*stored = tmp;
+		return (1);
 	}
-	while (str[idx])
+	else if (*stored)
 	{
-		str[idx] = '\0';
-		idx++;
+		*line = *stored;
+		*stored = 0;
 	}
-	return (str);
+	else
+		*line = ft_strdup("");
+	return (0);
 }
 
 size_t	idx_newline(const char *s)
@@ -58,21 +61,14 @@ int		get_next_line(int fd, char **line)
 
 	if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
 		return (-1);
-	idx = 0;
-	readsize = 1;
-	while ((idx != (size_t)-1) || readsize > 0)
+	while ((readsize = read(fd, buff, BUFFER_SIZE)) > (size_t)0)
 	{
-		readsize = read(fd, buff, BUFFER_SIZE);
-		if (readsize < 0)
-			return (-1);
 		buff[readsize] = '\0';
 		stored[fd] = ft_strjoin(stored[fd], buff);
-		idx = idx_newline(stored[fd]);
-		*line = (char*)malloc(sizeof(char) * (idx + 2));
-		ft_strlcpy(*line, stored[fd], idx + 1);
-		ft_strcpy_slice(stored[fd], idx + 1, ft_strlen(stored[fd]));
-		if (idx != (size_t)-1)
-			return (1);
+		if ((idx = idx_newline(stored[fd])) > (size_t)-1)
+			return (chk_slice(line, &stored[fd], idx));
 	}
-	return (0);
+	if (readsize < (size_t)0)
+		return (-1);
+	return (chk_slice(line, &stored[fd], idx));
 }

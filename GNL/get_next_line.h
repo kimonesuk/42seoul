@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:43:29 by okim              #+#    #+#             */
-/*   Updated: 2021/02/05 09:09:18 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/06 23:19:02 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 
 int		get_next_line(int fd, char **line);
 char	*ft_strcpy_slice(char *str, size_t start, size_t end);
-size_t	idx_newline(const char *str);
 char	*ft_strjoin(char *s1, char const *s2);
+char	*ft_strdup(const char *s1);
+size_t	idx_newline(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *str);
 
 #endif

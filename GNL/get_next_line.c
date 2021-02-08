@@ -6,17 +6,17 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:41:22 by okim              #+#    #+#             */
-/*   Updated: 2021/02/07 04:22:27 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/08 20:45:07 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	chk_slice(char **line, char **stored, size_t idx)
+int	chk_slice(char **line, char **stored, int idx)
 {
 	char	*tmp;
 
-	if (*stored && idx > (size_t)-1)
+	if (*stored && (idx >= 0))
 	{
 		*stored[idx] = '\0';
 		*line = ft_strdup(*stored);
@@ -38,10 +38,10 @@ size_t	chk_slice(char **line, char **stored, size_t idx)
 	return (0);
 }
 
-size_t	idx_newline(const char *s)
+int	idx_newline(const char *s)
 {
-	size_t	idx;
-
+	int	idx;
+	
 	idx = 0;
 	while (s[idx])
 	{
@@ -52,23 +52,27 @@ size_t	idx_newline(const char *s)
 	return (-1);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	char			buff[BUFFER_SIZE + 1];
 	static char		*stored[FD_MAX];
-	size_t			readsize;
-	size_t			idx;
+	int				readsize;
+	int				idx;
 
-	if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
+	if ((fd < 0) || (line == 0) || (BUFFER_SIZE <= 0))
 		return (-1);
-	while ((readsize = read(fd, buff, BUFFER_SIZE)) > (size_t)0)
+	while ((readsize = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[readsize] = '\0';
 		stored[fd] = ft_strjoin(stored[fd], buff);
-		if ((idx = idx_newline(stored[fd])) > (size_t)-1)
+		idx = idx_newline(stored[fd]);
+		if (idx >= 0)
 			return (chk_slice(line, &stored[fd], idx));
 	}
-	if (readsize < (size_t)0)
+	if (readsize < 0)
 		return (-1);
+	buff[readsize] = '\0';
+	stored[fd] = ft_strjoin(stored[fd], buff);
+	idx = idx_newline(stored[fd]);
 	return (chk_slice(line, &stored[fd], idx));
 }

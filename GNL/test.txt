@@ -1,6 +1,0 @@
-12345
-abcde
-67890
-ABCDE
-Hello World!
-This is end of sentence.

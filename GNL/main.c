@@ -1,4 +1,4 @@
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	main(void)
 {
@@ -6,8 +6,8 @@ int	main(void)
 	int		ret;
 	int		fd;
 
-	fd = open("3.txt", O_RDONLY);
-	while ((ret = get_next_line(fd, &line)) > 0)
+	fd = open("test.txt", O_RDONLY);
+	while ((ret = get_next_line_bonus(fd, &line)) > 0)
 	{
 		printf("%s\n", line);
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:41:22 by okim              #+#    #+#             */
-/*   Updated: 2021/02/09 17:50:25 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/09 18:05:25 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		idx_newline(const char *s)
 	return (-1);
 }
 
-int		get_next_line_bonus(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
 	char			buff[BUFFER_SIZE + 1];
 	static char		*stored[FD_MAX];

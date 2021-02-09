@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:42:49 by okim              #+#    #+#             */
-/*   Updated: 2021/02/08 20:00:56 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/09 17:46:02 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 	return (jnstr);
 }
 
-int	ft_strlcpy(char *dst, const char *src, int dstsize)
+int		ft_strlcpy(char *dst, const char *src, int dstsize)
 {
 	int	i;
 
@@ -55,7 +55,7 @@ int	ft_strlcpy(char *dst, const char *src, int dstsize)
 	return (i);
 }
 
-int	ft_strlcat(char *dst, const char *src, int dstsize)
+int		ft_strlcat(char *dst, const char *src, int dstsize)
 {
 	int	i;
 	int	dst_len;
@@ -97,7 +97,7 @@ char	*ft_strdup(const char *s1)
 	return (rtn);
 }
 
-int	ft_strlen(const char *s)
+int		ft_strlen(const char *s)
 {
 	int	len;
 

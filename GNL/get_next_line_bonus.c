@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:41:22 by okim              #+#    #+#             */
-/*   Updated: 2021/02/09 10:53:31 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/09 17:50:25 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-int	chk_slice(char **line, char **stored, int idx)
+int		chk_slice(char **line, char **stored, int idx)
 {
 	char	*tmp;
-	
-	//printf("stored : %s\n", *stored);
+
 	if ((*stored != 0) && (idx >= 0))
 	{
-		//printf("in if, idx : %d\n", idx);
-		//printf("stored len : %d\n", ft_strlen(*stored));
 		(*stored)[idx] = '\0';
-		//printf("cuted stored : %s\n", *stored);
 		*line = ft_strdup(*stored);
-		//printf("line : %s\n", *line);
 		if (*(*stored + idx + 1) || *(*stored + idx + 1) == '\0')
 			tmp = ft_strdup(*stored + idx + 1);
 		else
 			tmp = 0;
 		free(*stored);
 		*stored = tmp;
-	//	printf("new stored : %s\n\n", *stored);
 		return (1);
 	}
 	else if (*stored != 0)
@@ -44,10 +38,10 @@ int	chk_slice(char **line, char **stored, int idx)
 	return (0);
 }
 
-int	idx_newline(const char *s)
+int		idx_newline(const char *s)
 {
 	int	idx;
-	
+
 	idx = 0;
 	while (s[idx])
 	{
@@ -58,7 +52,7 @@ int	idx_newline(const char *s)
 	return (-1);
 }
 
-int	get_next_line(int fd, char **line)
+int		get_next_line_bonus(int fd, char **line)
 {
 	char			buff[BUFFER_SIZE + 1];
 	static char		*stored[FD_MAX];
@@ -69,19 +63,15 @@ int	get_next_line(int fd, char **line)
 		return (-1);
 	while ((readsize = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
-		//printf("readsize : %d\n", readsize);
 		buff[readsize] = '\0';
 		stored[fd] = ft_strjoin(stored[fd], buff);
-		//printf("stored[fd] : %s\n-----end-----\n", stored[fd]);
 		if ((idx = idx_newline(stored[fd])) >= 0)
 			return (chk_slice(line, &stored[fd], idx));
 	}
-	//printf("readsize : %d\n", readsize);
 	if (readsize < 0)
 		return (-1);
 	buff[readsize] = '\0';
 	stored[fd] = ft_strjoin(stored[fd], buff);
 	idx = idx_newline(stored[fd]);
-	//printf("idx : %d\n", idx);
 	return (chk_slice(line, &stored[fd], idx));
 }

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:43:29 by okim              #+#    #+#             */
-/*   Updated: 2021/02/09 17:48:01 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/09 18:37:06 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define FD_MAX 32
+# define FD_MAX 1024
 
 int		get_next_line(int fd, char **line);
 char	*ft_strjoin(char *s1, char const *s2);

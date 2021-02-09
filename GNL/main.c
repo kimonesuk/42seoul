@@ -6,7 +6,7 @@ int	main(void)
 	int		ret;
 	int		fd;
 
-	fd = open("2.txt", O_RDONLY);
+	fd = open("3.txt", O_RDONLY);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		printf("%s\n", line);

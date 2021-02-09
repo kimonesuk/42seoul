@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 09:41:22 by okim              #+#    #+#             */
-/*   Updated: 2021/02/09 00:54:21 by okim             ###   ########.fr       */
+/*   Updated: 2021/02/09 10:53:31 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	chk_slice(char **line, char **stored, int idx)
 	//printf("stored : %s\n", *stored);
 	if ((*stored != 0) && (idx >= 0))
 	{
-		printf("in if, idx : %d\n", idx);
-		printf("stored len : %d\n", ft_strlen(*stored));
+		//printf("in if, idx : %d\n", idx);
+		//printf("stored len : %d\n", ft_strlen(*stored));
 		(*stored)[idx] = '\0';
 		//printf("cuted stored : %s\n", *stored);
 		*line = ft_strdup(*stored);
 		//printf("line : %s\n", *line);
-		if (*(*stored + idx + 1))
+		if (*(*stored + idx + 1) || *(*stored + idx + 1) == '\0')
 			tmp = ft_strdup(*stored + idx + 1);
 		else
 			tmp = 0;
@@ -76,8 +76,12 @@ int	get_next_line(int fd, char **line)
 		if ((idx = idx_newline(stored[fd])) >= 0)
 			return (chk_slice(line, &stored[fd], idx));
 	}
+	//printf("readsize : %d\n", readsize);
 	if (readsize < 0)
 		return (-1);
+	buff[readsize] = '\0';
+	stored[fd] = ft_strjoin(stored[fd], buff);
 	idx = idx_newline(stored[fd]);
+	//printf("idx : %d\n", idx);
 	return (chk_slice(line, &stored[fd], idx));
 }

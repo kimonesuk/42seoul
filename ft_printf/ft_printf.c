@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 16:09:27 by okim              #+#    #+#             */
-/*   Updated: 2021/03/14 21:21:10 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/14 21:23:19 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	ft_printf(const char *format, ...)
 	while ((target = ft_strchr(str, '%')))
 	{
 		rtn += print_str(str, target - str);
-		//rtn += format_parser(&target, structs, arg);
+		rtn += format_parser(&target, structs, arg);
 		//rtn += print_format(&target, structs, arg);
-		str = ++target;
+		str = target;
 	}
 	rtn += print_str(str, ft_strlen(str));
 	va_end(arg);

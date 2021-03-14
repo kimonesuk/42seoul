@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 15:51:09 by okim              #+#    #+#             */
-/*   Updated: 2021/03/14 21:20:55 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/14 21:24:22 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef	struct	s_format_inf
 	int	width;
 	int	tags;
 	int	precision;
+	int	rtn;
 	char	length_char;
 	char	specifier;	
 }				t_format;

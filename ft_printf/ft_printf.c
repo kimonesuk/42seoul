@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 16:09:27 by okim              #+#    #+#             */
-/*   Updated: 2021/03/14 16:37:49 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/14 19:37:24 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_printf(const char *format, ...)
 		{
 			str++;
 			//format_parse(str);
+			//printf_format
 		}
 	}
 	return (rtn);

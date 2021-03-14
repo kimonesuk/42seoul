@@ -6,7 +6,7 @@
 /*   By: okim </var/mail/okim>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 19:37:41 by okim              #+#    #+#             */
-/*   Updated: 2021/03/14 19:59:46 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/14 20:42:04 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ int	length_parser(char **format, struct structs)
 	return (1);
 }
 
+int	format_parser(char **format, struct structs)
+{
+	if (flag_parser() || width_parser() || precise_parser() || length_parser())
+		return (-1);
+	return (0);
+}
+
 int	specifier_parser(char **format, struct structs)
 {
 	int		idx;
@@ -63,12 +70,4 @@ int	specifier_parser(char **format, struct structs)
 	if (idx >= 13)
 		return (0);
 	return (1);
-}
-
-int	format_parser(char **format, struct structs)
-{
-	if (flag_parser() || width_parser() || precise_parser()
-			|| length_parser() || specifier_parser())
-		return (-1);
-	return (0);
 }

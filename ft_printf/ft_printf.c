@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 16:09:27 by okim              #+#    #+#             */
-/*   Updated: 2021/03/14 19:37:24 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/14 20:48:49 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,20 @@ int	ft_printf(const char *format, ...)
 {
 	int		rtn;
 	char	*str;
-	va_list	ap;
-	
+	char	*target;
+	va_list	arg;
+
 	rtn = 0;
+	va_start(arg, format);
 	str = (char*)format;
-	while (*str != 0)
+	while ((target = ft_strchr(format, '%')))
 	{
-		if (*str != '%')
-		{
-			write(1, str, 1);
-			rtn++;
-			str++;
-		}
-		else
-		{
-			str++;
-			//format_parse(str);
-			//printf_format
-		}
+		rtn += print_str(format, target - format);
+		rtn += format_parser(&target, structs, arg);
+		rtn += print_format(&target, structs, arg);
+		format = target;
 	}
+	rtn += print_str(format, ft_strlen(start));
+	va_end(arg);
 	return (rtn);
 }

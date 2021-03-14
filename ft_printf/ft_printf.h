@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 15:51:09 by okim              #+#    #+#             */
-/*   Updated: 2021/03/14 16:36:10 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/14 21:20:55 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ typedef	struct	s_format_inf
 }				t_format;
 
 int	ft_printf(const char *format, ...);
+char	*ft_strchr(char *format, char c);
+int	ft_strlen(char *format);
+int	print_str(char *format, int len);
 int	format_parser();
 int	flag_parser();
 int	width_parser();

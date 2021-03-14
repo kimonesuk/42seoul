@@ -6,13 +6,14 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 15:51:09 by okim              #+#    #+#             */
-/*   Updated: 2021/03/14 16:11:41 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/14 16:36:10 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+#include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -39,4 +40,4 @@ int	precision_parser();
 int	lenght_parser();
 int specifier_parser();
 
-#endif;
+#endif

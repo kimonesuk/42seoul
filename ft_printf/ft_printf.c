@@ -18,6 +18,7 @@ int	ft_printf(const char *format, ...)
 	int		rtn;
 	char	*str;
 	char	*target;
+	t_format	*structs;
 	va_list	arg;
 
 	rtn = 0;
@@ -26,9 +27,11 @@ int	ft_printf(const char *format, ...)
 	while ((target = ft_strchr(str, '%')))
 	{
 		rtn += print_str(str, target - str);
+		structs = (t_format*)malloc(sizeof(t_format));
 		rtn += format_parser(&target, structs, arg);
 		//rtn += print_format(&target, structs, arg);
-		str = target;
+		str = ++target;
+		free(structs);
 	}
 	rtn += print_str(str, ft_strlen(str));
 	va_end(arg);

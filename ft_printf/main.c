@@ -3,12 +3,6 @@
 
 int	main(void)
 {
-	char	*specifiers;
-
-	specifiers = (char*)malloc(sizeof(char) * 13);
-	specifiers = "diucspxX%nfeg";
-	printf("%s\n", specifiers);
-	for (int i = 0; i <= 14; i++)
-		printf("%d : %c\n", i, specifiers[i]);
+	printf("%Ndasdasmi",123);
 	return (0);
 }

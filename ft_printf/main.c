@@ -3,6 +3,6 @@
 
 int	main(void)
 {
-	printf("%Ndasdasmi",123);
+	printf("%6-4+0 2Ndasdasmi",123);
 	return (0);
 }

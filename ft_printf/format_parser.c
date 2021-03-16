@@ -16,8 +16,7 @@ int	format_parser(char **format, t_format *structs, va_list arg)
 {
 	structs->minus = 1;
 	printf("in parser : %d\n", structs->minus);
-//	if (flag_parser(format, structs, arg))
-//		return (-1);
+	while()
 //	if (width_parser(format, structs, arg) || precise_parser(format, structs, arg))
 //		return (-1);
 //	if (length_parser(format, structs, arg))

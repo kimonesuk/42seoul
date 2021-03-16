@@ -14,9 +14,14 @@
 
 int	format_parser(char **format, t_format *structs, va_list arg)
 {
+	char	specifiers[13];
+
+	ft_strlcpy(specifiers, "diucspxX%nfeg", 14);
+	printf("%s\n", specifiers);
+
 	structs->minus = 1;
 	printf("in parser : %d\n", structs->minus);
-	while()
+//	while()
 //	if (width_parser(format, structs, arg) || precise_parser(format, structs, arg))
 //		return (-1);
 //	if (length_parser(format, structs, arg))

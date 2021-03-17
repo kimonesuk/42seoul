@@ -4,7 +4,7 @@ int	main(void)
 {
 	int	rtn;
 
-	rtn = ft_printf("Hello %+-0 #d World!\n");
+	rtn = ft_printf("Hello %+-0 #*.*hhd World!\n", 11, 12);
 	printf("rtn : %d\n", rtn);
 
 	return (0);

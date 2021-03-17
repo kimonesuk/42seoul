@@ -16,40 +16,70 @@ int	flag_parser(char **format, t_format *structs)
 {		
 	if (**format == '0')
 		structs->zero++;
-	else if(**format == '-')
+	else if (**format == '-')
 		structs->minus++;
-	else if(**format == '#')
+	else if (**format == '#')
 		structs->number++;
-	else if(**format == ' ')
+	else if (**format == ' ')
 		structs->space++;
-	else if(**format == '+')
+	else if (**format == '+')
 		structs->plus++;
 	else
 		return (0);
 	return (1);
 }
-/*
-int	width_parser(char **foramt, t_format *structs)
+
+int	width_parser(char **format, t_format *structs)
 {
-	if (error)
+	if ((ft_isdigit(**format)) != 0)
+		structs->width = **format - 48;
+	else if (**format == '*')
+		return (2);
+	else
 		return (0);
 	return (1);
 }
 
 int	precise_parser(char **format, t_format *structs)
 {
-	if (error)
-		return (0);
+	if (**format == '.')
+	{
+		*format = *format + sizeof(char) * 1;
+		if ((ft_isdigit(**format)) != 0)
+			structs->precision = **format - 48;
+		else if (**format == '*')
+			return (2);
+		else
+			return (0);
+	}
 	return (1);
 }
 
 int	length_parser(char **format, t_format *structs)
 {
-	if (error)
-		return (0);
+	if (**format == 'h')
+	{
+		if (*(*format + sizeof(char)) == 'h')
+		{
+			structs->length_char = 'H';
+			*format = *format + sizeof(char) * 1;
+		}
+		else
+			structs->length_char = 'h';
+	}
+	else if (**format == 'l')
+	{
+		if (*(*format + sizeof(char)) == 'l')
+		{
+			structs->length_char = 'L';
+			*format = *format + sizeof(char) * 1;
+		}
+		else
+			structs->length_char = 'l';
+	}
 	return (1);
 }
-*/
+
 int	format_parser(char **format, t_format *structs, va_list arg)
 {
 	char	specifiers[14];
@@ -58,10 +88,11 @@ int	format_parser(char **format, t_format *structs, va_list arg)
 	while ((ft_strchr(specifiers, **format)) == 0)
 	{
 		flag_parser(format, structs);
-//		width_parser(format, structs);
-//		precise_parser(format, structs);
-//		length_parser(format, structs);
-//		return (0);
+		if (width_parser(format, structs) == 2)
+			structs->width = va_arg(arg, int);
+		if (precise_parser(format, structs) == 2)
+			structs->precision = va_arg(arg, int);
+		length_parser(format, structs);
 		*format = *format + sizeof(char) * 1;
 	}
 	structs->specifier = **format;

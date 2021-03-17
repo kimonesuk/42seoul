@@ -35,6 +35,8 @@ int	ft_printf(const char *format, ...)
 		format_parser(&target, structs, arg);
 		//rtn += print_format(&target, structs, arg);
 		printf("\nplus : %d, minus : %d, space : %d, zero : %d\n", structs->plus, structs->minus, structs->space, structs->zero);
+		printf("width : %d, precision : %d\n", structs->width, structs->precision);
+		printf("length_char : %c\n", structs->length_char);
 		printf("specifier : %c\n", structs->specifier);
 		free(structs);
 		//printf("after target : %p, %c\n", target, target[0]);

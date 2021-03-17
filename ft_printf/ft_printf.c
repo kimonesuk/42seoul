@@ -24,18 +24,19 @@ int	ft_printf(const char *format, ...)
 	rtn = 0;
 	va_start(arg, format);
 	str = (char*)format;
-	while ((target = ft_strchr(str, '%')))
+	target = str;
+	while (ft_strchr(target, '%'))
 	{
-		printf("before target : %p, %c\n", target, *target);
-		rtn += print_str(str, target - str);
-		target++;
-		//structs = (t_format*)malloc(sizeof(t_format));
-		//rtn += format_parser(&target, structs, arg);
+		target = ft_strchr(target, '%');
+		rtn += print_str(str, target++ - str);
+		printf("\nbefore target : %p, %c\n", target, target[0]);
+		structs = (t_format*)malloc(sizeof(t_format));
+		format_parser(&target, structs, arg);
 		//rtn += print_format(&target, structs, arg);
-		//printf("after target : %p, %c\n", target, target);
-		//free(structs);
+		free(structs);
+		printf("after target : %p, %c\n", target, target[0]);
 	}
-	rtn += print_str(str, ft_strlen(str));
+	rtn += print_str(target, ft_strlen(target));
 	va_end(arg);
 	return (rtn);
 }

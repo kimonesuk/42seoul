@@ -38,11 +38,6 @@ int	ft_printf(const char *format, ...);
 char	*ft_strchr(char *format, char c);
 int	ft_strlen(char *format);
 int	print_str(char *format, int len);
-int	format_parser();
-int	flag_parser();
-int	width_parser();
-int	precision_parser();
-int	lenght_parser();
-int specifier_parser();
+int	format_parser(char **format, t_format *structs, va_list arg);
 
 #endif

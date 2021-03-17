@@ -26,11 +26,12 @@ int	ft_printf(const char *format, ...)
 	str = (char*)format;
 	while ((target = ft_strchr(str, '%')))
 	{
+		printf("before target : %p, %c\n", target, target);
 		rtn += print_str(str, target - str);
 		structs = (t_format*)malloc(sizeof(t_format));
 		rtn += format_parser(&target, structs, arg);
 		//rtn += print_format(&target, structs, arg);
-		str = ++target;
+		printf("after target : %p, %c\n", target, target);
 		free(structs);
 	}
 	rtn += print_str(str, ft_strlen(str));

@@ -39,5 +39,6 @@ char	*ft_strchr(char *format, char c);
 int	ft_strlen(char *format);
 int	print_str(char *format, int len);
 int	format_parser(char **format, t_format *structs, va_list arg);
+int	new_structs(t_format *structs);
 
 #endif

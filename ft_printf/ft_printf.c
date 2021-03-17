@@ -29,12 +29,15 @@ int	ft_printf(const char *format, ...)
 	{
 		target = ft_strchr(target, '%');
 		rtn += print_str(str, target++ - str);
-		printf("\nbefore target : %p, %c\n", target, target[0]);
+		//printf("\nbefore target : %p, %c\n", target, target[0]);
 		structs = (t_format*)malloc(sizeof(t_format));
+		new_structs(structs);
 		format_parser(&target, structs, arg);
 		//rtn += print_format(&target, structs, arg);
+		printf("\nplus : %d, minus : %d, space : %d, zero : %d\n", structs->plus, structs->minus, structs->space, structs->zero);
+		printf("specifier : %c\n", structs->specifier);
 		free(structs);
-		printf("after target : %p, %c\n", target, target[0]);
+		//printf("after target : %p, %c\n", target, target[0]);
 	}
 	rtn += print_str(target, ft_strlen(target));
 	va_end(arg);

@@ -20,7 +20,6 @@ int new_structs(t_format *structs)
     structs->space = 0;
     structs->plus = 0;
     structs->width = 0;
-    structs->tags = 0;
     structs->precision = 0;
     structs->rtn = 0;
     structs->length_char = 'd';

@@ -5,18 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/14 20:55:10 by okim              #+#    #+#             */
-/*   Updated: 2021/03/14 20:58:15 by okim             ###   ########.fr       */
+/*   Created: 2020/11/17 22:20:43 by okim              #+#    #+#             */
+/*   Updated: 2020/11/29 09:41:05 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchr(char *format, char c)
+#include "libft.h"
+
+char	*ft_strchr(const char *s, int c)
 {
-	while (*format != '\0')
+	while (*s != '\0')
 	{
-		if (*format == c)
-			return (format);
-		format++;
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
 	}
+	if (*s == (char)c)
+		return ((char *)s);
 	return (0);
 }

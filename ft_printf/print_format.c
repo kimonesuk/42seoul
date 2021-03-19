@@ -6,89 +6,55 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:28:20 by okim              #+#    #+#             */
-/*   Updated: 2021/03/18 09:35:06 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/20 00:24:26 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int spec_len_print(char **format, t_format *structs, va_list arg)
+/*
+int float_print(char **format, t_format *structs, va_list arg) // f, e, g
 {
-    if (structs->precision == 'l')
+    if (structs->specifier == 'f')
     {
-        if (structs->specifier == 'd' || structs->specifier == 'i')
-            structs->content = va_arg(arg, long int);
-        else if (structs->specifier == 'u' || structs->specifier == 'x' || structs->specifier == 'X')
-            structs->content = va_arg(arg, unsigned long int);
-        else if (structs->specifier == 'n')
-            structs->content = va_arg(arg, long int*);
-        else if (structs->specifier == 'c')
-            structs->content = va_arg(arg, wint_t);
-        else if (structs->specifier == 's')
-            structs->content = va_arg(arg, wchar_t*);
-        else if (structs->specifier == 'f' || structs->specifier == 'e' || structs->specifier == 'g')
-            structs->content = va_arg(arg, double);
+        
     }
-    else if (structs->precision == 'L')
+    else if (structs->specifier == 'e')
     {
-        if (structs->specifier == 'd' || structs->specifier == 'i')
-            structs->content = va_arg(arg, long long int);
-        else if (structs->specifier == 'u' || structs->specifier == 'x' || structs->specifier == 'X')
-            structs->content = va_arg(arg, unsigned long long int);
-        else if (structs->specifier == 'n')
-            structs->content = va_arg(arg, long long int*);
+        
     }
-    else if (structs->precision == 'h')
+    else if (structs->specifier == 'g')
     {
-        if (structs->specifier == 'd' || structs->specifier == 'i')
-            structs->content = va_arg(arg, short int);
-        else if (structs->specifier == 'u' || structs->specifier == 'x' || structs->specifier == 'X')
-            structs->content = va_arg(arg, unsigned short int);
-        else if (structs->specifier == 'n')
-            structs->content = va_arg(arg, short int*);
+        
     }
-    else if (structs->precision == 'H')
-    {
-        if (structs->specifier == 'd' || structs->specifier == 'i')
-            structs->content = va_arg(arg, signed char);
-        else if (structs->specifier == 'u' || structs->specifier == 'x' || structs->specifier == 'X')
-            structs->content = va_arg(arg, unsigned char);
-        else if (structs->specifier == 'n')
-            structs->content = va_arg(arg, signed char*);
-    }
-    else if (structs->content == 0)
-    {
-    if (structs->specifier == 'd' || structs->specifier == 'i' || structs->specifier == 'c')
-        structs->content = va_arg(arg, int);
-    else if (structs->specifier == 'u' || structs->specifier == 'x' || structs->specifier == 'X')
-        structs->content = va_arg(arg, unsigned int);
-    else if (structs->specifier == 'n')
-        structs->content = va_arg(arg, int*);
-    else if (structs->specifier == 's')
-        structs->content = va_arg(arg, char*);
-    else if (structs->specifier == 'p' || structs->specifier == '%')
-        structs->content = va_arg(arg, void*);
-    else if (structs->specifier == 'f' || structs->specifier == 'e' || structs->specifier == 'g')
-        structs->content = va_arg(arg, float);
-    }
-    return (0);
 }
 
-int width_prec_print(char **format, t_format *structs)
+int base_print(char **format, t_format *structs, va_list arg) // o, x, X, u
+{
+    
+}
+
+int str_print(char **format, t_format *structs, va_list arg) // c, s
+{
+    
+}
+
+int etc_print(char **format, t_format *structs, va_list arg) // p, %, n, etc
 {
 
 }
-
-int flag_print(char **format, t_format *structs)
-{
-
-}
-
+*/
 int print_format(char **format, t_format *structs, va_list arg)
 {
-    spec_len_print(format, structs, arg);
-    printf("")
-    //width_prec_print(format, structs);
-    //structs->rtn=flag_print(format, structs);
+    //printf("\nzero : %d, minus : %d, number : %d, space : %d\nplus : %d, width : %d, precision : %d\nspecifier : %c\n", structs->zero, structs->minus, structs->number, structs->space, structs->plus, structs->width, structs->precision, structs->specifier);
+    if (structs->specifier == 'd' || structs->specifier == 'i')
+        structs->rtn = int_print(format, structs, arg);
+    // else if (structs->specifier == 'f' || structs->specifier == 'e' || structs->specifier == 'g')
+    //     structs->rtn = float_print(&format, structs, arg);
+    // else if (structs->specifier == 'o' || structs->specifier == 'x' || structs->specifier == 'X'  || structs->specifier == 'u')
+    //     structs->rtn = base_print(&format, structs, arg);
+    // else if (structs->specifier == 'c' || structs->specifier == 's')
+    //     structs->rtn = str_print(&format, structs, arg);
+    // else
+    //     structs->rtn = etc_print(&format, structs, arg);
     return (structs->rtn);
 }

@@ -6,43 +6,12 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:28:20 by okim              #+#    #+#             */
-/*   Updated: 2021/03/20 00:24:26 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/20 02:04:08 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-/*
-int float_print(char **format, t_format *structs, va_list arg) // f, e, g
-{
-    if (structs->specifier == 'f')
-    {
-        
-    }
-    else if (structs->specifier == 'e')
-    {
-        
-    }
-    else if (structs->specifier == 'g')
-    {
-        
-    }
-}
 
-int base_print(char **format, t_format *structs, va_list arg) // o, x, X, u
-{
-    
-}
-
-int str_print(char **format, t_format *structs, va_list arg) // c, s
-{
-    
-}
-
-int etc_print(char **format, t_format *structs, va_list arg) // p, %, n, etc
-{
-
-}
-*/
 int print_format(char **format, t_format *structs, va_list arg)
 {
     //printf("\nzero : %d, minus : %d, number : %d, space : %d\nplus : %d, width : %d, precision : %d\nspecifier : %c\n", structs->zero, structs->minus, structs->number, structs->space, structs->plus, structs->width, structs->precision, structs->specifier);

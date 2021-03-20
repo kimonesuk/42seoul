@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 21:08:03 by okim              #+#    #+#             */
-/*   Updated: 2021/03/20 01:29:27 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/20 02:38:14 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,8 @@ int nmb_len(long long nmb)
 
     len = 0;
     if (nmb < 0)
-    {
         nmb = nmb * -1;
-        len++;
-    }
-    while (nmb > 0)
+    while (nmb > 1)
     {
         len++;
         nmb /= 10;
@@ -66,22 +63,39 @@ int ntos(char **nmb_c, long long nmb, int len)
     return (sign);
 }
 
-int flag_chk(char **nmb, t_format *structs, long long n, int nmb_len, int len, int sign)
+int flag_chk(char **nmb, t_format *structs, int nmb_len, int len, int sign)
 {
     if (structs->minus > 0)
     {
-        ft_memset(*nmb, ' ', len - 1);
-        ntos(nmb, n, nmb_len);
+        if (sign < 0)
+            write(1, "-", 1);
+        else
+        {
+            if (structs->plus > 0)
+                write(1, "+", 1);
+            else if (structs->space > 0)
+                write(1, " ", 1);
+        }
+        print_str(*nmb, nmb_len + 1);
+        print_n(' ', len - nmb_len - 2);
     }
-    else if (structs->zero > 0)
-        ft_memset((void*)*nmb, '0', len - nmb_len);
-    if (sign > 0)
-        if (structs->plus > 0)
-            **nmb = '+';
-        else if (structs->space > 0)
-            **nmb = ' ';
     else
-        **nmb = '-';
+    {
+        if (sign < 0)
+            write(1, "-", 1);
+        else
+        {
+            if (structs->plus > 0)
+                write(1, "+", 1);
+            else if (structs->space > 0)
+                write(1, " ", 1);
+        }
+        if (structs->zero > 0)
+            print_n('0', len - nmb_len - 2);
+        else
+            print_n(' ', len - nmb_len - 2);
+        print_str(*nmb, nmb_len + 1);
+    }
     return (1);
 }
 
@@ -95,14 +109,12 @@ int int_print(char **format, t_format *structs, va_list arg)
 
     nmb = length_chk(format, structs, arg);
     nmb_l = nmb_len(nmb);
+    nmb_c = (char*)malloc(sizeof(char) * (nmb_l + 1));
+    ft_memset(nmb_c, ' ', nmb_l);
+    nmb_c[nmb_l] = '\0';
+    sign = ntos(&nmb_c, nmb, nmb_l);
     len = nmb_l > structs->precision ? nmb_l : structs->precision;
     len = structs->width > len ? structs->width : len;
-    len = structs->plus > 0 || structs->space > 0 || nmb < 0 ? len + 1 : len;
-    nmb_c = (char*)malloc(sizeof(char) * (len + 1));
-    ft_memset((void*)nmb_c, ' ', len);
-    nmb_c[len] = '\0';
-    sign = ntos(&nmb_c, nmb, len - 1);
-    flag_chk(&nmb_c, structs, nmb, nmb_l, len, sign);
-    print_str(nmb_c, len);
+    flag_chk(&nmb_c, structs, nmb_l, len, sign);
     return (len);
 }

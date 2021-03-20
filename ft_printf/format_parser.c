@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 19:37:41 by okim              #+#    #+#             */
-/*   Updated: 2021/03/18 00:50:14 by okim             ###   ########seoul.kr  */
+/*   Updated: 2021/03/21 01:40:22 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ int	flag_parser(char **format, t_format *structs)
 
 int	width_parser(char **format, t_format *structs)
 {
-	if ((ft_isdigit(**format)) != 0)
-		structs->width = **format - 48;
-	else if (**format == '*')
+	while ((ft_isdigit(**format)) != 0)
+	{
+		structs->width = (structs->width) * 10 + (**format - 48);
+		*format = *format + sizeof(char) * 1;
+	}
+	if (**format == '*')
 		return (2);
 	else
 		return (0);
@@ -45,12 +48,18 @@ int	precise_parser(char **format, t_format *structs)
 	if (**format == '.')
 	{
 		*format = *format + sizeof(char) * 1;
-		if ((ft_isdigit(**format)) != 0)
-			structs->precision = **format - 48;
-		else if (**format == '*')
+		while ((ft_isdigit(**format)) != 0)
+		{
+			structs->precision = (structs->precision) * 10 + (**format - 48);
+			*format = *format + sizeof(char) * 1;
+		}
+		if (**format == '*')
 			return (2);
 		else
-			return (0);
+		{
+			*format = *format - sizeof(char) * 1;
+			return (-1);
+		}
 	}
 	return (1);
 }

@@ -4,8 +4,8 @@ int	main(void)
 {
 	int	rtn;
 
-	rtn = ft_printf("Hello %+-0 #*.*hhd World!\n", 11, 12);
-	printf("rtn : %d\n", rtn);
+	rtn = printf("--->[%6.7d]<---\n", 12345);
+	printf("rtn : %d\n", rtn - 11);
 
 	return (0);
 }

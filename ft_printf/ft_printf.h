@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 15:51:09 by okim              #+#    #+#             */
-/*   Updated: 2021/03/20 02:21:39 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/20 21:34:51 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int print_n(char c, int len);
 int	new_structs(t_format *structs);
 int	format_parser(char **format, t_format *structs, va_list arg);
 int	print_format(char **format, t_format *structs, va_list arg);
+int	flag_chk_int(char **nmb, t_format *structs, int nmb_len, int len, int sign);
 int int_print(char **format, t_format *structs, va_list arg);
 
 #endif

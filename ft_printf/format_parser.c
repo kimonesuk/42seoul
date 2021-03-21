@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 19:37:41 by okim              #+#    #+#             */
-/*   Updated: 2021/03/22 01:52:56 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/22 02:10:22 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,22 @@ int	precise_parser(char **format, t_format *structs, va_list *arg)
 	{
 		structs->precision = 0;
 		*format = *format + sizeof(char) * 1;
-		if ((ft_isdigit(**format)) != 0)
-		{
-			while ((ft_isdigit(**format)) != 0)
-			{
-				structs->precision = (structs->precision) * 10 + (**format - 48);
-				*format = *format + sizeof(char) * 1;
-			}
-			*format = *format - sizeof(char) * 1;
-		}
-		else if (**format == '*')
+		if (**format == '*')
 		{
 			structs->precision = va_arg(*arg, int);
 			if (structs->precision < 0)
 				structs->precision = 0;
 		}
-		else
+		else if ((ft_isdigit(**format)) != 0)
 		{
-			structs->precision = -1;
-			*format = *format - sizeof(char) * 1;
+			while ((ft_isdigit(**format)) != 0)
+			{
+				structs->precision = structs->precision * 10 + **format - 48;
+				*format = *format + sizeof(char) * 1;
+			}
 		}
+		else
+			structs->precision = -1;
 	}
 	else
 		return (0);
@@ -127,6 +123,10 @@ int	format_parser(char **format, t_format *structs, va_list *arg)
 		chk_flag += flag_parser(format, structs);
 		chk_flag += width_parser(format, structs, arg);
 		chk_flag += precise_parser(format, structs, arg);
+		if (structs->precision == -1)
+			*format = *format - sizeof(char) * 1;
+		if (structs->precision > 0 && **format != '*')
+			*format = *format - sizeof(char) * 1;
 		chk_flag += length_parser(format, structs);
 		if (chk_flag == 0)
 			break ;

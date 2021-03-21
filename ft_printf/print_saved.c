@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_str.c                                        :+:      :+:    :+:   */
+/*   print_saved.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 20:58:54 by okim              #+#    #+#             */
-/*   Updated: 2021/03/14 21:16:51 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/21 09:45:04 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_str(char *format, int len)
+int	print_saved(char *format, int len)
 {
 	write(1, format, len);
 	return (len);

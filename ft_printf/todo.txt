@@ -7,3 +7,8 @@ flag : +, -,  , 0 (#)
     - : 왼쪽 정렬 (- > 0) (but precision > -)
     ' ' : 양수 공백, 음수 -
     0 : 빈칸 0으로 채우기
+
+해야하는 일
+- parsing 함수 norm chk, test
+- flag 적용 구조 작성
+- 실제 함수 구현

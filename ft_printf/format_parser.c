@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 19:37:41 by okim              #+#    #+#             */
-/*   Updated: 2021/03/21 01:40:22 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/22 01:52:56 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,38 +29,62 @@ int	flag_parser(char **format, t_format *structs)
 	return (1);
 }
 
-int	width_parser(char **format, t_format *structs)
+int	width_parser(char **format, t_format *structs, va_list *arg)
 {
-	while ((ft_isdigit(**format)) != 0)
+	if ((ft_isdigit(**format)) != 0 && (**format > '0'))
 	{
-		structs->width = (structs->width) * 10 + (**format - 48);
-		*format = *format + sizeof(char) * 1;
+		structs->width = 0;
+		while ((ft_isdigit(**format)) != 0)
+		{
+			structs->width = (structs->width) * 10 + (**format - 48);
+			*format = *format + sizeof(char) * 1;
+		}
+		*format = *format - sizeof(char) * 1;
 	}
-	if (**format == '*')
-		return (2);
+	else if (**format == '*')
+	{
+		structs->width = 0;
+		structs->width = va_arg(*arg, int);
+		if (structs->width < 0)
+		{
+			structs->width = (structs->width) * -1;
+			structs->minus = (structs->minus) + 1;
+		}
+	}
 	else
 		return (0);
 	return (1);
 }
 
-int	precise_parser(char **format, t_format *structs)
+int	precise_parser(char **format, t_format *structs, va_list *arg)
 {
 	if (**format == '.')
 	{
+		structs->precision = 0;
 		*format = *format + sizeof(char) * 1;
-		while ((ft_isdigit(**format)) != 0)
+		if ((ft_isdigit(**format)) != 0)
 		{
-			structs->precision = (structs->precision) * 10 + (**format - 48);
-			*format = *format + sizeof(char) * 1;
+			while ((ft_isdigit(**format)) != 0)
+			{
+				structs->precision = (structs->precision) * 10 + (**format - 48);
+				*format = *format + sizeof(char) * 1;
+			}
+			*format = *format - sizeof(char) * 1;
 		}
-		if (**format == '*')
-			return (2);
+		else if (**format == '*')
+		{
+			structs->precision = va_arg(*arg, int);
+			if (structs->precision < 0)
+				structs->precision = 0;
+		}
 		else
 		{
+			structs->precision = -1;
 			*format = *format - sizeof(char) * 1;
-			return (-1);
 		}
 	}
+	else
+		return (0);
 	return (1);
 }
 
@@ -86,22 +110,26 @@ int	length_parser(char **format, t_format *structs)
 		else
 			structs->length_char = 'l';
 	}
+	else
+		return (0);
 	return (1);
 }
 
-int	format_parser(char **format, t_format *structs, va_list arg)
+int	format_parser(char **format, t_format *structs, va_list *arg)
 {
-	char	specifiers[14];
+	char	specifiers[15];
+	int		chk_flag;
 
-	ft_strlcpy(specifiers, "diucspxX%nfeg", 14);
+	ft_strlcpy(specifiers, "diuoxXefgcsp%n", 15);
 	while ((ft_strchr(specifiers, **format)) == 0)
 	{
-		flag_parser(format, structs);
-		if (width_parser(format, structs) == 2)
-			structs->width = va_arg(arg, int);
-		if (precise_parser(format, structs) == 2)
-			structs->precision = va_arg(arg, int);
-		length_parser(format, structs);
+		chk_flag = 0;
+		chk_flag += flag_parser(format, structs);
+		chk_flag += width_parser(format, structs, arg);
+		chk_flag += precise_parser(format, structs, arg);
+		chk_flag += length_parser(format, structs);
+		if (chk_flag == 0)
+			break ;
 		*format = *format + sizeof(char) * 1;
 	}
 	structs->specifier = **format;

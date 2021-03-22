@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 16:09:27 by okim              #+#    #+#             */
-/*   Updated: 2021/03/22 01:51:31 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/22 20:48:25 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	ft_printf(const char *format, ...)
 		structs = (t_format *)malloc(sizeof(t_format));
 		new_structs(structs);
 		format_parser(&target, structs, &arg);
-		rtn += print_format(&target, structs, &arg);
+		structs->rtn = rtn;
+		rtn += print_format(structs, &arg);
 		free(structs);
 	}
 	rtn += print_saved(target, ft_strlen(target));

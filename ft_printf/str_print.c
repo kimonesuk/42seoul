@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:04:54 by okim              #+#    #+#             */
-/*   Updated: 2021/03/22 12:34:20 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/22 20:46:07 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ int	c_flag_chk(char c, t_format *structs)
 		write(1, &c, 1);
 		print_n(' ', rtn - 1);
 	}
+	else if (structs->zero > 0)
+	{
+		print_n('0', rtn - 1);
+		write(1, &c, 1);
+	}
 	else
 	{
 		print_n(' ', rtn - 1);
@@ -58,10 +63,6 @@ int	str_flag_chk(char *str, t_format *structs)
 {
 	int	rtn;
 
-	if (structs->precision == -2)
-		structs->precision = 0;
-	else if (structs->precision == -1 || structs->precision > ft_strlen(str))
-		structs->precision = ft_strlen(str);
 	rtn = structs->precision;
 	if (rtn > structs->width)
 		print_saved(str, rtn);
@@ -73,6 +74,11 @@ int	str_flag_chk(char *str, t_format *structs)
 			print_saved(str, structs->precision);
 			print_n(' ', rtn - structs->precision);
 		}
+		else if (structs->zero > 0)
+		{
+			print_n('0', rtn - structs->precision);
+			print_saved(str, structs->precision);
+		}
 		else
 		{
 			print_n(' ', rtn - structs->precision);
@@ -82,7 +88,7 @@ int	str_flag_chk(char *str, t_format *structs)
 	return (rtn);
 }
 
-int	str_print(char **format, t_format *structs, va_list *arg)
+int	str_print(t_format *structs, va_list *arg)
 {
 	int		len;
 	char	c;
@@ -96,6 +102,12 @@ int	str_print(char **format, t_format *structs, va_list *arg)
 	else if (structs->specifier == 's')
 	{
 		str = str_len_chk(structs, arg);
+		if (structs->precision == -2)
+			structs->precision = 0;
+		else if (structs->precision == -1)
+			structs->precision = ft_strlen(str);
+		else if (structs->precision > ft_strlen(str))
+			structs->precision = ft_strlen(str);
 		len = str_flag_chk(str, structs);
 	}
 	return (len);

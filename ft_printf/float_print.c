@@ -6,13 +6,13 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:05:52 by okim              #+#    #+#             */
-/*   Updated: 2021/03/22 09:06:07 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/22 20:48:04 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int float_print(char **format, t_format *structs, va_list *arg)
+int float_print(t_format *structs, va_list *arg)
 {
     
 }

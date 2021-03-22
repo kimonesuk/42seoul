@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 15:51:09 by okim              #+#    #+#             */
-/*   Updated: 2021/03/22 20:47:47 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/23 00:11:46 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,12 @@ typedef	struct	s_format_inf
 	char	specifier;
 }				t_format;
 
-int	*g_n;
-
 int	ft_printf(const char *format, ...);
 int	print_saved(char *format, int len);
 int	new_structs(t_format *structs);
 int	format_parser(char **format, t_format *structs, va_list *arg);
 int	print_format(t_format *structs, va_list *arg);
 int	print_n(char c, int len);
-int	flag_chk_int(char **nmb, t_format *structs, int nmb_len, int len, int sign);
 int int_print(t_format *structs, va_list *arg);
 int	float_print(t_format *structs, va_list *arg);
 int	str_print(t_format *structs, va_list *arg);

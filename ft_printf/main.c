@@ -27,20 +27,20 @@ int	main(void)
 	int rtn9;
 	int rtn10;
 
-	rtn1 = printf("--->[% k]<---\n","Hello");
-	rtn2 = printf("--->[%#k]<---\n","Hello");
+	rtn1 = ft_printf("--->[% p]<---\n","Hi");
+	rtn2 = ft_printf("--->[%#p]<---\n","Hi");
 	printf("rtn 1 : %d\nrtn 2 : %d\n", rtn1 - 10, rtn2 - 10);
-	rtn3 = printf("--->[%0k]<---\n","Hello");
-	rtn4 = printf("--->[%+k]<---\n","Hello");
+	rtn3 = ft_printf("--->[%0p]<---\n","Hi");
+	rtn4 = ft_printf("--->[%+p]<---\n","Hi");
 	printf("rtn 3 : %d\nrtn 4 : %d\n", rtn3 - 10, rtn4 - 10);
-	rtn5 = printf("--->[%-k]<---\n","Hello");
-	rtn6 = printf("--->[%6k]<---\n","Hello");
+	rtn5 = ft_printf("--->[%-p]<---\n","Hi");
+	rtn6 = ft_printf("--->[%6p]<---\n","Hi");
 	printf("rtn 5 : %d\nrtn 6 : %d\n", rtn5 - 10, rtn6 - 10);
-	rtn7 = printf("--->[%.7k]<---\n","Hello");
-	rtn8 = printf("--->[%.0k]<---\n","Hello");
+	rtn7 = ft_printf("--->[%025.20p]<---\n","Hi");
+	rtn8 = ft_printf("--->[%.20p]<---\n","Hi");
 	printf("rtn 7 : %d\nrtn 8 : %d\n", rtn7 - 10, rtn8 - 10);
-	rtn9 = printf("--->[%010k]<---\n","Hello");
-	rtn10 = printf("--->[%-10k]<---\n","Hello");
+	rtn9 = ft_printf("--->[%20p]<---\n","Hi");
+	rtn10 = ft_printf("--->[%-20.15p]<---\n","Hi");
 	printf("rtn 9 : %d\nrtn 10 : %d\n", rtn9 - 10, rtn10 - 10);
 
 	return (0);

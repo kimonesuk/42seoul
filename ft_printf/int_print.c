@@ -6,26 +6,26 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 21:08:03 by okim              #+#    #+#             */
-/*   Updated: 2021/03/21 02:00:01 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/22 09:23:25 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-long long   length_chk(char **format, t_format *structs, va_list arg)
+long long   length_chk(char **format, t_format *structs, va_list *arg)
 {
     long long   nmb;
 
     if (structs->length_char == 'h')
-        nmb = (short)va_arg(arg, int);
+        nmb = (short)va_arg(*arg, int);
     else if (structs->length_char == 'H')
-        nmb = (char)va_arg(arg, int);
+        nmb = (char)va_arg(*arg, int);
     else if (structs->length_char == 'l')
-        nmb = va_arg(arg, long);
+        nmb = va_arg(*arg, long);
     else if (structs->length_char == 'L')
-        nmb = va_arg(arg, long long);
+        nmb = va_arg(*arg, long long);
     else
-        nmb = va_arg(arg, int);
+        nmb = va_arg(*arg, int);
     return (nmb);
 }
 
@@ -65,7 +65,7 @@ int ntos(char **nmb_c, long long nmb, int len)
     return (sign);
 }
 
-int int_print(char **format, t_format *structs, va_list arg)
+int int_print(char **format, t_format *structs, va_list *arg)
 {
     long long   nmb;
     int         len;

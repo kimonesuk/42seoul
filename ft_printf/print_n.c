@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_structs.c                                      :+:      :+:    :+:   */
+/*   print_n.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 17:21:41 by okim              #+#    #+#             */
-/*   Updated: 2021/03/22 11:00:26 by okim             ###   ########.fr       */
+/*   Created: 2021/03/22 10:21:51 by okim              #+#    #+#             */
+/*   Updated: 2021/03/22 10:22:58 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int new_structs(t_format *structs)
+int print_n(char c, int len)
 {
-    structs->zero = 0;
-    structs->minus = 0;
-    structs->number = 0;
-    structs->space = 0;
-    structs->plus = 0;
-    structs->width = 0;
-    structs->precision = -1;
-    structs->length_char = 'd';
-    return (0);
+    int rtn;
+
+    rtn = len;
+    while (len-- > 0)
+        write(1, &c, 1);
+    return (rtn);
 }

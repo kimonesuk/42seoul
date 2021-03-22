@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_structs.c                                      :+:      :+:    :+:   */
+/*   float_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 17:21:41 by okim              #+#    #+#             */
-/*   Updated: 2021/03/22 11:00:26 by okim             ###   ########.fr       */
+/*   Created: 2021/03/22 09:05:52 by okim              #+#    #+#             */
+/*   Updated: 2021/03/22 09:06:07 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int new_structs(t_format *structs)
+int float_print(char **format, t_format *structs, va_list *arg)
 {
-    structs->zero = 0;
-    structs->minus = 0;
-    structs->number = 0;
-    structs->space = 0;
-    structs->plus = 0;
-    structs->width = 0;
-    structs->precision = -1;
-    structs->length_char = 'd';
-    return (0);
+    
 }

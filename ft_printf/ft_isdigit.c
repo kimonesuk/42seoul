@@ -6,11 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 23:55:26 by okim              #+#    #+#             */
-/*   Updated: 2020/11/19 00:11:40 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 08:23:12 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 int	ft_isdigit(int c)
 {

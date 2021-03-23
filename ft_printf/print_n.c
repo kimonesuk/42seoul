@@ -6,18 +6,18 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 10:21:51 by okim              #+#    #+#             */
-/*   Updated: 2021/03/22 10:22:58 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 08:29:05 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int print_n(char c, int len)
+int	print_n(char c, int len)
 {
-    int rtn;
+	int	rtn;
 
-    rtn = len;
-    while (len-- > 0)
-        write(1, &c, 1);
-    return (rtn);
+	rtn = len;
+	while (len-- > 0)
+		write(1, &c, 1);
+	return (rtn);
 }

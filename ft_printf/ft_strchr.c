@@ -6,11 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 22:20:43 by okim              #+#    #+#             */
-/*   Updated: 2020/11/29 09:41:05 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 08:23:29 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 char	*ft_strchr(const char *s, int c)
 {

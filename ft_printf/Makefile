@@ -6,7 +6,7 @@
 #    By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/24 00:23:55 by okim              #+#    #+#              #
-#    Updated: 2021/03/24 00:40:38 by okim             ###   ########.fr        #
+#    Updated: 2021/03/24 08:22:40 by okim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ SRCS = ft_printf.c \
 		int_print.c \
 		str_print.c \
 		etc_print.c \
-		float_print.c \
 		print_n.c \
 		print_saved.c \
 		conv_base.c \

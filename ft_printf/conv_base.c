@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 00:14:11 by okim              #+#    #+#             */
-/*   Updated: 2021/03/24 00:20:12 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 08:30:25 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	conv_hex_h(long long nmb, char **hex)
 	}
 	r_hex[i] = "0123456789abcdef" [nmb];
 	while (i >= 0)
-		*(*hex + sizeof(char) * j++)  = r_hex[i--];
+		*(*hex + sizeof(char) * j++) = r_hex[i--];
 	*(*hex + sizeof(char) * j++) = '\0';
 	return (1);
 }
@@ -101,7 +101,7 @@ int	conv_oct(long long nmb, char **oct)
 	char	r_oct[255];
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = 0;
 	while (nmb >= 8)
@@ -111,7 +111,7 @@ int	conv_oct(long long nmb, char **oct)
 	}
 	r_oct[i] = "01234567" [nmb];
 	while (i >= 0)
-		*(*oct + sizeof(char) * j++)  = r_oct[i--];
+		*(*oct + sizeof(char) * j++) = r_oct[i--];
 	*(*oct + sizeof(char) * j++) = '\0';
 	return (1);
 }

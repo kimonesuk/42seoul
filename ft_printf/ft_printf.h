@@ -6,18 +6,17 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 15:51:09 by okim              #+#    #+#             */
-/*   Updated: 2021/03/24 00:21:04 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 08:22:08 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-//#include <stdio.h>
+#include <wchar.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include "libft.h"
 
 typedef	struct	s_format_inf
 {
@@ -33,14 +32,19 @@ typedef	struct	s_format_inf
 	char	specifier;
 }				t_format;
 
+
 int	ft_printf(const char *format, ...);
+size_t			ft_strlen(const char *s);
+size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char			*ft_strchr(const char *s, int c);
+void			*ft_memset(void *b, int c, size_t len);
+int				ft_isdigit(int c);
 int	print_saved(char *format, int len);
 int	new_structs(t_format *structs);
 int	format_parser(char **format, t_format *structs, va_list *arg);
 int	print_format(t_format *structs, va_list *arg);
 int	print_n(char c, int len);
 int int_print(t_format *structs, va_list *arg);
-//int	float_print(t_format *structs, va_list *arg);
 int	str_print(t_format *structs, va_list *arg);
 int	etc_print(t_format *structs, va_list *arg);
 int	base_len(long long nmb, int base);

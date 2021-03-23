@@ -6,11 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 09:57:06 by okim              #+#    #+#             */
-/*   Updated: 2020/11/29 09:35:53 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 08:23:20 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 void	*ft_memset(void *b, int c, size_t len)
 {

@@ -6,13 +6,13 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:21:41 by okim              #+#    #+#             */
-/*   Updated: 2021/03/24 00:20:32 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 08:25:24 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int new_structs(t_format *structs)
+int	new_structs(t_format *structs)
 {
 	structs->zero = 0;
 	structs->minus = 0;

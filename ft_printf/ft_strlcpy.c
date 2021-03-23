@@ -6,11 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 21:46:37 by okim              #+#    #+#             */
-/*   Updated: 2020/11/29 10:00:59 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 08:29:24 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 19:37:41 by okim              #+#    #+#             */
-/*   Updated: 2021/03/24 00:21:46 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 08:26:21 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,10 @@ int	length_parser(char **format, t_format *structs)
 
 int	format_parser(char **format, t_format *structs, va_list *arg)
 {
-	char	specifiers[15];
+	char	specifiers[12];
 	int		chk_flag;
 
-	ft_strlcpy(specifiers, "diuoxXefgcsp%n", 15);
+	ft_strlcpy(specifiers, "diuoxXcsp%n", 12);
 	while ((ft_strchr(specifiers, **format)) == 0)
 	{
 		chk_flag = 0;

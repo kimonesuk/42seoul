@@ -6,14 +6,14 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 15:51:09 by okim              #+#    #+#             */
-/*   Updated: 2021/03/23 00:11:46 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 00:21:04 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#include <stdio.h>
+//#include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -40,8 +40,13 @@ int	format_parser(char **format, t_format *structs, va_list *arg);
 int	print_format(t_format *structs, va_list *arg);
 int	print_n(char c, int len);
 int int_print(t_format *structs, va_list *arg);
-int	float_print(t_format *structs, va_list *arg);
+//int	float_print(t_format *structs, va_list *arg);
 int	str_print(t_format *structs, va_list *arg);
 int	etc_print(t_format *structs, va_list *arg);
+int	base_len(long long nmb, int base);
+int	conv_z(long long nmb, char**z);
+int	conv_hex_H(long long nmb, char **hex);
+int	conv_hex_h(long long nmb, char **hex);
+int	conv_oct(long long nmb, char **oct);
 
 #endif

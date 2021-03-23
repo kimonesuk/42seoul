@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:06:50 by okim              #+#    #+#             */
-/*   Updated: 2021/03/23 00:10:47 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 00:47:35 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	etc_flag_chk(t_format *structs)
 	return (len);
 }
 
-int	p_conv(t_format *structs, va_list *arg, char **ptr)
+int	p_conv(va_list *arg, char **ptr)
 {
 	long long int	nmb;
 	int				i;
@@ -111,6 +111,7 @@ int	etc_print(t_format *structs, va_list *arg)
 	int		len;
 	char	*ptr;
 
+	len = 0;
 	if (structs->specifier == '%')
 		len = etc_flag_chk(structs);
 	else if (structs->specifier == 'n')
@@ -118,7 +119,7 @@ int	etc_print(t_format *structs, va_list *arg)
 	else if (structs->specifier == 'p')
 	{
 		ptr = (char *)malloc(sizeof(char) * 9);
-		p_conv(structs, arg, &ptr);
+		p_conv(arg, &ptr);
 		len = p_flag_chk(structs, ptr);
 		g_plen = 11;
 		free (ptr);

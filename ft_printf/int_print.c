@@ -6,80 +6,181 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 21:08:03 by okim              #+#    #+#             */
-/*   Updated: 2021/03/22 20:46:55 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/24 00:44:26 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-long long   length_chk(t_format *structs, va_list *arg)
+long long	signed_length_chk(t_format *structs, va_list *arg)
 {
-    long long   nmb;
+	long long	nmb;
 
-    if (structs->length_char == 'h')
-        nmb = (short)va_arg(*arg, int);
-    else if (structs->length_char == 'H')
-        nmb = (char)va_arg(*arg, int);
-    else if (structs->length_char == 'l')
-        nmb = va_arg(*arg, long);
-    else if (structs->length_char == 'L')
-        nmb = va_arg(*arg, long long);
-    else
-        nmb = va_arg(*arg, int);
-    return (nmb);
+	if (structs->length_char == 'h')
+		nmb = (short)va_arg(*arg, int);
+	else if (structs->length_char == 'H')
+		nmb = (signed char)va_arg(*arg, int);
+	else if (structs->length_char == 'l')
+		nmb = va_arg(*arg, long int);
+	else if (structs->length_char == 'L')
+		nmb = va_arg(*arg, long long int);
+	else
+		nmb = va_arg(*arg, int);
+	return (nmb);
 }
 
-int nmb_len(long long nmb)
+long long	unsigned_length_chk(t_format *structs, va_list *arg)
 {
-    int len;
+	long long	nmb;
 
-    len = 0;
-    if (nmb == 0)
-        return (1);
-    if (nmb < 0)
-        nmb = nmb * -1;
-    while (nmb >= 1)
-    {
-        len++;
-        nmb /= 10;
-    }
-    return (len);
+	if (structs->length_char == 'h')
+		nmb = (unsigned short)va_arg(*arg, unsigned int);
+	else if (structs->length_char == 'H')
+		nmb = (unsigned char)va_arg(*arg, int);
+	else if (structs->length_char == 'l')
+		nmb = va_arg(*arg, unsigned long int);
+	else if (structs->length_char == 'L')
+		nmb = va_arg(*arg, unsigned long long int);
+	else
+		nmb = va_arg(*arg, unsigned int);
+	return (nmb);
 }
 
-int ntos(char **nmb_c, long long nmb, int len)
+int	print_int(t_format *structs, char *nmb, int len)
 {
-    int     sign;
-    
-    sign = 1;
-    if (nmb < 0)
-    {
-        nmb = nmb * -1;
-        sign = -1;
-    }
-    while (nmb >= 1 || len >= 0)
-    {
-        *(*nmb_c + sizeof(char) * (len - 1)) = nmb % 10 + 48;
-        nmb /= 10;
-        len--;
-    }
-    return (sign);
+	int	max;
+
+	max = len;
+	if (nmb < 0 || structs->space > 0 || structs->plus > 0)
+		structs->width = structs->width - 1;
+	if (structs->zero > 0 && structs->precision < 0 && structs->minus <= 0)
+		structs->precision = structs->width;
+	if (structs->precision > max)
+		max = structs->precision;
+	if (structs->minus <= 0)
+	{
+		print_n(' ', structs->width - max);
+		if (nmb < 0)
+			write(1, "-", 1);
+		else if (structs->plus > 0)
+			write(1, "+", 1);
+		else if (structs->space > 0)
+			write(1, " ", 1);
+		print_n('0', structs->precision - len);
+		print_saved(nmb, len);
+	}
+	else
+	{
+		if (nmb < 0)
+			write(1, "-", 1);
+		else if (structs->plus > 0)
+			write(1, "+", 1);
+		else if (structs->space > 0)
+			write(1, " ", 1);
+		print_n('0', structs->precision - len);
+		print_saved(nmb, len);
+		print_n(' ', structs->width - max);
+	}
+	if (nmb < 0 || structs->space > 0 || structs->plus > 0)
+		structs->width = structs->width + 1;
+	if (structs->width > max)
+		max = structs->width;
+	return (max);
 }
 
-int int_print(t_format *structs, va_list *arg)
+int	print_base(t_format *structs, char *nmb, int len)
 {
-    long long   nmb;
-    int         len;
-    int         sign;
-    int         nmb_l;
-    char*       nmb_c;
+	int	max;
 
-    nmb = length_chk(structs, arg);
-    nmb_l = nmb_len(nmb);
-    len = nmb_l == 0 > structs->width ? nmb_l : structs->width;
-    len = structs->precision > len ? structs->precision : len;
-    nmb_c = (char*)malloc(sizeof(char) * (nmb_l + 1));
-    ft_memset(nmb_c, ' ', nmb_l);
-    nmb_c[nmb_l] = '\0';
-    sign = ntos(&nmb_c, nmb, nmb_l);
-    return (len);
+	max = len;
+	if (structs->number > 0 && ft_strchr("oxX", structs->specifier))
+		structs->width = structs->width - 2;
+	if (structs->zero > 0 && structs->precision < 0 && structs->minus <= 0)
+		structs->precision = structs->width;
+	if (structs->precision > max)
+		max = structs->precision;
+	if (structs->minus <= 0)
+	{
+		print_n(' ', structs->width - max);
+		if (structs->number > 0 && ft_strchr("oxX", structs->specifier))
+		{
+			write(1, "0", 1);
+			if (structs->specifier == 'x')
+				write(1, "x", 1);
+			else if (structs->specifier == 'X')
+				write(1, "X", 1);
+		}
+		print_n('0', structs->precision - len);
+		print_saved(nmb, len);
+	}
+	else
+	{
+		if (structs->number > 0 && ft_strchr("oxX", structs->specifier))
+		{
+			write(1, "0", 1);
+			if (structs->specifier == 'x')
+				write(1, "x", 1);
+			else if (structs->specifier == 'X')
+				write(1, "X", 1);
+		}
+		print_n('0', structs->precision - len);
+		print_saved(nmb, len);
+		print_n(' ', structs->width - max);
+	}
+	if (structs->number > 0 && ft_strchr("oxX", structs->specifier))
+		structs->width = structs->width + 2;
+	if (structs->width > max)
+		max = structs->width;
+	return (max);
+}
+
+int	int_print(t_format *structs, va_list *arg)
+{
+	long long	nmb;
+	int			len;
+	char		*nmb_c;
+
+	len = 0;
+	if (structs->specifier == 'd' || structs->specifier == 'i')
+	{
+		nmb = signed_length_chk(structs, arg);
+		len = base_len(nmb, 10);
+		nmb_c = (char *)malloc(sizeof(char) * len);
+		conv_z(nmb, &nmb_c);
+		len = print_int(structs, nmb_c, len);
+		free(nmb_c);
+	}
+	else
+	{
+		nmb = unsigned_length_chk(structs, arg);
+		if (structs->specifier == 'u')
+		{
+			len = base_len(nmb, 10);
+			nmb_c = (char *)malloc(sizeof(char) * len + 1);
+			conv_z(nmb, &nmb_c);
+		}
+		else if (structs->specifier == 'o')
+		{
+			len = base_len(nmb, 8);
+			nmb_c = (char *)malloc(sizeof(char) * len + 1);
+			conv_oct(nmb, &nmb_c);
+		}
+		else if (structs->specifier == 'x')
+		{
+			len = base_len(nmb, 16);
+			nmb_c = (char *)malloc(sizeof(char) * len + 1);
+			conv_hex_h(nmb, &nmb_c);
+		}
+		else if (structs->specifier == 'X')
+		{
+			len = base_len(nmb, 16);
+			nmb_c = (char *)malloc(sizeof(char) * len + 1);
+			conv_hex_H(nmb, &nmb_c);
+		}
+		else
+			return (0);
+		len = print_base(structs, nmb_c, len);
+		free(nmb_c);
+	}
+	return (len);
 }

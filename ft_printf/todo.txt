@@ -1,16 +1,21 @@
-return = 글자수
+Todo (21.3.24)
+- printf_tester : pft, PFT_2019, 42TESTERS-PRINTF, PRINTF_TESTER, printf_lover_v2, printf-tester
+- pft
+	- d, i, u, o, x, x
+	- c, s, n, %, p, etc
 
-width 문자열의 폭
-precision 숫자의 정확도(숫자의 폭)
-flag : +, -,  , 0 (#)
-	+ : 양수 +, 음수 - (+ > ' ')
-	- : 왼쪽 정렬 (- > 0) (but precision > -)
-	' ' : 양수 공백, 음수 -
-	0 : 빈칸 0으로 채우기
+///////////////////////////
 
-해야하는 일
-- 정수 처리함수(부호, 미부호 구분 해서 작성)
-- 실수 처리함수
+- width, precision
+	- return = 글자수
+	- width 문자열의 폭
+	- precision 숫자의 정확도(숫자의 폭)
+
+- flag : +, -,  , 0 (#)
+	- + : 양수 +, 음수 - (+ > ' ')
+	- - : 왼쪽 정렬 (- > 0) (but precision > -)
+	- ' ' : 양수 공백, 음수 -
+	- 0 : 빈칸 0으로 채우기
 
 - 양수, 8진법, 16진법 flag
 	- # : 0, 0x, 0X 추가 (정밀도 앞 만약 witdh 와 0이 있는 경우 제일 앞)
@@ -25,3 +30,7 @@ flag : +, -,  , 0 (#)
 	- 0 : width만 있을때 인식 (precision, -와 있으면 무시)
 	- width :	전체 폭(숫자 길이 보다 짧은 경우 무시, 긴 경우 공백)
 	- precision :	숫자 폭(숫자 길이 보다 긴 경우 0으로 채움, 짧은 경우 무시)
+
+- 구현한 서식지정자
+	- d, i, u, o, x, X
+	- c, s, n, %, p, etc

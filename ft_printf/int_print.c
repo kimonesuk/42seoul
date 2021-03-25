@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 21:08:03 by okim              #+#    #+#             */
-/*   Updated: 2021/03/24 12:31:59 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/25 09:04:19 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ long long	unsigned_length_chk(t_format *structs, va_list *arg)
 	return (nmb);
 }
 
-int	print_int(t_format *structs, char *nmb, int len)
+int	print_int(t_format *structs, char *nmb_c, int len, int nmb)
 {
 	int	max;
 
@@ -57,6 +57,11 @@ int	print_int(t_format *structs, char *nmb, int len)
 		structs->precision = structs->width;
 	if (structs->precision > max)
 		max = structs->precision;
+	if (structs->precision == -2 || structs->precision == 0)
+	{
+		len = 0;
+		structs->width++;
+	}
 	if (structs->minus <= 0)
 	{
 		print_n(' ', structs->width - max);
@@ -67,7 +72,7 @@ int	print_int(t_format *structs, char *nmb, int len)
 		else if (structs->space > 0)
 			write(1, " ", 1);
 		print_n('0', structs->precision - len);
-		print_saved(nmb, len);
+		print_saved(nmb_c, len);
 	}
 	else
 	{
@@ -78,7 +83,7 @@ int	print_int(t_format *structs, char *nmb, int len)
 		else if (structs->space > 0)
 			write(1, " ", 1);
 		print_n('0', structs->precision - len);
-		print_saved(nmb, len);
+		print_saved(nmb_c, len);
 		print_n(' ', structs->width - max);
 	}
 	if (nmb < 0 || structs->space > 0 || structs->plus > 0)
@@ -99,6 +104,11 @@ int	print_base(t_format *structs, char *nmb, int len)
 		structs->precision = structs->width;
 	if (structs->precision > max)
 		max = structs->precision;
+	if (structs->precision == -2 || structs->precision == 0)
+	{
+		len = 0;
+		structs->width++;
+	}
 	if (structs->minus <= 0)
 	{
 		print_n(' ', structs->width - max);
@@ -147,7 +157,7 @@ int	int_print(t_format *structs, va_list *arg)
 		len = base_len(nmb, 10);
 		nmb_c = (char *)malloc(sizeof(char) * len);
 		conv_z(nmb, &nmb_c);
-		len = print_int(structs, nmb_c, len);
+		len = print_int(structs, nmb_c, len, nmb);
 		free(nmb_c);
 	}
 	else

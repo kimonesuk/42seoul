@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 00:14:11 by okim              #+#    #+#             */
-/*   Updated: 2021/03/24 12:33:56 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/25 08:46:30 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	base_len(long long nmb, int base)
 
 	len = 0;
 	if (nmb < 0)
-	{
-		len = 1;
 		nmb = nmb * -1;
-	}
 	while (nmb >= base)
 	{
 		len++;
@@ -40,11 +37,7 @@ int	conv_z(long long nmb, char **z)
 	i = 0;
 	j = 0;
 	if (nmb < 0)
-	{
-		**z = '-';
-		*z = *z + sizeof(char) * j++;
 		nmb = nmb * -1;
-	}
 	while (nmb >= 10)
 	{
 		r_z[i++] = "0123456789"[nmb % 10];
@@ -53,7 +46,7 @@ int	conv_z(long long nmb, char **z)
 	r_z[i] = "0123456789"[nmb];
 	while (i >= 0)
 		*(*z + sizeof(char) * j++) = r_z[i--];
-	*(*z + sizeof(char) * j++) = '\0';
+	*(*z + sizeof(char) * j) = '\0';
 	return (1);
 }
 

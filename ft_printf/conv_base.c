@@ -6,13 +6,13 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 00:14:11 by okim              #+#    #+#             */
-/*   Updated: 2021/03/25 08:46:30 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/25 14:23:37 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	base_len(long long nmb, int base)
+int	base_len(long long int nmb, int base)
 {
 	int	len;
 
@@ -28,7 +28,7 @@ int	base_len(long long nmb, int base)
 	return (len);
 }
 
-int	conv_z(long long nmb, char **z)
+int	conv_z(long long int nmb, char **z)
 {
 	char	r_z[255];
 	int		i;
@@ -40,17 +40,17 @@ int	conv_z(long long nmb, char **z)
 		nmb = nmb * -1;
 	while (nmb >= 10)
 	{
-		r_z[i++] = "0123456789"[nmb % 10];
+		r_z[i++] = "0123456789" [nmb % 10];
 		nmb /= 10;
 	}
-	r_z[i] = "0123456789"[nmb];
+	r_z[i] = "0123456789" [nmb];
 	while (i >= 0)
 		*(*z + sizeof(char) * j++) = r_z[i--];
 	*(*z + sizeof(char) * j) = '\0';
 	return (1);
 }
 
-int	conv_hex_H(long long nmb, char **hex)
+int	conv_hex_H(long long int nmb, char **hex)
 {
 	char	r_hex[255];
 	int		i;
@@ -70,7 +70,7 @@ int	conv_hex_H(long long nmb, char **hex)
 	return (1);
 }
 
-int	conv_hex_h(long long nmb, char **hex)
+int	conv_hex_h(long long int nmb, char **hex)
 {
 	char	r_hex[255];
 	int		i;
@@ -90,7 +90,7 @@ int	conv_hex_h(long long nmb, char **hex)
 	return (1);
 }
 
-int	conv_oct(long long nmb, char **oct)
+int	conv_oct(long long int nmb, char **oct)
 {
 	char	r_oct[255];
 	int		i;

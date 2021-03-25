@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 19:37:41 by okim              #+#    #+#             */
-/*   Updated: 2021/03/25 10:01:21 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/25 14:46:07 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	format_parser(char **format, t_format *structs, va_list *arg)
 {
 	char	specifiers[12];
 	int		chk_flag;
+	int		pre;
 
 	ft_strlcpy(specifiers, "diuoxXcsp%n", 12);
 	while ((ft_strchr(specifiers, **format)) == 0)
@@ -124,9 +125,10 @@ int	format_parser(char **format, t_format *structs, va_list *arg)
 		chk_flag += flag_parser(format, structs);
 		chk_flag += width_parser(format, structs, arg);
 		chk_flag += precise_parser(format, structs, arg);
-		if (structs->precision == -2)
+		pre = structs->precision;
+		if (pre == -2)
 			*format = *format - sizeof(char) * 1;
-		if (structs->precision >= 0 && **format != '*')
+		if (pre < 10 && pre >= 0 && **format != '*')
 			*format = *format - sizeof(char) * 1;
 		chk_flag += length_parser(format, structs);
 		if (chk_flag <= 0)

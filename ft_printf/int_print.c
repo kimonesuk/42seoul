@@ -6,62 +6,28 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 21:08:03 by okim              #+#    #+#             */
-/*   Updated: 2021/03/25 09:04:19 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/25 19:57:16 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-long long	signed_length_chk(t_format *structs, va_list *arg)
-{
-	long long	nmb;
-
-	if (structs->length_char == 'h')
-		nmb = (short)va_arg(*arg, int);
-	else if (structs->length_char == 'H')
-		nmb = (signed char)va_arg(*arg, int);
-	else if (structs->length_char == 'l')
-		nmb = va_arg(*arg, long int);
-	else if (structs->length_char == 'L')
-		nmb = va_arg(*arg, long long int);
-	else
-		nmb = va_arg(*arg, int);
-	return (nmb);
-}
-
-long long	unsigned_length_chk(t_format *structs, va_list *arg)
-{
-	long long	nmb;
-
-	if (structs->length_char == 'h')
-		nmb = (unsigned short)va_arg(*arg, unsigned int);
-	else if (structs->length_char == 'H')
-		nmb = (unsigned char)va_arg(*arg, int);
-	else if (structs->length_char == 'l')
-		nmb = va_arg(*arg, unsigned long int);
-	else if (structs->length_char == 'L')
-		nmb = va_arg(*arg, unsigned long long int);
-	else
-		nmb = va_arg(*arg, unsigned int);
-	return (nmb);
-}
-
-int	print_int(t_format *structs, char *nmb_c, int len, int nmb)
+int	print_int(t_format *structs, char *nmb_c, int len, long long int nmb)
 {
 	int	max;
 
 	max = len;
 	if (nmb < 0 || structs->space > 0 || structs->plus > 0)
 		structs->width = structs->width - 1;
-	if (structs->zero > 0 && structs->precision < 0 && structs->minus <= 0)
-		structs->precision = structs->width;
-	if (structs->precision > max)
-		max = structs->precision;
 	if (structs->precision == -2 || structs->precision == 0)
 	{
 		len = 0;
 		structs->width++;
 	}
+	if (structs->zero > 0 && structs->precision < 0 && structs->minus <= 0)
+		structs->precision = structs->width;
+	if (structs->precision > max)
+		max = structs->precision;
 	if (structs->minus <= 0)
 	{
 		print_n(' ', structs->width - max);
@@ -86,10 +52,12 @@ int	print_int(t_format *structs, char *nmb_c, int len, int nmb)
 		print_saved(nmb_c, len);
 		print_n(' ', structs->width - max);
 	}
-	if (nmb < 0 || structs->space > 0 || structs->plus > 0)
-		structs->width = structs->width + 1;
 	if (structs->width > max)
 		max = structs->width;
+	if (nmb < 0 || structs->space > 0 || structs->plus > 0)
+		max++;
+	if (structs->precision == -2 || structs->precision == 0)
+		max--;
 	return (max);
 }
 
@@ -98,7 +66,7 @@ int	print_base(t_format *structs, char *nmb, int len)
 	int	max;
 
 	max = len;
-	if (structs->number > 0 && ft_strchr("oxX", structs->specifier))
+	if (structs->number > 0 && ft_strchr("oxX", structs->specifier) && (*nmb != '0'))
 		structs->width = structs->width - 2;
 	if (structs->zero > 0 && structs->precision < 0 && structs->minus <= 0)
 		structs->precision = structs->width;
@@ -112,7 +80,7 @@ int	print_base(t_format *structs, char *nmb, int len)
 	if (structs->minus <= 0)
 	{
 		print_n(' ', structs->width - max);
-		if (structs->number > 0 && ft_strchr("oxX", structs->specifier))
+		if (structs->number > 0 && ft_strchr("oxX", structs->specifier) && (*nmb != '0'))
 		{
 			write(1, "0", 1);
 			if (structs->specifier == 'x')
@@ -125,7 +93,7 @@ int	print_base(t_format *structs, char *nmb, int len)
 	}
 	else
 	{
-		if (structs->number > 0 && ft_strchr("oxX", structs->specifier))
+		if (structs->number > 0 && ft_strchr("oxX", structs->specifier) && (*nmb != '0'))
 		{
 			write(1, "0", 1);
 			if (structs->specifier == 'x')
@@ -141,14 +109,16 @@ int	print_base(t_format *structs, char *nmb, int len)
 		structs->width = structs->width + 2;
 	if (structs->width > max)
 		max = structs->width;
+	if (structs->precision == -2 || structs->precision == 0)
+		max--;
 	return (max);
 }
 
 int	int_print(t_format *structs, va_list *arg)
 {
-	long long	nmb;
-	int			len;
-	char		*nmb_c;
+	long long int	nmb;
+	int				len;
+	char			*nmb_c;
 
 	len = 0;
 	if (structs->specifier == 'd' || structs->specifier == 'i')

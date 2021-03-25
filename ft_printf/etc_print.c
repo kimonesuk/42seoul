@@ -6,13 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:06:50 by okim              #+#    #+#             */
-/*   Updated: 2021/03/25 09:57:57 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/25 20:06:03 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	g_plen = 11;
 
 int	n_len_chk(t_format *structs, va_list *arg)
 {
@@ -80,12 +78,12 @@ int	p_conv(va_list *arg, char **ptr)
 	return (j);
 }
 
-int	p_flag_chk(t_format *structs, char *ptr, int len)
+int	p_flag_chk(t_format *structs, char *ptr, int len, int max)
 {
-	if (structs->width > g_plen)
-		g_plen = structs->width;
-	if (structs->precision > g_plen)
-		g_plen = structs->precision + 2;
+	if (structs->precision > max)
+		max = structs->precision + 2;
+	if (structs->width > max)
+		max = structs->width;
 	if (structs->minus > 0)
 	{
 		write(1, "0x", 2);
@@ -104,25 +102,28 @@ int	p_flag_chk(t_format *structs, char *ptr, int len)
 		print_n('0', structs->precision - len);
 		print_saved(ptr, len);
 	}
-	return (g_plen);
+	return (max);
 }
 
 int	etc_print(t_format *structs, va_list *arg)
 {
 	int		len;
+	int		max;
 	char	*ptr;
 
 	len = 0;
 	if (structs->specifier == '%')
 		len = etc_flag_chk(structs);
 	else if (structs->specifier == 'n')
-		n_len_chk(structs, arg);
+		len = n_len_chk(structs, arg);
 	else if (structs->specifier == 'p')
 	{
 		ptr = (char *)malloc(sizeof(char) * 9);
 		len = p_conv(arg, &ptr);
-		len = p_flag_chk(structs, ptr, len);
-		g_plen = 11;
+		if (structs->precision == -2 || structs->precision == 0)
+			len = 0;
+		max = len + 2;
+		len = p_flag_chk(structs, ptr, len, max);
 		free (ptr);
 	}
 	else

@@ -6,7 +6,7 @@
 #    By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/24 00:23:55 by okim              #+#    #+#              #
-#    Updated: 2021/03/24 08:22:40 by okim             ###   ########.fr        #
+#    Updated: 2021/03/25 19:53:23 by okim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS = ft_printf.c \
 		format_parser.c \
 		print_format.c \
 		int_print.c \
+		int_len_chk.c \
 		str_print.c \
 		etc_print.c \
 		print_n.c \

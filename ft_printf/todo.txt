@@ -2,7 +2,7 @@ Todo (21.3.24)
 - printf_tester : pft, PFT_2019, 42TESTERS-PRINTF, PRINTF_TESTER, printf_lover_v2, printf-tester
 - pft
 	- d^, i^, u^, o^, x^, x^
-	- c, s, n^, %, p, etc
+	- c^, s, n^, %, p^, etc
 
 ///////////////////////////
 

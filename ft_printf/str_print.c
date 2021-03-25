@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:04:54 by okim              #+#    #+#             */
-/*   Updated: 2021/03/24 00:45:52 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/25 12:05:29 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	*str_len_chk(t_format *structs, va_list *arg)
 		str = (char *)va_arg(*arg, wchar_t *);
 	else
 		str = va_arg(*arg, char *);
+	if (str == NULL)
+		str = "(null)";
 	return (str);
 }
 
@@ -109,7 +111,7 @@ int	str_print(t_format *structs, va_list *arg)
 		else if (structs->precision > (int)ft_strlen(str))
 			structs->precision = ft_strlen(str);
 		else
-			return (0);
+			structs->precision = structs->precision;
 		len = str_flag_chk(str, structs);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 19:37:41 by okim              #+#    #+#             */
-/*   Updated: 2021/03/24 08:26:21 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/25 10:01:21 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	format_parser(char **format, t_format *structs, va_list *arg)
 		if (structs->precision >= 0 && **format != '*')
 			*format = *format - sizeof(char) * 1;
 		chk_flag += length_parser(format, structs);
-		if (chk_flag == 0)
+		if (chk_flag <= 0)
 			break ;
 		*format = *format + sizeof(char) * 1;
 	}

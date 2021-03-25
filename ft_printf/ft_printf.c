@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 16:09:27 by okim              #+#    #+#             */
-/*   Updated: 2021/03/22 20:48:25 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/25 10:23:16 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_printf(const char *format, ...)
 	target = str;
 	while (ft_strchr(target, '%'))
 	{
+		str = target;
 		target = ft_strchr(target, '%');
 		rtn += print_saved(str, target++ - str);
 		structs = (t_format *)malloc(sizeof(t_format));

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:06:50 by okim              #+#    #+#             */
-/*   Updated: 2021/03/24 00:47:35 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/25 09:57:57 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,11 @@ int	p_conv(va_list *arg, char **ptr)
 	r_ptr[i] = "0123456789abcdef" [nmb];
 	while (i >= 0)
 		*(*ptr + sizeof(char) * j++) = r_ptr[i--];
-	return (1);
+	*(*ptr + sizeof(char) * j) = '\0';
+	return (j);
 }
 
-int	p_flag_chk(t_format *structs, char *ptr)
+int	p_flag_chk(t_format *structs, char *ptr, int len)
 {
 	if (structs->width > g_plen)
 		g_plen = structs->width;
@@ -88,20 +89,20 @@ int	p_flag_chk(t_format *structs, char *ptr)
 	if (structs->minus > 0)
 	{
 		write(1, "0x", 2);
-		print_n('0', structs->precision - 9);
-		print_saved(ptr, 9);
-		if (structs->precision < 9)
-			structs->precision = 9;
+		print_n('0', structs->precision - len);
+		print_saved(ptr, len);
+		if (structs->precision < len)
+			structs->precision = len;
 		print_n(' ', structs->width - structs->precision - 2);
 	}
 	else
 	{
-		if (structs->precision < 9)
-			structs->precision = 9;
+		if (structs->precision < len)
+			structs->precision = len;
 		print_n(' ', structs->width - structs->precision - 2);
 		write(1, "0x", 2);
-		print_n('0', structs->precision - 9);
-		print_saved(ptr, 9);
+		print_n('0', structs->precision - len);
+		print_saved(ptr, len);
 	}
 	return (g_plen);
 }
@@ -119,8 +120,8 @@ int	etc_print(t_format *structs, va_list *arg)
 	else if (structs->specifier == 'p')
 	{
 		ptr = (char *)malloc(sizeof(char) * 9);
-		p_conv(arg, &ptr);
-		len = p_flag_chk(structs, ptr);
+		len = p_conv(arg, &ptr);
+		len = p_flag_chk(structs, ptr, len);
 		g_plen = 11;
 		free (ptr);
 	}

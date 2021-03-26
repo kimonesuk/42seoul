@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:06:50 by okim              #+#    #+#             */
-/*   Updated: 2021/03/25 20:06:03 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/26 17:38:15 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 int	n_len_chk(t_format *structs, va_list *arg)
 {
-	int	*tmp;
+	long long int	*tmp;
 
 	if (structs->length_char == 'l')
-		tmp = (int *)va_arg(*arg, long int *);
+		tmp = (long long int *)va_arg(*arg, long int *);
 	else if (structs->length_char == 'L')
-		tmp = (int *)va_arg(*arg, long long int *);
+		tmp = (long long int *)va_arg(*arg, long long int *);
 	else if (structs->length_char == 'h')
-		tmp = (int *)va_arg(*arg, short int *);
+		tmp = (long long int *)va_arg(*arg, short int *);
 	else if (structs->length_char == 'H')
-		tmp = (int *)va_arg(*arg, signed char *);
+		tmp = (long long int *)va_arg(*arg, signed char *);
 	else
-		tmp = va_arg(*arg, int *);
+		tmp = (long long int *)va_arg(*arg, int *);
 	if (tmp != 0)
 		*tmp = structs->rtn;
 	return (1);
@@ -56,16 +56,21 @@ int	etc_flag_chk(t_format *structs)
 	return (len);
 }
 
-int	p_conv(va_list *arg, char **ptr)
+int	p_conv(va_list *arg, char **ptr, t_format *structs)
 {
 	long long int	nmb;
 	int				i;
 	int				j;
-	char			r_ptr[15];
+	char			r_ptr[13];
 
 	i = 0;
 	j = 0;
 	nmb = (long long int)va_arg(*arg, void *);
+	if (nmb == 0 && structs->precision == 0)
+	{
+		*ptr = 0;
+		return (0);
+	}
 	while (nmb >= 16)
 	{
 		r_ptr[i++] = "0123456789abcdef" [nmb % 16];
@@ -80,10 +85,6 @@ int	p_conv(va_list *arg, char **ptr)
 
 int	p_flag_chk(t_format *structs, char *ptr, int len, int max)
 {
-	if (structs->precision > max)
-		max = structs->precision + 2;
-	if (structs->width > max)
-		max = structs->width;
 	if (structs->minus > 0)
 	{
 		write(1, "0x", 2);
@@ -95,6 +96,8 @@ int	p_flag_chk(t_format *structs, char *ptr, int len, int max)
 	}
 	else
 	{
+		if (structs->zero > 0 && structs->precision < structs->width)
+			structs->precision = structs->width - 2;
 		if (structs->precision < len)
 			structs->precision = len;
 		print_n(' ', structs->width - structs->precision - 2);
@@ -115,14 +118,16 @@ int	etc_print(t_format *structs, va_list *arg)
 	if (structs->specifier == '%')
 		len = etc_flag_chk(structs);
 	else if (structs->specifier == 'n')
-		len = n_len_chk(structs, arg);
+		n_len_chk(structs, arg);
 	else if (structs->specifier == 'p')
 	{
-		ptr = (char *)malloc(sizeof(char) * 9);
-		len = p_conv(arg, &ptr);
-		if (structs->precision == -2 || structs->precision == 0)
-			len = 0;
+		ptr = (char *)malloc(sizeof(char) * 20);
+		len = p_conv(arg, &ptr, structs);
 		max = len + 2;
+		if (structs->precision > max)
+			max = structs->precision + 2;
+		if (structs->width > max)
+			max = structs->width;
 		len = p_flag_chk(structs, ptr, len, max);
 		free (ptr);
 	}

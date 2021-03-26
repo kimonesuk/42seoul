@@ -1,7 +1,7 @@
 ft_printf 구조
 - ft_printf
 - whie ~ ft_strchr(문자열, 문자)(% 판별)
-	- print_saved (문자열, 길이)(%이전 출력, rtn += 길이) - new_structs (구조체)(structs 초기화, precision = -1)
+	- print_saved (문자열, 길이)(%이전 출력, rtn += 길이) - new_structs (구조체)(structs 초기화, precision = -1, rtn은 n의 값)
 	- format_parser (현재 문자 위치, 구조체, 가변인자 주소) (format 내용 구조체에 저장)
 		- while ("diuoxXcsp%n"가 아닐떄)
 			- flag_parser (문자 위치, 구조체)(flag 판별, 없으면 0)
@@ -27,9 +27,26 @@ ft_printf 구조
 			- 다음 주소로 이동
 		- 현재주소의 값을 구조체-서식지정자 위치에 저장 (서식지정자인 경우 || (format&서식지정자 아닌 경우))
 		- 다음 주소로 이동 및 종료
-	- print_format ()
+	- print_format (구조체, 가변인자 주소)(출력한 문자 길이 return, rtn += return)
+		- diuoxX인 경우 - int_print(구조체, 가변인자 주소)
+		- sc인 경우 - str_print(구조체, 가변인자 주소)
+		- 그외(n, %, p , ...) - etc_print(구조체, 가변인자 주소)
 	- free(구조체)
 - print_saved (문자열, ft_strlen(문자열))(\0까지(포함X) 나머지 출력, rtn += 길이)
+= rtn = 출력한 문자 길이(\0제외)
+
+-int_print(구조체, 가변인자 주소)(서식지정자가 d, i, u, o, x, X인 경우 출력)
+
+-str_print(구조체, 가변인자 주소)(서식지정자가 c, s인 경우 출력)
+	-c인 경우 : rtn = width or 1(c는 precision 무시)
+	-s인 경우 : rtn = width or precision(문자열 길이보다 작은경우 자름) or 문자열 길이
+-etc_print(구조체, 가변인자 주소)(서식지정자가 n, %, p, ...인 경우 출력)
+	-%과 그외인경우(서식지정자가 아닌 경우) : rtn = width or 1(precision 무시)
+	-n인 경우 : rtn = 0, n의 값은 가변인자에 해당하는 주소에 지금까지 출력한 문자수 입력
+	-p인 경우 : rtn = width or precision or len(len + 2) 중 최대
+		(width, precision < len + 2인 경우 무시)
+		(width > len/precision인 경우 width - len/precision - 2만큼 ' ' 출력)
+		(0width인 경우 precision > len과 동일하게 처리)
 
 Todo (21.3.24)
 - printf_tester : pft, PFT_2019, 42TESTERS-PRINTF, PRINTF_TESTER, printf_lover_v2, printf-tester

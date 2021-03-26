@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:02:32 by okim              #+#    #+#             */
-/*   Updated: 2021/03/27 01:32:58 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 08:43:02 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ long long int	signed_length_chk(t_format *structs, va_list *arg)
 	return (nmb);
 }
 
-unsigned long long unsigned_length_chk(t_format *structs, va_list *arg)
+unsigned long long	unsigned_length_chk(t_format *structs, va_list *arg)
 {
 	unsigned long long int	nmb;
 

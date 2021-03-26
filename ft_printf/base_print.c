@@ -6,33 +6,33 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 19:07:52 by okim              #+#    #+#             */
-/*   Updated: 2021/03/27 01:50:04 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 08:43:32 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	base_chk(t_format *structs, unsigned long long nmb, int *len, char **nmb_c)
+void	base_chk(t_format *str, unsigned long long nmb, int *len, char **nmb_c)
 {
-	if (structs->specifier == 'u')
+	if (str->specifier == 'u')
 	{
 		*len = unsigned_base_len(nmb, 10);
 		*nmb_c = (char *)malloc(sizeof(char) * *len + 1);
 		unsigned_conv_z(nmb, nmb_c);
 	}
-	else if (structs->specifier == 'o')
+	else if (str->specifier == 'o')
 	{
 		*len = unsigned_base_len(nmb, 8);
 		*nmb_c = (char *)malloc(sizeof(char) * *len + 1);
 		conv_oct(nmb, nmb_c);
 	}
-	else if (structs->specifier == 'x')
+	else if (str->specifier == 'x')
 	{
 		*len = unsigned_base_len(nmb, 16);
 		*nmb_c = (char *)malloc(sizeof(char) * *len + 1);
 		conv_hex_h(nmb, nmb_c);
 	}
-	else if (structs->specifier == 'X')
+	else if (str->specifier == 'X')
 	{
 		*len = unsigned_base_len(nmb, 16);
 		*nmb_c = (char *)malloc(sizeof(char) * *len + 1);

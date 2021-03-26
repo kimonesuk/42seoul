@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 15:51:09 by okim              #+#    #+#             */
-/*   Updated: 2021/03/27 01:49:25 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 08:44:02 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void				*ft_memset(void *b, int c, size_t len);
 int					ft_isdigit(int c);
 int					print_saved(char *format, int len);
 int					new_structs(t_format *structs);
-int					format_parser(char **format, t_format *structs, va_list *arg);
+int					format_parser(char **format, t_format *str, va_list *arg);
 int					print_format(t_format *structs, va_list *arg);
 int					print_n(char c, int len);
 int					int_print(t_format *structs, va_list *arg);

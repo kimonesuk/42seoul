@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 15:51:09 by okim              #+#    #+#             */
-/*   Updated: 2021/03/25 19:52:41 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/26 09:08:30 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef	struct	s_format_inf
 	int	plus;
 	int	width;
 	int	precision;
-	int	rtn;
+	int	rtn; // 꼭 필요한가?
 	char	length_char;
 	char	specifier;
 }				t_format;

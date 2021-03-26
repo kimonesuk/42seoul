@@ -1,3 +1,36 @@
+ft_printf 구조
+- ft_printf
+- whie ~ ft_strchr(문자열, 문자)(% 판별)
+	- print_saved (문자열, 길이)(%이전 출력, rtn += 길이) - new_structs (구조체)(structs 초기화, precision = -1)
+	- format_parser (현재 문자 위치, 구조체, 가변인자 주소) (format 내용 구조체에 저장)
+		- while ("diuoxXcsp%n"가 아닐떄)
+			- flag_parser (문자 위치, 구조체)(flag 판별, 없으면 0)
+			- width_parser (문자 위치, 구조체, 가변인자 주소)(width 판별, 없으면 0)
+				- 숫자이고 0이 아닌경우 (ft_isdigit(문자))(width 초기화)
+					- while(숫자일때)
+						- width = width * 10 + (현재 문자 - 48(정수변환))(두자리수 이상일 경우)
+						- 다음 주소로 이동
+					- 숫자가 아닌 경우, 이전 주소로 이동(왜냐하면 format_parser에서 다음주소로 이동시키기 때문에)
+				- *인 경우
+					- 가변인자 읽어오기
+					- 가변인자가 음수인 경우
+						- 양수로 변환 및 minus플래그 증가
+			- precise_parser (문자위치, 구조체, 가변인자 주소)(precision 판별, 없으면 0)
+				- .이 존재하는 경우(precision 초기화)
+					- 다음 주소로 이동
+					- *인 경우 (음수인 경우 무시)
+					- 숫자인 경우
+					- .만 있는 경우 (0과 동일하게 처리)
+				- .없는 경우(precision이 없는 경우)(0 return)
+			- length_parser (문자위치, 구조체)(lenth 판별, 없으면 0)
+			- 현재주소가 format형식도 서식지정자도 아닌경우 while문 종료(chk_flag <= 0, break;)
+			- 다음 주소로 이동
+		- 현재주소의 값을 구조체-서식지정자 위치에 저장 (서식지정자인 경우 || (format&서식지정자 아닌 경우))
+		- 다음 주소로 이동 및 종료
+	- print_format ()
+	- free(구조체)
+- print_saved (문자열, ft_strlen(문자열))(\0까지(포함X) 나머지 출력, rtn += 길이)
+
 Todo (21.3.24)
 - printf_tester : pft, PFT_2019, 42TESTERS-PRINTF, PRINTF_TESTER, printf_lover_v2, printf-tester
 - pft
@@ -6,6 +39,7 @@ Todo (21.3.24)
 - PFT_2019
 	- d, i, u, o, x, x
 	- c^, s^, n, %, p^, etc
+Todo (21.3.25)
 - 42TESTERS-PRINTF
 	- d, i, u, o, x, x
 	- c, s, n, %, p, etc

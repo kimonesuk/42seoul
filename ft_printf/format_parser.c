@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 19:37:41 by okim              #+#    #+#             */
-/*   Updated: 2021/03/25 14:46:07 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/26 09:42:40 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,10 @@ int	precise_parser(char **format, t_format *structs, va_list *arg)
 {
 	if (**format == '.')
 	{
-		structs->precision = -1;
+		structs->precision = 0;
 		*format = *format + sizeof(char) * 1;
 		if (**format == '*')
-		{
 			structs->precision = va_arg(*arg, int);
-			if (structs->precision < 0)
-				structs->precision = -1;
-		}
 		else if ((ft_isdigit(**format)) != 0)
 		{
 			structs->precision = 0;
@@ -76,9 +72,10 @@ int	precise_parser(char **format, t_format *structs, va_list *arg)
 				structs->precision = structs->precision * 10 + **format - 48;
 				*format = *format + sizeof(char) * 1;
 			}
+			*format = *format - sizeof(char) * 1;
 		}
 		else
-			structs->precision = -2;
+			*format = *format - sizeof(char) * 1;
 	}
 	else
 		return (0);
@@ -116,7 +113,6 @@ int	format_parser(char **format, t_format *structs, va_list *arg)
 {
 	char	specifiers[12];
 	int		chk_flag;
-	int		pre;
 
 	ft_strlcpy(specifiers, "diuoxXcsp%n", 12);
 	while ((ft_strchr(specifiers, **format)) == 0)
@@ -125,11 +121,8 @@ int	format_parser(char **format, t_format *structs, va_list *arg)
 		chk_flag += flag_parser(format, structs);
 		chk_flag += width_parser(format, structs, arg);
 		chk_flag += precise_parser(format, structs, arg);
-		pre = structs->precision;
-		if (pre == -2)
-			*format = *format - sizeof(char) * 1;
-		if (pre < 10 && pre >= 0 && **format != '*')
-			*format = *format - sizeof(char) * 1;
+		if (structs->precision < -1)
+			structs->precision = -1;
 		chk_flag += length_parser(format, structs);
 		if (chk_flag <= 0)
 			break ;

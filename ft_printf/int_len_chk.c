@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:02:32 by okim              #+#    #+#             */
-/*   Updated: 2021/03/25 18:05:46 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 01:32:58 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ long long int	signed_length_chk(t_format *structs, va_list *arg)
 	return (nmb);
 }
 
-long long int	unsigned_length_chk(t_format *structs, va_list *arg)
+unsigned long long unsigned_length_chk(t_format *structs, va_list *arg)
 {
-	long long int	nmb;
+	unsigned long long int	nmb;
 
 	if (structs->length_char == 'h')
 		nmb = (unsigned short)va_arg(*arg, unsigned int);
 	else if (structs->length_char == 'H')
-		nmb = (unsigned char)va_arg(*arg, int);
+		nmb = (unsigned char)va_arg(*arg, unsigned int);
 	else if (structs->length_char == 'l')
 		nmb = va_arg(*arg, unsigned long int);
 	else if (structs->length_char == 'L')

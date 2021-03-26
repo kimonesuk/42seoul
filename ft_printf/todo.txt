@@ -22,6 +22,7 @@ ft_printf 구조
 					- 숫자인 경우
 					- .만 있는 경우 (0과 동일하게 처리)
 				- .없는 경우(precision이 없는 경우)(0 return)
+				- precision 없는/음수 경우 : -1, ./.0 : 0 
 			- length_parser (문자위치, 구조체)(lenth 판별, 없으면 0)
 			- 현재주소가 format형식도 서식지정자도 아닌경우 while문 종료(chk_flag <= 0, break;)
 			- 다음 주소로 이동
@@ -36,7 +37,11 @@ ft_printf 구조
 = rtn = 출력한 문자 길이(\0제외)
 
 -int_print(구조체, 가변인자 주소)(서식지정자가 d, i, u, o, x, X인 경우 출력)
-
+	-d, i인 경우
+		- rtn = width or precision or len (if number가 존재할 경우 + 1/2)
+		- 
+	-u, o, x, X인 경우
+		- rtn = width or precision or len (if number가 존재할 경우 + 1/2)
 -str_print(구조체, 가변인자 주소)(서식지정자가 c, s인 경우 출력)
 	-c인 경우 : rtn = width or 1(c는 precision 무시)
 	-s인 경우 : rtn = width or precision(문자열 길이보다 작은경우 자름) or 문자열 길이
@@ -48,27 +53,8 @@ ft_printf 구조
 		(width > len/precision인 경우 width - len/precision - 2만큼 ' ' 출력)
 		(0width인 경우 precision > len과 동일하게 처리)
 
-Todo (21.3.24)
-- printf_tester : pft, PFT_2019, 42TESTERS-PRINTF, PRINTF_TESTER, printf_lover_v2, printf-tester
-- pft
-	- d^, i^, u^, o^, x^, x^
-	- c^, s^, n^, %, p^, etc
-- PFT_2019
-	- d, i, u, o, x, x
-	- c^, s^, n, %, p^, etc
-Todo (21.3.25)
-- 42TESTERS-PRINTF
-	- d, i, u, o, x, x
-	- c, s, n, %, p, etc
-- PRINTF_TESTER
-	- d, i, u, o, x, x
-	- c, s, n, %, p, etc
-- printf_lover_v2
-	- d, i, u, o, x, x
-	- c, s, n, %, p, etc
-- printf-tester
-	- d, i, u, o, x, x
-	- c, s, n, %, p, etc
+lu, llu
+
 ///////////////////////////
 
 - width, precision

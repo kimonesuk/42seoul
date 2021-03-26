@@ -6,29 +6,29 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 00:14:11 by okim              #+#    #+#             */
-/*   Updated: 2021/03/25 14:23:37 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 01:49:30 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	base_len(long long int nmb, int base)
+int	unsigned_base_len(unsigned long long nmb, int base)
 {
-	int	len;
+	unsigned long long	base_t;
+	int					len;
 
+	base_t = (unsigned long long)base;
 	len = 0;
-	if (nmb < 0)
-		nmb = nmb * -1;
-	while (nmb >= base)
+	while (nmb >= base_t)
 	{
 		len++;
-		nmb /= base;
+		nmb /= base_t;
 	}
 	len++;
 	return (len);
 }
 
-int	conv_z(long long int nmb, char **z)
+int	unsigned_conv_z(unsigned long long nmb, char **z)
 {
 	char	r_z[255];
 	int		i;
@@ -50,7 +50,7 @@ int	conv_z(long long int nmb, char **z)
 	return (1);
 }
 
-int	conv_hex_H(long long int nmb, char **hex)
+int	conv_hex_H(unsigned long long nmb, char **hex)
 {
 	char	r_hex[255];
 	int		i;
@@ -70,7 +70,7 @@ int	conv_hex_H(long long int nmb, char **hex)
 	return (1);
 }
 
-int	conv_hex_h(long long int nmb, char **hex)
+int	conv_hex_h(unsigned long long nmb, char **hex)
 {
 	char	r_hex[255];
 	int		i;
@@ -90,7 +90,7 @@ int	conv_hex_h(long long int nmb, char **hex)
 	return (1);
 }
 
-int	conv_oct(long long int nmb, char **oct)
+int	conv_oct(unsigned long long nmb, char **oct)
 {
 	char	r_oct[255];
 	int		i;

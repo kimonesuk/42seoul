@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 20:58:54 by okim              #+#    #+#             */
-/*   Updated: 2021/03/27 10:05:03 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 11:13:00 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	new_structs(t_format *structs)
 	structs->precision = -1;
 	structs->rtn = 0;
 	structs->length_char = 'd';
+	structs->specifier = 0;
 	return (1);
 }
 

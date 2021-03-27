@@ -129,6 +129,7 @@ int	format_parser(char **format, t_format *structs, va_list *arg)
 		*format = *format + sizeof(char) * 1;
 	}
 	structs->specifier = **format;
-	*format = *format + sizeof(char) * 1;
+	if (**format != 0)
+		*format = *format + sizeof(char) * 1;
 	return (1);
 }

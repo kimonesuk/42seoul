@@ -6,30 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:06:50 by okim              #+#    #+#             */
-/*   Updated: 2021/03/27 10:09:14 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 13:38:32 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	n_len_chk(t_format *structs, va_list *arg)
-{
-	long long int	*tmp;
-
-	if (structs->length_char == 'l')
-		tmp = (long long int *)va_arg(*arg, long int *);
-	else if (structs->length_char == 'L')
-		tmp = (long long int *)va_arg(*arg, long long int *);
-	else if (structs->length_char == 'h')
-		tmp = (long long int *)va_arg(*arg, short int *);
-	else if (structs->length_char == 'H')
-		tmp = (long long int *)va_arg(*arg, signed char *);
-	else
-		tmp = (long long int *)va_arg(*arg, int *);
-	if (tmp != 0)
-		*tmp = structs->rtn;
-	return (1);
-}
 
 int	etc_flag_chk(t_format *structs)
 {

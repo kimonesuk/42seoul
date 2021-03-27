@@ -6,7 +6,7 @@
 #    By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/24 00:23:55 by okim              #+#    #+#              #
-#    Updated: 2021/03/26 19:11:10 by okim             ###   ########.fr        #
+#    Updated: 2021/03/27 13:49:36 by okim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = ft_printf.c \
 		base_print.c \
 		int_print.c \
 		int_len_chk.c \
+		n_len_chk.c \
 		str_print.c \
 		etc_print.c \
 		utilities.c \

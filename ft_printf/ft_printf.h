@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 15:51:09 by okim              #+#    #+#             */
-/*   Updated: 2021/03/27 10:11:23 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 13:39:33 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int					base_print(t_format *structs, va_list *arg);
 int					str_print(t_format *structs, va_list *arg);
 int					etc_print(t_format *structs, va_list *arg);
 int					base_len(long long nmb, int base);
+int					n_len_chk(t_format *structs, va_list *arg);
 int					unsigned_base_len(unsigned long long nmb, int base);
 long long int		signed_length_chk(t_format *structs, va_list *arg);
 unsigned long long	unsigned_length_chk(t_format *structs, va_list *arg);

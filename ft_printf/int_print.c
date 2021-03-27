@@ -6,13 +6,13 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 21:08:03 by okim              #+#    #+#             */
-/*   Updated: 2021/03/27 01:25:51 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 10:12:48 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_sign(t_format *structs, long long int nmb)
+int		print_sign(t_format *structs, long long int nmb)
 {
 	if (structs->plus > 0)
 	{
@@ -35,7 +35,7 @@ int	print_sign(t_format *structs, long long int nmb)
 	return (1);
 }
 
-int	tmp_int_len(t_format *structs, long long int nmb)
+int		tmp_int_len(t_format *structs, long long int nmb)
 {
 	if (structs->space > 0 || structs->plus > 0 || nmb < 0)
 		return (1);
@@ -44,7 +44,7 @@ int	tmp_int_len(t_format *structs, long long int nmb)
 }
 
 void	print_int(t_format *structs, char *nmb_c, int len, long long int nmb)
-{	
+{
 	int	tmp;
 
 	if (structs->minus > 0)
@@ -70,7 +70,7 @@ void	print_int(t_format *structs, char *nmb_c, int len, long long int nmb)
 	}
 }
 
-int	int_print(t_format *structs, va_list *arg)
+int		int_print(t_format *structs, va_list *arg)
 {
 	long long int	nmb;
 	int				len;

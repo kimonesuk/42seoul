@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:06:50 by okim              #+#    #+#             */
-/*   Updated: 2021/03/26 17:38:15 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 10:09:14 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ int	p_conv(va_list *arg, char **ptr, t_format *structs)
 	}
 	while (nmb >= 16)
 	{
-		r_ptr[i++] = "0123456789abcdef" [nmb % 16];
+		r_ptr[i++] = "0123456789abcdef"[nmb % 16];
 		nmb /= 16;
 	}
-	r_ptr[i] = "0123456789abcdef" [nmb];
+	r_ptr[i] = "0123456789abcdef"[nmb];
 	while (i >= 0)
 		*(*ptr + sizeof(char) * j++) = r_ptr[i--];
 	*(*ptr + sizeof(char) * j) = '\0';
@@ -129,7 +129,7 @@ int	etc_print(t_format *structs, va_list *arg)
 		if (structs->width > max)
 			max = structs->width;
 		len = p_flag_chk(structs, ptr, len, max);
-		free (ptr);
+		free(ptr);
 	}
 	else
 		len = etc_flag_chk(structs);

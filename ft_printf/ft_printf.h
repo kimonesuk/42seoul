@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 15:51:09 by okim              #+#    #+#             */
-/*   Updated: 2021/03/27 08:44:02 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 10:11:23 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-typedef struct s_format_inf
+typedef struct		s_format_inf
 {
 	int				zero;
 	int				minus;
@@ -30,7 +30,7 @@ typedef struct s_format_inf
 	long long int	rtn;
 	char			length_char;
 	char			specifier;
-}				t_format;
+}					t_format;
 
 int					ft_printf(const char *format, ...);
 size_t				ft_strlen(const char *s);
@@ -53,7 +53,7 @@ long long int		signed_length_chk(t_format *structs, va_list *arg);
 unsigned long long	unsigned_length_chk(t_format *structs, va_list *arg);
 int					conv_z(long long nmb, char**z);
 int					unsigned_conv_z(unsigned long long nmb, char **z);
-int					conv_hex_H(unsigned long long nmb, char **hex);
+int					conv_hex_hh(unsigned long long nmb, char **hex);
 int					conv_hex_h(unsigned long long nmb, char **hex);
 int					conv_oct(unsigned long long nmb, char **oct);
 

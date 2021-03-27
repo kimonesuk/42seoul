@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:04:54 by okim              #+#    #+#             */
-/*   Updated: 2021/03/26 17:21:39 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 10:05:59 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	c_len_chk(t_format *structs, va_list *arg)
 	return (c);
 }
 
-int	c_flag_chk(char c, t_format *structs)
+int		c_flag_chk(char c, t_format *structs)
 {
 	int	rtn;
 
@@ -61,7 +61,7 @@ char	*str_len_chk(t_format *structs, va_list *arg)
 	return (str);
 }
 
-int	str_flag_chk(char *str, t_format *structs)
+int		str_flag_chk(char *str, t_format *structs)
 {
 	int	rtn;
 
@@ -90,7 +90,7 @@ int	str_flag_chk(char *str, t_format *structs)
 	return (rtn);
 }
 
-int	str_print(t_format *structs, va_list *arg)
+int		str_print(t_format *structs, va_list *arg)
 {
 	int		len;
 	char	c;

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 00:14:11 by okim              #+#    #+#             */
-/*   Updated: 2021/03/27 01:49:30 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 10:07:50 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ int	unsigned_conv_z(unsigned long long nmb, char **z)
 		nmb = nmb * -1;
 	while (nmb >= 10)
 	{
-		r_z[i++] = "0123456789" [nmb % 10];
+		r_z[i++] = "0123456789"[nmb % 10];
 		nmb /= 10;
 	}
-	r_z[i] = "0123456789" [nmb];
+	r_z[i] = "0123456789"[nmb];
 	while (i >= 0)
 		*(*z + sizeof(char) * j++) = r_z[i--];
 	*(*z + sizeof(char) * j) = '\0';
 	return (1);
 }
 
-int	conv_hex_H(unsigned long long nmb, char **hex)
+int	conv_hex_hh(unsigned long long nmb, char **hex)
 {
 	char	r_hex[255];
 	int		i;
@@ -60,10 +60,10 @@ int	conv_hex_H(unsigned long long nmb, char **hex)
 	j = 0;
 	while (nmb >= 16)
 	{
-		r_hex[i++] = "0123456789ABCDEF" [nmb % 16];
+		r_hex[i++] = "0123456789ABCDEF"[nmb % 16];
 		nmb /= 16;
 	}
-	r_hex[i] = "0123456789ABCDEF" [nmb];
+	r_hex[i] = "0123456789ABCDEF"[nmb];
 	while (i >= 0)
 		*(*hex + sizeof(char) * j++) = r_hex[i--];
 	*(*hex + sizeof(char) * j++) = '\0';
@@ -80,10 +80,10 @@ int	conv_hex_h(unsigned long long nmb, char **hex)
 	j = 0;
 	while (nmb >= 16)
 	{
-		r_hex[i++] = "0123456789abcdef" [nmb % 16];
+		r_hex[i++] = "0123456789abcdef"[nmb % 16];
 		nmb /= 16;
 	}
-	r_hex[i] = "0123456789abcdef" [nmb];
+	r_hex[i] = "0123456789abcdef"[nmb];
 	while (i >= 0)
 		*(*hex + sizeof(char) * j++) = r_hex[i--];
 	*(*hex + sizeof(char) * j++) = '\0';
@@ -100,10 +100,10 @@ int	conv_oct(unsigned long long nmb, char **oct)
 	j = 0;
 	while (nmb >= 8)
 	{
-		r_oct[i++] = "01234567" [nmb % 8];
+		r_oct[i++] = "01234567"[nmb % 8];
 		nmb /= 8;
 	}
-	r_oct[i] = "01234567" [nmb];
+	r_oct[i] = "01234567"[nmb];
 	while (i >= 0)
 		*(*oct + sizeof(char) * j++) = r_oct[i--];
 	*(*oct + sizeof(char) * j++) = '\0';

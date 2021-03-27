@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 19:07:52 by okim              #+#    #+#             */
-/*   Updated: 2021/03/27 08:43:32 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 10:08:26 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	base_chk(t_format *str, unsigned long long nmb, int *len, char **nmb_c)
 	{
 		*len = unsigned_base_len(nmb, 16);
 		*nmb_c = (char *)malloc(sizeof(char) * *len + 1);
-		conv_hex_H(nmb, nmb_c);
+		conv_hex_hh(nmb, nmb_c);
 	}
 }
 
-int	print_number_flag(t_format *structs, char *nmb)
+int		print_number_flag(t_format *structs, char *nmb)
 {
 	int	nbfg;
 
@@ -59,7 +59,7 @@ int	print_number_flag(t_format *structs, char *nmb)
 	return (0);
 }
 
-int	tmp_len(t_format *structs, char *nmb)
+int		tmp_len(t_format *structs, char *nmb)
 {
 	int	tmp;
 	int	nbfg;
@@ -101,7 +101,7 @@ void	print_base(t_format *structs, char *nmb, int len)
 	}
 }
 
-int	base_print(t_format *structs, va_list *arg)
+int		base_print(t_format *structs, va_list *arg)
 {
 	unsigned long long	nmb;
 	int					len;

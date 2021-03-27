@@ -6,13 +6,13 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:02:32 by okim              #+#    #+#             */
-/*   Updated: 2021/03/27 08:43:02 by okim             ###   ########.fr       */
+/*   Updated: 2021/03/27 10:12:17 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-long long int	signed_length_chk(t_format *structs, va_list *arg)
+long long int		signed_length_chk(t_format *structs, va_list *arg)
 {
 	long long int	nmb;
 

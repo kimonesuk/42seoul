@@ -4,7 +4,6 @@ LABEL	maintainer="okim@student.42seoul.kr"
 
 RUN	apt-get update && apt-get install -y \
 	vim \
-	wget \
 	nginx \
 	openssl \
 	php7.3-fpm \

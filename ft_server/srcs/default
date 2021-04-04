@@ -35,7 +35,7 @@ server {
 
 	root /var/www/html;
 
-	index index.html index.htm index.nginx-debian.html index.php;
+	index index.html index.htm index.php; #index.nginx-debian.html;
 
 	server_name _;
 

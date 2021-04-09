@@ -1,4 +1,4 @@
-FROM	debian:buster 
+FROM	debian:buster
 
 LABEL	maintainer="okim@student.42seoul.kr"
 

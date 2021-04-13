@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 08:44:36 by okim              #+#    #+#             */
-/*   Updated: 2021/04/07 20:03:31 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/14 01:07:23 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int	main(int argc, char *argv[])
 	mpinf = (t_mpinf *)malloc(sizeof(t_mpinf));
 	if (map_parsing(map_path, mpinf) == -1)
 		return (-1);
-	mpinf->width = 500;
-	mpinf->length = 500;
 	if (argc == 3 && ft_strlen(argv[2]) == 6 && ft_strncmp(argv[2], "--save", 6) == 0)
 	{
 		printf("--save is inputed\n");

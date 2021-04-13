@@ -10,6 +10,9 @@ LMLX = libmlx.dylib libmlx.a
 SRCS = ./srcs/main.c \
 		./srcs/map_parsing.c \
 		./srcs/ft_strncmp.c \
+		./srcs/ft_substr.c \
+		./srcs/ft_strchr.c \
+		./srcs/ft_atoi.c \
 		./srcs/get_next_line.c \
 		./srcs/get_next_line_utils.c
 

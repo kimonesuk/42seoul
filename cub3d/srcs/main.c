@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 08:44:36 by okim              #+#    #+#             */
-/*   Updated: 2021/04/14 01:07:23 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/14 02:31:03 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ int	press_esc_key(int key, void *param)
 		exit(0);
 	}
 	return (0);
+}
+
+void	init_inf(t_mpinf *mpinf)
+{
+	mpinf->width = 9999;
+	mpinf->length = 9999;
+	mpinf->map_height = 0;
+	mpinf->map_width = 0;
+	mpinf->FL[0] = 300;
+	mpinf->FL[1] = 300;
+	mpinf->FL[2] = 300;
+	mpinf->CL[0] = 300;
+	mpinf->CL[1] = 300;
+	mpinf->CL[2] = 300;
 }
 
 int	main(int argc, char *argv[])
@@ -43,6 +57,7 @@ int	main(int argc, char *argv[])
 		return (-1);
 	}
 	mpinf = (t_mpinf *)malloc(sizeof(t_mpinf));
+	init_inf(mpinf);
 	if (map_parsing(map_path, mpinf) == -1)
 		return (-1);
 	if (argc == 3 && ft_strlen(argv[2]) == 6 && ft_strncmp(argv[2], "--save", 6) == 0)

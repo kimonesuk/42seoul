@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 21:29:01 by okim              #+#    #+#             */
-/*   Updated: 2020/11/29 20:06:15 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/18 00:54:09 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t len;
 
 	len = 0;
-	while (*(s++))
+	while (s[len])
 		len++;
 	return (len);
 }

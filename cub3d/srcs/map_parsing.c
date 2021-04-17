@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 19:42:58 by okim              #+#    #+#             */
-/*   Updated: 2021/04/14 12:05:38 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/15 11:38:00 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,18 @@ char	*skip_space(char *str)
 int	map_chk(char *str)
 {
 	int i;
+	int	ch;
 
 	i = 0;
+	ch = 0;
 	while (i < ft_strlen(str))
 	{
 		if (ft_strchr(" 012NSEW", str[i]) == 0)
 			return (-1);
+		else if (ft_strchr(ch == 1 && "NSEW", str[i]) != 0)
+			return (-1);
+		else if (ft_strchr("NSEW", str[i]) != 0)
+			ch = 1;
 		i++;
 	}
 	return (0);
@@ -216,8 +222,8 @@ int	map_parsing(char *map_path, t_mpinf *mpinf)
 		mpinf->map[map_height] = tmp_map[map_height];
 	free(line);
 	free(tmp_map);
-	printf("width : %d\nlength : %d\nmap_height : %d\nmap_width : %d\nFL : %d %d %d\nCL : %d %d %d\n", mpinf->width, mpinf->length, mpinf->map_height, mpinf->map_width, mpinf->FL[0], mpinf->FL[1], mpinf->FL[2], mpinf->CL[0], mpinf->CL[1], mpinf->CL[2]);
-	printf("NO : %s\nSO : %s\nWE : %s\nEA : %s\nS : %s\n", mpinf->NO_path, mpinf->SO_path, mpinf->WE_path, mpinf->EA_path, mpinf->S_path);
+	// printf("width : %d\nlength : %d\nmap_height : %d\nmap_width : %d\nFL : %d %d %d\nCL : %d %d %d\n", mpinf->width, mpinf->length, mpinf->map_height, mpinf->map_width, mpinf->FL[0], mpinf->FL[1], mpinf->FL[2], mpinf->CL[0], mpinf->CL[1], mpinf->CL[2]);
+	// printf("NO : %s\nSO : %s\nWE : %s\nEA : %s\nS : %s\n", mpinf->NO_path, mpinf->SO_path, mpinf->WE_path, mpinf->EA_path, mpinf->S_path);
 	for (int i = 0; i < mpinf->map_height; i++)
 		printf("%s\n", mpinf->map[i]);
 	return (info_chk(mpinf));

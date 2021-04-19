@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 19:42:58 by okim              #+#    #+#             */
-/*   Updated: 2021/04/15 11:38:00 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/19 22:00:48 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	map_chk(char *str)
 	{
 		if (ft_strchr(" 012NSEW", str[i]) == 0)
 			return (-1);
-		else if (ft_strchr(ch == 1 && "NSEW", str[i]) != 0)
+		else if (ch == 1 && ft_strchr("NSEW", str[i]) != 0)
 			return (-1);
 		else if (ft_strchr("NSEW", str[i]) != 0)
 			ch = 1;
@@ -41,31 +41,31 @@ int	map_chk(char *str)
 	}
 	return (0);
 }
-int	map_shpae_chk(t_mpinf *mpinf)
+
+int	map_shpae_chk(char **map, int x, int y)
 {
 	int	i;
-	int	j;
+	int dx[8] = {-1, 0, 1, 0, -1, -1, 1, 1};
+	int dy[8] = {0, 1, 0, -1, -1, 1, 1, 1};
 
-	i = skip_space(mpinf->map[0]) - mpinf->map[0];
-	j = 0;
-	while (1)
+	if (map[y][x] == '1' || map[y][x] == 'x')
+		return (1);
+	if (map[y][x] == ' ')
+		return (-1);
+	map[y][x] = 'x';
+
+	i = -1;
+	while (++i < 8)
 	{
-		if (mpinf->map[i + 1][j] == 1)
-			i++;
-		else if (mpinf->map[i][j + 1] == 1)
-			j++;
-		else if (mpinf->map[i + 1][j + 1] == 1)
-		{
-			i++;
-			j++;
-		}
-
+		if (map_shpae_chk(map, x + dx[i], y + dy[i]) == -1)
+			return (-1);
 	}
+	return (1);
 }
 
 int	info_chk(t_mpinf *mpinf)
 {
-	int	i;
+	int		i;
 
 	i = -1;
 	while (i++ < 2)
@@ -112,6 +112,8 @@ int	map_parsing(char *map_path, t_mpinf *mpinf)
 	char	*ptr = 0;
 	int		ret;
 	int		fd;
+	int		i;
+	int		j;
 	int		map_height;
 	char	**tmp_map;
 
@@ -217,14 +219,46 @@ int	map_parsing(char *map_path, t_mpinf *mpinf)
 	tmp_map[map_height] = ft_strdup(line);
 	mpinf->map_height = map_height + 1;
 	mpinf->map = (char**)malloc(sizeof(char *) * (map_height + 1));
-	mpinf->map[map_height] = tmp_map[map_height];
+	mpinf->map[map_height] = ft_strdup(tmp_map[map_height]);
 	while (map_height-- > 0)
-		mpinf->map[map_height] = tmp_map[map_height];
+		mpinf->map[map_height] = ft_strdup(tmp_map[map_height]);
+	i = 0;
+	while (i < mpinf->map_height)
+	{
+		j = 0;
+		while (j < ft_strlen(tmp_map[i]))
+		{
+			if (tmp_map[i][j] == '0')
+			{
+				if (map_shpae_chk(tmp_map, j, i) == -1)
+				{
+					write(1, "Invalid map.\n", 13);
+					return (-1);
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	// i = 0;
+	// while (i < mpinf->map_height)
+	// {
+	// 	write(1, tmp_map[i], ft_strlen(tmp_map[i]));
+	// 	write(1, "\n", 1);
+	// 	i++;
+	// }
+	// i = 0;
+	// while (i < mpinf->map_height)
+	// {
+	// 	write(1, mpinf->map[i], ft_strlen(mpinf->map[i]));
+	// 	write(1, "\n", 1);
+	// 	i++;
+	// }
 	free(line);
 	free(tmp_map);
 	// printf("width : %d\nlength : %d\nmap_height : %d\nmap_width : %d\nFL : %d %d %d\nCL : %d %d %d\n", mpinf->width, mpinf->length, mpinf->map_height, mpinf->map_width, mpinf->FL[0], mpinf->FL[1], mpinf->FL[2], mpinf->CL[0], mpinf->CL[1], mpinf->CL[2]);
 	// printf("NO : %s\nSO : %s\nWE : %s\nEA : %s\nS : %s\n", mpinf->NO_path, mpinf->SO_path, mpinf->WE_path, mpinf->EA_path, mpinf->S_path);
-	for (int i = 0; i < mpinf->map_height; i++)
-		printf("%s\n", mpinf->map[i]);
+	//for (int i = 0; i < mpinf->map_height; i++)
+	//	printf("%s\n", mpinf->map[i]);
 	return (info_chk(mpinf));
 }

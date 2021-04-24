@@ -1,0 +1,22 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "cub3d launch debuger(lldb)",
+			"type": "lldb",
+			"request": "launch",
+			"program": "${workspaceFolder}/cub3d", // 디버깅할 프로그램 이름
+			"args": [ // 프로그램에 넣어줄 인자
+				"map.cub",
+				// "--save",
+			],
+			"cwd": "${workspaceFolder}",
+			// "stopAtEntry": true, // 중단점(break point)에서 멈춤 여부
+			// "environment": [],
+			// "externalConsole": true, // 외부 콘솔(터미널)에 출력
+			// "MIMode": "lldb",
+			"preLaunchTask": "cub3d gcc build",
+			"postDebugTask" : "execute"
+		}
+	]
+}

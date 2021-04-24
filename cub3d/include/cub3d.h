@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/04/24 21:14:53 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/25 00:54:42 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
+void	*ft_memset(char *b, int c, size_t len);
 int		error_msg(int error_n);
 int		map_parsing(char *map_path, t_mpinf *mpinf);
 int		map_save(int fd, t_mpinf *mpinf);

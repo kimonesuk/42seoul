@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 08:44:36 by okim              #+#    #+#             */
-/*   Updated: 2021/04/24 10:42:41 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:36:47 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	main(int argc, char *argv[])
 		}
 		mlx_key_hook(win_ptr, press_esc_key, win_ptr);
 		mlx_loop(mlx_ptr);
+		free(mpinf);
 // F5 : 96  <- : 123  -> : 124  A : 0  W : 13  S : 1  D : 2
 	}
 	return (0);

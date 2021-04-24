@@ -20,6 +20,7 @@ SRCS = ./srcs/main.c \
 		./srcs/ft_lstclear.c \
 		./srcs/ft_lstsize.c \
 		./srcs/ft_lstlast.c \
+		./srcs/ft_memset.c \
 		./srcs/get_next_line.c \
 		./srcs/get_next_line_utils.c
 
@@ -32,7 +33,7 @@ $(LMLX):
 $(NAME): $(LMLX)
 	cp $(MMS_DIR)/libmlx.dylib .
 	cp $(OPENGL_DIR)/libmlxgl.a .
-	$(CC) $(FLAGS) -g -I ./include/ $(LMLX) $(SRCS) -o $(NAME)
+	$(CC) $(FLAGS) -g3 -fsanitize=address -I ./include/ $(LMLX) $(SRCS) -o $(NAME)
 	echo "\x1B[32;1m"">>>>> cub3d is successfully made.""\x1B[m"
 
 clean:

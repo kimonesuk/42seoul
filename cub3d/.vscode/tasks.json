@@ -5,7 +5,8 @@
             "label": "cub3d gcc build", // ui에 나타나는 이름
             "command": "/usr/bin/gcc", // 명령어
             "args": [ // 명령어 인자
-                "-g",
+                "-g3",
+                "-fsanitize=address",
                 "-Wall",
                 "-Wextra",
                 "-Werror",

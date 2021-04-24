@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/24 17:36:44 by okim              #+#    #+#             */
-/*   Updated: 2021/04/25 08:48:51 by okim             ###   ########.fr       */
+/*   Created: 2020/11/13 09:57:06 by okim              #+#    #+#             */
+/*   Updated: 2021/04/25 00:56:19 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-t_list	*ft_lstnew(char *content)
+void	*ft_memset(char *b, int c, size_t len)
 {
-	t_list *newlst;
-
-	if (!(newlst = (t_list *)malloc(sizeof(t_list))))
-		return (NULL);
-	newlst->content = ft_strdup(content);
-	newlst->next = NULL;
-	free(content);
-	return (newlst);
+	b = (char *)malloc(sizeof(char) * len);
+	while (len--)
+		*((char *)b + (sizeof(char) * len)) = c;
+	return (b);
 }

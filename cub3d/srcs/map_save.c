@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 09:12:06 by okim              #+#    #+#             */
-/*   Updated: 2021/04/24 22:30:02 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/25 08:56:02 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,20 @@ int	map_line_chk(char **map, int x, int y)
 	int	i;
 	int	j;
 
+	if (map == 0 || map[y] == 0 || map[y][x] == 0)
+		return (-1);
 	if (map[y][x] == '1' || map[y][x] == 'x')
 		return (1);
 	if (map[y][x] == ' ')
 		return (-1);
 	map[y][x] = 'x';
-	j = -2;
-	while (++j < 2)
+	j = 2;
+	while (--j > -2)
 	{
-		i = -2;
-		while (++i < 2)
+		i = 2;
+		while (--i > -2)
 		{
-			if (map_line_chk(map, x + j, y + i) == -1)
+			if (map_line_chk(map, x + i, y + j) == -1)
 				return (-1);
 		}
 	}
@@ -60,7 +62,7 @@ int	map_shape_chk(char **map, t_mpinf *mpinf)
 	int	i;
 	int	j;
 
-	i = 0;
+	i = 1;
 	while (i < mpinf->map_height)
 	{
 		j = 0;
@@ -84,27 +86,26 @@ int	lst_to_map(t_mpinf *mpinf)
 {
 	int		i;
 	int		rtn;
+	char	*frame;
 	char	**tmp_map;
 	t_list	*tmp_lst;
 
 	mpinf->map = (char **)malloc(sizeof(char *) * (mpinf->map_height));
-	tmp_map = (char **)malloc(sizeof(char *) * (mpinf->map_height));
+	tmp_map = (char **)malloc(sizeof(char *) * (mpinf->map_height + 2));
+	frame = 0;
+	ft_memset(frame, ' ', mpinf->map_width);
+	tmp_map[0] = frame;
+	tmp_map[mpinf->map_height + 1] = frame;
 	tmp_lst = mpinf->map_lst;
 	i = 0;
 	while (tmp_lst != 0)
 	{
 		mpinf->map[i] = ft_strdup(tmp_lst->content);
-		tmp_map[i++] = ft_strdup(tmp_lst->content);
+		tmp_map[1 + i++] = ft_strdup(tmp_lst->content);
 		tmp_lst = tmp_lst->next;
 	}
 	ft_lstclear(&mpinf->map_lst);
 	rtn = map_shape_chk(tmp_map, mpinf);
-	i = -1;
-	while (++i < mpinf->map_height)
-		printf("%s\n", tmp_map[i]);
-	i = -1;
-	while (++i < mpinf->map_height)
-		free(tmp_map[i]);
 	free(tmp_map);
 	return (rtn);
 }
@@ -119,15 +120,14 @@ int	map_save(int fd, t_mpinf *mpinf)
 		if (ft_strlen(line) > mpinf->map_width)
 			mpinf->map_width = ft_strlen(line);
 		mpinf->map_height++;
-		tmp_list = ft_lstnew(ft_strdup(line));
+		tmp_list = ft_lstnew(line);
 		ft_lstadd_back(&mpinf->map_lst, tmp_list);
-		free(line);
 	}
 	if (ft_strlen(line) > mpinf->map_width)
 		mpinf->map_width = ft_strlen(line);
 	mpinf->map_height++;
-	tmp_list = ft_lstnew(ft_strdup(line));
+	tmp_list = ft_lstnew(line);
 	ft_lstadd_back(&mpinf->map_lst, tmp_list);
-	free(line);
+	line = 0;
 	return (lst_to_map(mpinf));
 }

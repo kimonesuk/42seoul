@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 19:42:58 by okim              #+#    #+#             */
-/*   Updated: 2021/04/24 22:12:17 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/25 08:55:36 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ int	elements_save(char *line, t_mpinf *mpinf)
 	else if (ft_strncmp(line, "C ", 2) == 0)
 		rtn = contents_nmb_save(line + sizeof(char) * 2, mpinf, 'C');
 	else
-		return (-1);
+		rtn = -1;
+	free(line);
 	if (rtn == -1)
 		return (-1);
 	return (1);

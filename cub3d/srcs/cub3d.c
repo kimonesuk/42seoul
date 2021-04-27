@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:08:23 by okim              #+#    #+#             */
-/*   Updated: 2021/04/27 11:25:24 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/28 07:58:48 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,55 @@ void	draw_back(t_map *map)
 		y++;
 	}
 }
+void	draw_line(t_map *map, double x1, double y1, double x2, double y2)
+{
+	double	deltaX;
+	double	deltaY;
+	double	step;
+
+	deltaX = x2 - x1;
+	deltaY = y2 - y1;
+	step = (fabs(deltaX) > fabs(deltaY)) ? fabs(deltaX) : fabs(deltaY);
+	deltaX /= step;
+	deltaY /= step;
+	while (fabs(x2 - x1) > 0.01 || fabs(y2 - y1) > 0.01)
+	{
+		my_mlx_pixel_put(&map->img, (int)floor(x1), (int)floor(y1), 0xb3b3b3);
+		x1 += deltaX;
+		y1 += deltaY;
+	}
+}
+
+void 	draw_lines(t_map *map)
+{
+	int		i;
+	int		j;
+	int		COL;
+	int		ROW;
+
+	COL = map->mpinf.map_width;
+	ROW = map->mpinf.map_height;
+	i = 0;
+	while (i < COL)
+	{
+		draw_line(map, i * map->cube_width, 0, i * map->cube_width, map->mpinf.size[1]);
+		i++;
+	}
+	draw_line(map, COL * map->cube_width - 1, 0, COL * map->cube_width - 1, map->mpinf.size[1]);
+	j = 0;
+	while (j < ROW)
+	{
+		draw_line(map, 0, j * map->cube_height, map->mpinf.size[0], j * map->cube_height);
+		j++;
+	}
+	draw_line(map, 0, ROW * map->cube_height - 1, map->mpinf.size[0], ROW * map->cube_height - 1);
+}
 
 int		draw_loop(t_map *map)
 {
 	draw_back(map);
 	draw_squares(map);
-	//draw_lines(map);
+	draw_lines(map);
 	mlx_put_image_to_window(map->mlx, map->win, map->img.img, 0, 0);
 	return (0);
 }

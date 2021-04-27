@@ -6,27 +6,32 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 09:12:06 by okim              #+#    #+#             */
-/*   Updated: 2021/04/25 08:56:02 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/26 08:12:06 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	map_content_chk(char *str)
+int	map_content_chk(int j, t_mpinf *mpinf)
 {
 	int i;
 	int	ch;
 
 	i = 0;
 	ch = 0;
-	while (i < ft_strlen(str))
+	while (i < ft_strlen(mpinf->map[j]))
 	{
-		if (ft_strchr(" 012NSEW", str[i]) == 0)
+		if (ft_strchr(" 012NSEW", mpinf->map[j][i]) == 0)
 			return (-1);
-		else if ((ch == 1) && (ft_strchr("NSEW", str[i]) != 0))
+		else if ((ch == 1) && (ft_strchr("NSEW", mpinf->map[j][i]) != 0))
 			return (-1);
-		else if (ft_strchr("NSEW", str[i]) != 0)
+		else if (ft_strchr("NSEW", mpinf->map[j][i]) != 0)
+		{
 			ch = 1;
+			mpinf->player_x = i;
+			mpinf->player_y = j;
+			mpinf->player_v = mpinf->map[j][i];
+		}
 		i++;
 	}
 	return (0);
@@ -66,7 +71,7 @@ int	map_shape_chk(char **map, t_mpinf *mpinf)
 	while (i < mpinf->map_height)
 	{
 		j = 0;
-		if (map_content_chk(mpinf->map[i]) == -1)
+		if (map_content_chk(i, mpinf) == -1)
 			return (error_msg(-3));
 		while (j < ft_strlen(map[i]))
 		{

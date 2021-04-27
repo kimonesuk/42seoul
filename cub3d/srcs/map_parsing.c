@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 19:42:58 by okim              #+#    #+#             */
-/*   Updated: 2021/04/25 08:55:36 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/25 09:22:25 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,6 @@ int	contents_size_save(char *line, t_mpinf *mpinf)
 			return (-1);
 		i++;
 	}
-	if (mpinf->size[0] >= mpinf->max_width)
-		mpinf->size[0] = mpinf->max_width;
-	if (mpinf->size[1] >= mpinf->max_length)
-		mpinf->size[1] = mpinf->max_length;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/04/25 00:54:42 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/27 09:57:17 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
+#include <math.h>
 
 typedef struct	s_list
 {
@@ -29,13 +30,16 @@ typedef struct	s_list
 
 typedef struct	s_map_inf
 {
-	int	size[2];
-	int	map_height;
-	int	map_width;
-	int	FL[3];
-	int	CL[3];
-	int	max_width;
-	int	max_length;
+	int		size[2];
+	int		max_width;
+	int		max_height;
+	int		map_width;
+	int		map_height;
+	int		player_x;
+	int		player_y;
+	char	player_v;
+	int		FL[3];
+	int		CL[3];
 	char	*NO_path;
 	char	*SO_path;
 	char	*WE_path;
@@ -44,6 +48,25 @@ typedef struct	s_map_inf
 	char	**map;
 	t_list	*map_lst;
 }				t_mpinf;
+
+typedef struct	s_img
+{
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			line_size;
+	int			endian;
+}				t_img;
+
+typedef struct	s_map
+{
+	void		*mlx;
+	void		*win;
+	int			cube_width;
+	int			cube_height;
+	t_img		img;
+	t_mpinf		mpinf;
+}				t_map;
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_isdigit(int c);
@@ -59,5 +82,7 @@ void	*ft_memset(char *b, int c, size_t len);
 int		error_msg(int error_n);
 int		map_parsing(char *map_path, t_mpinf *mpinf);
 int		map_save(int fd, t_mpinf *mpinf);
+int		cub3d(t_mpinf *mpinf);
+int		press_key(int key, void *param);
 
 #endif

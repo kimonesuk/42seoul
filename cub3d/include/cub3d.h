@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/04/27 09:57:17 by okim             ###   ########.fr       */
+/*   Updated: 2021/04/29 08:39:38 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 typedef struct	s_list
@@ -35,11 +36,17 @@ typedef struct	s_map_inf
 	int		max_height;
 	int		map_width;
 	int		map_height;
-	int		player_x;
-	int		player_y;
+	double	add_x;
+	double	add_y;
+	double	player_x;
+	double	player_y;
 	char	player_v;
 	int		FL[3];
 	int		CL[3];
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	char	*NO_path;
 	char	*SO_path;
 	char	*WE_path;
@@ -62,8 +69,8 @@ typedef struct	s_map
 {
 	void		*mlx;
 	void		*win;
-	int			cube_width;
-	int			cube_height;
+	double		cube_width;
+	double		cube_height;
 	t_img		img;
 	t_mpinf		mpinf;
 }				t_map;

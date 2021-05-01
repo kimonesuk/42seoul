@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:08:23 by okim              #+#    #+#             */
-/*   Updated: 2021/05/01 15:57:51 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/01 17:55:09 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,11 @@ double	cast_single_ray(t_map *map)
 			map->mapY += map->stepY;
 			map->side = 1;
 		}
-		if (map->mpinf.map[map->mapY][map->mapX] > 0)
+		if (map->mpinf.map[map->mapY][map->mapX] == '1')
 			map->hit = 1;
 		printf("%d : sidex : %f, sidey : %f\n", map->xi, map->sidedistX, map->sidedistY);
 	}
-	printf("mapX : %d, mapY %d\n", map->mapX, map->mapY);
+	// printf("mapX : %d, mapY %d\n", map->mapX, map->mapY);
 	return (ray2wall(map));
 }
 

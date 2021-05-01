@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/05/01 13:52:16 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/01 15:40:44 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ typedef struct	s_map
 	int			side;
 	int			mapX;
 	int			mapY;
+	int			wStart;
+	int			wEnd;
+	int			xi;
 	double		sidedistX;
 	double		sidedistY;
 	double		deltadistX;

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:08:23 by okim              #+#    #+#             */
-/*   Updated: 2021/05/01 15:15:29 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/01 15:57:51 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ double	cast_single_ray(t_map *map)
 	map->deltadistY = (map->raydirX == 0) ? 0 : (map->raydirY == 0) ? 1 : fabs(1 / map->raydirY);
 	set_stepside(map);
 	map->hit = 0;
-	//printf("rayx %f, rayy %f, deltax %f, deltay %f, mapx %d, mapy %d, stepx %d, stepy %d, sidex %f, sidey %f\n", map->raydirX, map->raydirY, map->deltadistX, map->deltadistY, map->mapX, map->mapY, map->stepX, map->stepY, map->sidedistX, map->sidedistY);
 	while (map->hit == 0)
 	{
 		if (map->sidedistX < map->sidedistY)
@@ -149,30 +148,56 @@ double	cast_single_ray(t_map *map)
 		}
 		if (map->mpinf.map[map->mapY][map->mapX] > 0)
 			map->hit = 1;
+		printf("%d : sidex : %f, sidey : %f\n", map->xi, map->sidedistX, map->sidedistY);
 	}
+	printf("mapX : %d, mapY %d\n", map->mapX, map->mapY);
 	return (ray2wall(map));
 }
 
-int		dist2line(t_map *map)
+void	dist2wall(t_map *map)
 {
+	int	lineHeight;
 
+	lineHeight = (int)(map->mpinf.size[1] / map->wdist);
+	map->wStart = -(lineHeight / 2) + (map->mpinf.size[1] / 2);
+	if (map->wStart < 0)
+		map->wStart = 0;
+	map->wEnd = (lineHeight / 2) + (map->mpinf.size[1] / 2);
+	if (map->wEnd >= map->mpinf.size[1])
+		map->wEnd = map->mpinf.size[1] - 1;
+}
+
+void	draw_line(t_map *map, int color)
+{
+	double	deltaY;
+	double	step;
+
+	deltaY = map->wEnd - map->wStart;
+	step = fabs(deltaY);
+	deltaY /= step;
+	while (abs(map->wEnd - map->wStart) > 0.01)
+	{
+		my_mlx_pixel_put(&map->img, (int)floor(map->xi), (int)floor(map->wStart), color);
+		map->wStart += deltaY;
+	}
 }
 
 int		draw_ray(t_map *map)
 {
-	int		i;
 	double	cameraX;
 	
-	i = 0;
+	map->xi = 0;
 	map->wdist = 0;
-	while (i < map->mpinf.size[0])
+	while (map->xi < map->mpinf.size[0])
 	{
-		cameraX = ((2 * i) / (double)map->mpinf.size[0]) - 1;
+		cameraX = ((2 * map->xi) / (double)map->mpinf.size[0]) - 1;
 		map->raydirX = map->dirX + map->planeX * cameraX;
 		map->raydirY = map->dirY + map->planeY * cameraX;
 		cast_single_ray(map); // 맵 충돌 및 거리 계산
-		dist2line(map); // 거리기반 세로그리기
-		i++;
+		dist2wall(map); // 거리기반 세로구하기
+		draw_line(map, 0x000000);
+		printf("wdist : %f\n", map->wdist);
+		map->xi++;
 	}
 	return (0);
 }
@@ -240,7 +265,6 @@ int	cub3d(t_mpinf *mpinf)
 	map.mpinf.player_y += 0.5;
 	player_dir(&map);
 	col2hex(&map);
-	// 평면 벡터 설정
 	map.planeX = 0;
 	map.planeY = 0.66;
 	//이미지 띄우기

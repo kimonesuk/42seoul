@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:08:23 by okim              #+#    #+#             */
-/*   Updated: 2021/05/01 17:55:09 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/01 18:58:52 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,6 @@ int		exit_button(void)
 {
 	write(1, "The Window is stopped.\n", 23);
 	exit(0);
-}
-
-int	press_key(int key, void *param)
-{
-	t_map	*map;
-
-	map = (t_map *)param;
-	if (key == 53 && map)
-		exit(0);
-	// if ((key == 0 || key == 123) && map)
-	// 	map->mpinf.ceta -= M_PI / 180 * 5;
-	// if (key == 13 && map)
-	// {
-	// 	map->mpinf.add_x += (int)(5 * sin(map->mpinf.ceta));
-	// 	map->mpinf.add_y -= (int)(5 * cos(map->mpinf.ceta));
-	// }
-	// if (key == 1 && map)
-	// {
-	// 	map->mpinf.add_x -= (int)(5 * sin(map->mpinf.ceta));
-	// 	map->mpinf.add_y += (int)(5 * cos(map->mpinf.ceta));
-	// }
-	// if ((key == 2 || key == 124) && map)
-	// 	map->mpinf.ceta += M_PI / 180 * 5;
-	//draw_loop(map);
-	return (0);
 }
 
 int		player_dir(t_map *map) // 플레이어 방향 벡터 초기화
@@ -148,9 +123,7 @@ double	cast_single_ray(t_map *map)
 		}
 		if (map->mpinf.map[map->mapY][map->mapX] == '1')
 			map->hit = 1;
-		printf("%d : sidex : %f, sidey : %f\n", map->xi, map->sidedistX, map->sidedistY);
 	}
-	// printf("mapX : %d, mapY %d\n", map->mapX, map->mapY);
 	return (ray2wall(map));
 }
 
@@ -196,7 +169,6 @@ int		draw_ray(t_map *map)
 		cast_single_ray(map); // 맵 충돌 및 거리 계산
 		dist2wall(map); // 거리기반 세로구하기
 		draw_line(map, 0x000000);
-		printf("wdist : %f\n", map->wdist);
 		map->xi++;
 	}
 	return (0);
@@ -235,6 +207,56 @@ int		draw_loop(t_map *map)
 	draw_back(map);
 	draw_ray(map);
 	mlx_put_image_to_window(map->mlx, map->win, map->img.img, 0, 0);
+	return (0);
+}
+
+int	press_key(int key, void *param)
+{
+	t_map	*map;
+	double	moveSpeed;
+	double	rotSpeed;
+	double	oldDirX;
+	double	oldPlaneX;
+
+	moveSpeed = 1;
+	rotSpeed = 0.2;
+	map = (t_map *)param;
+	if (key == 53 && map)
+		exit(0);
+	if ((key == 0 || key == 123) && map)
+	{
+		oldDirX = map->dirX;
+		map->dirX = map->dirX * cos(-rotSpeed) - map->dirY * sin(-rotSpeed);
+		map->dirY = oldDirX * sin(-rotSpeed) + map->dirY * cos(-rotSpeed);
+		oldPlaneX = map->planeX;
+		map->planeX = map->planeX * cos(-rotSpeed) - map->planeY * sin(-rotSpeed);
+		map->planeY = oldPlaneX * sin(-rotSpeed) + map->planeY * cos(-rotSpeed);
+	}
+	if (key == 13 && map)
+	{
+		if (map->mpinf.map[(int)(map->mpinf.player_y)][(int)(map->mpinf.player_x + map->dirX * moveSpeed)] == '0')
+			map->mpinf.player_x += map->dirX * moveSpeed;
+		if (map->mpinf.map[(int)(map->mpinf.player_y + map->dirY * moveSpeed)][(int)(map->mpinf.player_x)] == '0')
+			map->mpinf.player_y += map->dirY * moveSpeed;
+		
+	}
+	if (key == 1 && map)
+	{
+		if (map->mpinf.map[(int)(map->mpinf.player_y)][(int)(map->mpinf.player_x - map->dirX * moveSpeed)] == '0')
+			map->mpinf.player_x -= map->dirX * moveSpeed;
+		if (map->mpinf.map[(int)(map->mpinf.player_y - map->dirY * moveSpeed)][(int)(map->mpinf.player_x)] == '0')
+			map->mpinf.player_y -= map->dirY * moveSpeed;
+	}
+	if ((key == 2 || key == 124) && map)
+	{
+		oldDirX = map->dirX;
+		map->dirX = map->dirX * cos(rotSpeed) - map->dirY * sin(rotSpeed);
+		map->dirY = oldDirX * sin(rotSpeed) + map->dirY * cos(rotSpeed);
+		oldPlaneX = map->planeX;
+		map->planeX = map->planeX * cos(rotSpeed) - map->planeY * sin(rotSpeed);
+		map->planeY = oldPlaneX * sin(rotSpeed) + map->planeY * cos(rotSpeed);
+	}
+	draw_loop(map);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:08:23 by okim              #+#    #+#             */
-/*   Updated: 2021/05/01 18:58:52 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/02 08:14:55 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,33 @@ int		exit_button(void)
 
 int		player_dir(t_map *map) // 플레이어 방향 벡터 초기화
 {
-	if (map->mpinf.player_v == 'S')
+	if (map->mpinf.player_v == 'N')
 	{
 		map->dirX = 0;
 		map->dirY = -1;
+		map->planeX = 0.66;
+		map->planeY = 0;
 	}
-	else if (map->mpinf.player_v == 'N')
+	else if (map->mpinf.player_v == 'S')
 	{
 		map->dirX = 0;
 		map->dirY = 1;
+		map->planeX = -0.66;
+		map->planeY = 0;
 	}
 	else if (map->mpinf.player_v == 'E')
 	{
 		map->dirX = 1;
 		map->dirY = 0;
+		map->planeX = 0;
+		map->planeY = 0.66;
 	}
 	else if (map->mpinf.player_v == 'W')
 	{
 		map->dirX = -1;
 		map->dirY = 0;
+		map->planeX = 0;
+		map->planeY = -0.66;
 	}
 	return (0);
 }
@@ -219,16 +227,16 @@ int	press_key(int key, void *param)
 	double	oldPlaneX;
 
 	moveSpeed = 1;
-	rotSpeed = 0.2;
+	rotSpeed = M_PI/45;
 	map = (t_map *)param;
+	oldDirX = map->dirX;
+	oldPlaneX = map->planeX;
 	if (key == 53 && map)
 		exit(0);
 	if ((key == 0 || key == 123) && map)
 	{
-		oldDirX = map->dirX;
 		map->dirX = map->dirX * cos(-rotSpeed) - map->dirY * sin(-rotSpeed);
 		map->dirY = oldDirX * sin(-rotSpeed) + map->dirY * cos(-rotSpeed);
-		oldPlaneX = map->planeX;
 		map->planeX = map->planeX * cos(-rotSpeed) - map->planeY * sin(-rotSpeed);
 		map->planeY = oldPlaneX * sin(-rotSpeed) + map->planeY * cos(-rotSpeed);
 	}
@@ -249,10 +257,8 @@ int	press_key(int key, void *param)
 	}
 	if ((key == 2 || key == 124) && map)
 	{
-		oldDirX = map->dirX;
 		map->dirX = map->dirX * cos(rotSpeed) - map->dirY * sin(rotSpeed);
 		map->dirY = oldDirX * sin(rotSpeed) + map->dirY * cos(rotSpeed);
-		oldPlaneX = map->planeX;
 		map->planeX = map->planeX * cos(rotSpeed) - map->planeY * sin(rotSpeed);
 		map->planeY = oldPlaneX * sin(rotSpeed) + map->planeY * cos(rotSpeed);
 	}
@@ -287,8 +293,6 @@ int	cub3d(t_mpinf *mpinf)
 	map.mpinf.player_y += 0.5;
 	player_dir(&map);
 	col2hex(&map);
-	map.planeX = 0;
-	map.planeY = 0.66;
 	//이미지 띄우기
 	map.img.img = mlx_new_image(map.mlx, mpinf->size[0], mpinf->size[1]); // 화면크기에 맞는 새로운 이미지 생성
 	map.img.addr = mlx_get_data_addr(map.img.img, &map.img.bpp, &map.img.line_size, &map.img.endian);

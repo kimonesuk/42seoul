@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/04/29 08:39:38 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/01 13:52:16 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,16 @@ typedef struct	s_list
 
 typedef struct	s_map_inf
 {
-	int		size[2];
-	int		max_width;
-	int		max_height;
-	int		map_width;
-	int		map_height;
-	double	add_x;
-	double	add_y;
+	int		size[2]; // 화면 해상도 가로, 세로
+	int		max_width; // 현재 모니터의 최대 가로
+	int		max_height; // 현재 모니터의 최대 세로
+	int		map_width; // 맵의 가로 (최대)갯수
+	int		map_height; // 맵의 세로 갯수
 	double	player_x;
 	double	player_y;
 	char	player_v;
 	int		FL[3];
 	int		CL[3];
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
 	char	*NO_path;
 	char	*SO_path;
 	char	*WE_path;
@@ -69,8 +63,27 @@ typedef struct	s_map
 {
 	void		*mlx;
 	void		*win;
-	double		cube_width;
-	double		cube_height;
+	double		cube_w;
+	double		cube_h;
+	double		dirX;
+	double		dirY;
+	double		planeX;
+	double		planeY;
+	double		raydirX;
+	double		raydirY;
+	int			FL;
+	int			CL;
+	int			stepX;
+	int			stepY;
+	int			hit;
+	int			side;
+	int			mapX;
+	int			mapY;
+	double		sidedistX;
+	double		sidedistY;
+	double		deltadistX;
+	double		deltadistY;
+	double		wdist;
 	t_img		img;
 	t_mpinf		mpinf;
 }				t_map;

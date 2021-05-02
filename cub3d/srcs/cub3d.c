@@ -6,17 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:08:23 by okim              #+#    #+#             */
-/*   Updated: 2021/05/02 08:14:55 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/02 15:01:05 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int		exit_button(void)
-{
-	write(1, "The Window is stopped.\n", 23);
-	exit(0);
-}
 
 int		player_dir(t_map *map) // 플레이어 방향 벡터 초기화
 {
@@ -73,6 +67,16 @@ void	my_mlx_pixel_put(t_img *img, double x, double y, int color) // 해당 위�
 	dst = img->addr + (int)floor((y * img->line_size + x * (img->bpp / 8)));
 	*(unsigned int*)dst = color;
 }
+
+// int		my_mlx_pixel_get(t_img *img, double x, double y)
+// {
+// 	int		color;
+// 	char	*dst;
+
+// 	dst = img->addr + (int)floor((y * img->line_size + x * (img->bpp / 8)));
+// 	color = *(unsigned int*)dst;
+// 	return (color);
+// }
 
 void	set_stepside(t_map *map)
 {
@@ -163,9 +167,38 @@ void	draw_line(t_map *map, int color)
 	}
 }
 
+// int		setTexture(t_map *map)
+// {
+// 	int		color;
+// 	int		texX;
+// 	int		texY;
+// 	double	wallX;
+// 	double	step;
+
+
+// 	if (map->side == 0)	wallX = map->mpinf.player_y + map->wdist * map->raydirY;
+// 	else	wallX = map->mpinf.player_x + map->wdist * map->raydirX;
+// 	wallX -= floor((wallX));
+// 	texX = (int)(wallX * (double)(map->mpinf.size[0]));
+// 	step = 1.0 * map->mpinf.size[1] / (map->wEnd - map->wStart);
+// 	texY = map->wStart * step * map->xi;
+// 	if(map->side == 0 && map->raydirX > 0) texX = map->mpinf.size[0] - texX - 1;
+// 	if(map->side == 1 && map->raydirY < 0) texX = map->mpinf.size[0] - texX - 1;
+// 	if (map->side == 0 && map->dirX < 0) // east
+// 		color = my_mlx_pixel_get(&map->EA_img, texX, texY);
+// 	else if (map->side == 0 && map->dirX >= 0) // west
+// 		color = my_mlx_pixel_get(&map->WE_img, texX, texY);
+// 	else if (map->side == 1 && map->dirY < 0) // south
+// 		color = my_mlx_pixel_get(&map->SO_img, texX, texY);
+// 	else if (map->side == 1 && map->dirY >= 0) // north
+// 		color = my_mlx_pixel_get(&map->NO_img, texX, texY);
+// 	return (-1);
+// }
+
 int		draw_ray(t_map *map)
 {
 	double	cameraX;
+	int		texture;
 	
 	map->xi = 0;
 	map->wdist = 0;
@@ -176,7 +209,9 @@ int		draw_ray(t_map *map)
 		map->raydirY = map->dirY + map->planeY * cameraX;
 		cast_single_ray(map); // 맵 충돌 및 거리 계산
 		dist2wall(map); // 거리기반 세로구하기
-		draw_line(map, 0x000000);
+		texture = 0;
+		//texture = setTexture(map); //텍스쳐 지정함수 설정 (side, dir에 따라 동서남북 구분)
+		draw_line(map, texture);
 		map->xi++;
 	}
 	return (0);
@@ -215,12 +250,84 @@ int		draw_loop(t_map *map)
 	draw_back(map);
 	draw_ray(map);
 	mlx_put_image_to_window(map->mlx, map->win, map->img.img, 0, 0);
+	printf("%d %d\n", map->mpinf.size[0], map->mpinf.size[1]);
 	return (0);
 }
 
-int	press_key(int key, void *param)
+int press_arrow(int key, t_map *map)
 {
-	t_map	*map;
+	double	rotSpeed;
+	double	oldDirX;
+	double	oldPlaneX;
+	int		i;
+
+	rotSpeed = M_PI / 45;
+	if (map->pressed == 1)
+		return (0);
+	i = 0;
+	while (i * rotSpeed < M_PI / 6)
+	{
+		oldDirX = map->dirX;
+		oldPlaneX = map->planeX;
+		if (key == 123 && map)
+		{
+			map->dirX = map->dirX * cos(-rotSpeed) - map->dirY * sin(-rotSpeed);
+			map->dirY = oldDirX * sin(-rotSpeed) + map->dirY * cos(-rotSpeed);
+			map->planeX = map->planeX * cos(-rotSpeed) - map->planeY * sin(-rotSpeed);
+			map->planeY = oldPlaneX * sin(-rotSpeed) + map->planeY * cos(-rotSpeed);
+		}
+		if (key == 124 && map)
+		{
+			map->dirX = map->dirX * cos(rotSpeed) - map->dirY * sin(rotSpeed);
+			map->dirY = oldDirX * sin(rotSpeed) + map->dirY * cos(rotSpeed);
+			map->planeX = map->planeX * cos(rotSpeed) - map->planeY * sin(rotSpeed);
+			map->planeY = oldPlaneX * sin(rotSpeed) + map->planeY * cos(rotSpeed);
+		}
+		draw_loop(map);
+		i++;
+	}
+	map->pressed = 1;
+	return (0);
+}
+
+int release_arrow(int key, t_map *map)
+{
+	double	rotSpeed;
+	double	oldDirX;
+	double	oldPlaneX;
+	int		i;
+
+	rotSpeed = M_PI / 45;
+	if (map->pressed == 0)
+		return (0);
+	i = 0;
+	while (i * rotSpeed < M_PI / 6)
+	{
+		oldDirX = map->dirX;
+		oldPlaneX = map->planeX;
+		if (key == 123 && map)
+		{
+			map->dirX = map->dirX * cos(rotSpeed) - map->dirY * sin(rotSpeed);
+			map->dirY = oldDirX * sin(rotSpeed) + map->dirY * cos(rotSpeed);
+			map->planeX = map->planeX * cos(rotSpeed) - map->planeY * sin(rotSpeed);
+			map->planeY = oldPlaneX * sin(rotSpeed) + map->planeY * cos(rotSpeed);
+		}
+		if (key == 124 && map)
+		{
+			map->dirX = map->dirX * cos(-rotSpeed) - map->dirY * sin(-rotSpeed);
+			map->dirY = oldDirX * sin(-rotSpeed) + map->dirY * cos(-rotSpeed);
+			map->planeX = map->planeX * cos(-rotSpeed) - map->planeY * sin(-rotSpeed);
+			map->planeY = oldPlaneX * sin(-rotSpeed) + map->planeY * cos(-rotSpeed);
+		}
+		draw_loop(map);
+		i++;
+	}
+	map->pressed = 0;
+	return (0);
+}
+
+int	press_key(int key, t_map *map)
+{
 	double	moveSpeed;
 	double	rotSpeed;
 	double	oldDirX;
@@ -228,12 +335,11 @@ int	press_key(int key, void *param)
 
 	moveSpeed = 1;
 	rotSpeed = M_PI/45;
-	map = (t_map *)param;
 	oldDirX = map->dirX;
 	oldPlaneX = map->planeX;
 	if (key == 53 && map)
 		exit(0);
-	if ((key == 0 || key == 123) && map)
+	if (key == 0 && map)
 	{
 		map->dirX = map->dirX * cos(-rotSpeed) - map->dirY * sin(-rotSpeed);
 		map->dirY = oldDirX * sin(-rotSpeed) + map->dirY * cos(-rotSpeed);
@@ -255,7 +361,7 @@ int	press_key(int key, void *param)
 		if (map->mpinf.map[(int)(map->mpinf.player_y - map->dirY * moveSpeed)][(int)(map->mpinf.player_x)] == '0')
 			map->mpinf.player_y -= map->dirY * moveSpeed;
 	}
-	if ((key == 2 || key == 124) && map)
+	if (key == 2 && map)
 	{
 		map->dirX = map->dirX * cos(rotSpeed) - map->dirY * sin(rotSpeed);
 		map->dirY = oldDirX * sin(rotSpeed) + map->dirY * cos(rotSpeed);
@@ -264,6 +370,33 @@ int	press_key(int key, void *param)
 	}
 	draw_loop(map);
 	return (0);
+}
+
+int	key_press(int keycode, t_map *map)
+{
+	if (keycode == 0 || keycode == 1 || keycode == 2 || keycode == 13)
+		press_key(keycode, map);
+	if (keycode == 123 || keycode == 124)
+		press_arrow(keycode, map);
+	if (keycode == 53)
+	{
+		write(1, "The Window is stopped.\n", 23);
+		exit(0);
+	}
+	return (0);
+}
+
+int	key_release(int keycode, t_map *map)
+{
+	if (keycode == 123 || keycode == 124)
+		release_arrow(keycode, map);
+	return (0);
+}
+
+int	key_exit()
+{
+	write(1, "The Window is stopped.\n", 23);
+	exit(0);
 }
 
 int	cub3d(t_mpinf *mpinf)
@@ -291,98 +424,26 @@ int	cub3d(t_mpinf *mpinf)
 	map.cube_h = mpinf->size[1] / mpinf->map_height;
 	map.mpinf.player_x += 0.5;
 	map.mpinf.player_y += 0.5;
+	map.pressed = 0;
 	player_dir(&map);
 	col2hex(&map);
-	//이미지 띄우기
+	//텍스쳐 초기화
+	// map.NO_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.NO_path, &map.mpinf.size[0], &map.mpinf.size[1]);
+	// map.NO_img.addr = mlx_get_data_addr(map.NO_img.img, &map.NO_img.bpp, &map.NO_img.line_size, &map.NO_img.endian);
+	// map.SO_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.SO_path, &map.mpinf.size[0], &map.mpinf.size[1]);
+	// map.SO_img.addr = mlx_get_data_addr(map.SO_img.img, &map.SO_img.bpp, &map.SO_img.line_size, &map.SO_img.endian);
+	// map.EA_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.EA_path, &map.mpinf.size[0], &map.mpinf.size[1]);
+	// map.EA_img.addr = mlx_get_data_addr(map.EA_img.img, &map.EA_img.bpp, &map.EA_img.line_size, &map.EA_img.endian);
+	// map.WE_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.WE_path, &map.mpinf.size[0], &map.mpinf.size[1]);
+	// map.WE_img.addr = mlx_get_data_addr(map.WE_img.img, &map.WE_img.bpp, &map.WE_img.line_size, &map.WE_img.endian);
+	//이미지 초기화
 	map.img.img = mlx_new_image(map.mlx, mpinf->size[0], mpinf->size[1]); // 화면크기에 맞는 새로운 이미지 생성
 	map.img.addr = mlx_get_data_addr(map.img.img, &map.img.bpp, &map.img.line_size, &map.img.endian);
 	draw_loop(&map);
-	mlx_key_hook(map.win, press_key, &map);
-	mlx_hook(map.win, 17, 0, exit_button, &map);
+	// mlx_put_image_to_window(map.mlx, map.win, map.SO_img.img, 0, 0);
+    mlx_hook(map.win, X_EVENT_KEY_PRESS, 0, key_press, &map);
+    mlx_hook(map.win, X_EVENT_KEY_release, 0, key_release, &map);
+    mlx_hook(map.win, X_EVENT_KEY_EXIT, 0, key_exit, &map);
 	mlx_loop(map.mlx);
 	return (0);
 }
-
-// void	draw_char(t_map *map, int x, int y, int color)
-// {
-// 	int	dx;
-// 	int	dy;
-// 	int	ddx;
-// 	int	ddy;
-// 
-// 	dx = 1;
-// 	dy = 1;
-// 	while (dy > -(map->cube_height / 2))
-// 	{
-// 		ddx = cos(map->mpinf.ceta) * dx - sin(map->mpinf.ceta) * dy;
-// 		ddy = sin(map->mpinf.ceta) * dx + cos(map->mpinf.ceta) * dy;
-// 		my_mlx_pixel_put(&map->img, x + ddx, y + ddy, color);
-// 		dy--;
-// 	}
-// 	dy = -(map->cube_height / 8);
-// 	while (dy < (map->cube_height / 8))
-// 	{
-// 		dx = -(map->cube_width / 8);
-// 		while (dx < (map->cube_width / 8))
-// 		{
-// 			my_mlx_pixel_put(&map->img, x + dx, y + dy, 0x00FF00);
-// 			dx++;
-// 		}
-// 		dy++;
-// 	}
-// }
-// 
-// }
-// void	draw_line(t_map *map, double x1, double y1, double x2, double y2)
-// {
-// 	double	deltaX;
-// 	double	deltaY;
-// 	double	step;
-// 
-// 	deltaX = x2 - x1;
-// 	deltaY = y2 - y1;
-// 	step = (fabs(deltaX) > fabs(deltaY)) ? fabs(deltaX) : fabs(deltaY);
-// 	deltaX /= step;
-// 	deltaY /= step;
-// 	while (fabs(x2 - x1) > 0.01 || fabs(y2 - y1) > 0.01)
-// 	{
-// 		my_mlx_pixel_put(&map->img, (int)floor(x1), (int)floor(y1), 0xb3b3b3);
-// 		x1 += deltaX;
-// 		y1 += deltaY;
-// 	}
-// }
-// 
-// void 	draw_lines(t_map *map)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		COL;
-// 	int		ROW;
-// 
-// 	COL = map->mpinf.map_width;
-// 	ROW = map->mpinf.map_height;
-// 	i = 0;
-// 	while (i < COL)
-// 	{
-// 		draw_line(map, i * map->cube_width, 0, i * map->cube_width, map->mpinf.size[1]);
-// 		i++;
-// 	}
-// 	draw_line(map, COL * map->cube_width - 1, 0, COL * map->cube_width - 1, map->mpinf.size[1]);
-// 	j = 0;
-// 	while (j < ROW)
-// 	{
-// 		draw_line(map, 0, j * map->cube_height, map->mpinf.size[0], j * map->cube_height);
-// 		j++;
-// 	}
-// 	draw_line(map, 0, ROW * map->cube_height - 1, map->mpinf.size[0], ROW * map->cube_height - 1);
-// }
-// 
-// int		draw_loop(t_map *map)
-// {
-// 	draw_back(map);
-// 	draw_squares(map);
-// 	draw_lines(map);
-// 	// draw_char(map, map->cube_width * map->mpinf.player_x + map->mpinf.add_x, map->cube_height * map->mpinf.player_y + map->mpinf.add_y, 0xffcc00);
-// 	mlx_put_image_to_window(map->mlx, map->win, map->img.img, 0, 0);
-// 	return (0);
-// }

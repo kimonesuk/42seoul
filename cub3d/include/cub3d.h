@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/05/01 15:40:44 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/02 14:01:40 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 #include <limits.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
+
+#define X_EVENT_KEY_PRESS	2
+#define X_EVENT_KEY_release	3
+#define X_EVENT_KEY_EXIT	17
 
 typedef struct	s_list
 {
@@ -82,11 +86,16 @@ typedef struct	s_map
 	int			wStart;
 	int			wEnd;
 	int			xi;
+	int			pressed;
 	double		sidedistX;
 	double		sidedistY;
 	double		deltadistX;
 	double		deltadistY;
 	double		wdist;
+	t_img		NO_img;
+	t_img		SO_img;
+	t_img		WE_img;
+	t_img		EA_img;
 	t_img		img;
 	t_mpinf		mpinf;
 }				t_map;
@@ -106,6 +115,6 @@ int		error_msg(int error_n);
 int		map_parsing(char *map_path, t_mpinf *mpinf);
 int		map_save(int fd, t_mpinf *mpinf);
 int		cub3d(t_mpinf *mpinf);
-int		press_key(int key, void *param);
+int		press_key(int key, t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 09:10:00 by okim              #+#    #+#             */
-/*   Updated: 2021/04/25 09:16:33 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/02 08:55:11 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*skip_space(char *str)
 
 int		error_msg(int error_n)
 {
+	write(1, "Error\n", 6);
 	if (error_n == -1)
 		write(1, "Invalid file path\n", 18);
 	else if (error_n == -2)

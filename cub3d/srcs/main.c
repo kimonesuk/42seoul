@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 08:44:36 by okim              #+#    #+#             */
-/*   Updated: 2021/04/26 08:17:03 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/15 22:40:28 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	init_inf(t_mpinf *mpinf)
 	mpinf->player_x = 0;
 	mpinf->player_y = 0;
 	mpinf->player_v = 0;
+	mpinf->spcnt = 0;
+	mpinf->save = 0;
 	mpinf->FL[0] = 0;
 	mpinf->FL[1] = 0;
 	mpinf->FL[2] = 0;
@@ -48,14 +50,14 @@ int		main(int argc, char *argv[])
 	if (map_parsing(map_path, mpinf) == -1)
 		return (-1);
 	if (argc == 3 && ft_strncmp(argv[2], "--save", 6) == 0)
-		return (0);
+	{
+		mpinf->save = 1;
+		return (cub3d(mpinf));
+	}
 	else if (argc == 3)
 		return (error_msg(-5));
 	else
-	{
-		if (cub3d(mpinf) == -1)
-			return (-1);
-	}
+		return (cub3d(mpinf));
 	free(mpinf);
 	return (0);
 }

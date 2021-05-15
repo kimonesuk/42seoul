@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 09:12:06 by okim              #+#    #+#             */
-/*   Updated: 2021/04/26 08:12:06 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/15 22:36:23 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	map_content_chk(int j, t_mpinf *mpinf)
 			mpinf->player_y = j;
 			mpinf->player_v = mpinf->map[j][i];
 		}
+		else if (mpinf->map[j][i] == '2')
+			mpinf->spcnt++;
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/05/02 14:01:40 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/15 23:04:39 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
-#define _USE_MATH_DEFINES
 #include <math.h>
 
+#define _USE_MATH_DEFINES
 #define X_EVENT_KEY_PRESS	2
 #define X_EVENT_KEY_release	3
 #define X_EVENT_KEY_EXIT	17
@@ -40,6 +40,8 @@ typedef struct	s_map_inf
 	int		max_height; // 현재 모니터의 최대 세로
 	int		map_width; // 맵의 가로 (최대)갯수
 	int		map_height; // 맵의 세로 갯수
+	int		spcnt;
+	int		save;
 	double	player_x;
 	double	player_y;
 	char	player_v;
@@ -62,6 +64,12 @@ typedef struct	s_img
 	int			line_size;
 	int			endian;
 }				t_img;
+
+typedef	struct	s_sprite
+{
+	double		x;
+	double		y;
+}				t_sprite;
 
 typedef struct	s_map
 {
@@ -87,17 +95,31 @@ typedef struct	s_map
 	int			wEnd;
 	int			xi;
 	int			pressed;
+	int			NO_w;
+	int			NO_h;
+	int			SO_w;
+	int			SO_h;
+	int			EA_w;
+	int			EA_h;
+	int			WE_w;
+	int			WE_h;
+	int			sp_w;
+	int			sp_h;
 	double		sidedistX;
 	double		sidedistY;
 	double		deltadistX;
 	double		deltadistY;
 	double		wdist;
+	double		*distarr;
+	double		*sp_dist;
 	t_img		NO_img;
 	t_img		SO_img;
 	t_img		WE_img;
 	t_img		EA_img;
+	t_img		S_img;
 	t_img		img;
 	t_mpinf		mpinf;
+	t_sprite	*sp;
 }				t_map;
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

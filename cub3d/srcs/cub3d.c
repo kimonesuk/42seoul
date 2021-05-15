@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:08:23 by okim              #+#    #+#             */
-/*   Updated: 2021/05/02 15:01:05 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/15 23:38:03 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,15 @@ void	my_mlx_pixel_put(t_img *img, double x, double y, int color) // 해당 위�
 	*(unsigned int*)dst = color;
 }
 
-// int		my_mlx_pixel_get(t_img *img, double x, double y)
-// {
-// 	int		color;
-// 	char	*dst;
+int		my_mlx_pixel_get(t_img *img, double x, double y)
+{
+	char	*dst;
+	int		color;
 
-// 	dst = img->addr + (int)floor((y * img->line_size + x * (img->bpp / 8)));
-// 	color = *(unsigned int*)dst;
-// 	return (color);
-// }
+	dst = img->addr + (int)floor((y * img->line_size + x * (img->bpp / 8)));
+	color = *(unsigned int*)dst;
+	return (color);
+}
 
 void	set_stepside(t_map *map)
 {
@@ -113,6 +113,9 @@ double	ray2wall(t_map *map)
 
 double	cast_single_ray(t_map *map)
 {
+	int	i;
+
+	i = 0;
 	map->mapX = (int)map->mpinf.player_x;
 	map->mapY = (int)map->mpinf.player_y;
 	map->deltadistX = (map->raydirY == 0) ? 0 : (map->raydirX == 0) ? 1 : fabs(1 / map->raydirX);
@@ -152,56 +155,72 @@ void	dist2wall(t_map *map)
 		map->wEnd = map->mpinf.size[1] - 1;
 }
 
-void	draw_line(t_map *map, int color)
+int		setTexture(t_map *map, double dy)
 {
-	double	deltaY;
-	double	step;
+	int		color;
+	int		texX;
+	int		texY;
+	double	wallX;
+	double	wallY;
 
-	deltaY = map->wEnd - map->wStart;
-	step = fabs(deltaY);
-	deltaY /= step;
-	while (abs(map->wEnd - map->wStart) > 0.01)
+	color = -1;
+	if (map->side == 0)	wallX = map->mpinf.player_y + map->wdist * map->raydirY;
+	else	wallX = map->mpinf.player_x + map->wdist * map->raydirX;
+	wallX -= floor(wallX);
+	wallY = dy / abs(map->wEnd - map->wStart);
+	if (map->side == 0 && map->raydirX < 0) // east
 	{
-		my_mlx_pixel_put(&map->img, (int)floor(map->xi), (int)floor(map->wStart), color);
-		map->wStart += deltaY;
+		texX = (int)(wallX * map->EA_w);
+		texY = (int)(wallY * map->EA_h);
+		color = my_mlx_pixel_get(&map->EA_img, texX, texY);
 	}
+	else if (map->side == 0 && map->raydirX >= 0) // west
+	{
+		texX = (int)(wallX * map->WE_w);
+		texY = (int)(wallY * map->WE_h);
+		color = my_mlx_pixel_get(&map->WE_img, texX, texY);
+	}
+	else if (map->side == 1 && map->raydirY < 0) // south
+	{
+		texX = (int)(wallX * map->SO_w);
+		texY = (int)(wallY * map->SO_h);
+		color = my_mlx_pixel_get(&map->SO_img, texX, texY);
+	}
+	else if (map->side == 1 && map->raydirY >= 0) // north
+	{
+		texX = (int)(wallX * map->NO_w);
+		texY = (int)(wallY * map->NO_h);
+		color = my_mlx_pixel_get(&map->NO_img, texX, texY);
+	}
+	else
+		color = 0;
+	return (color);
 }
 
-// int		setTexture(t_map *map)
-// {
-// 	int		color;
-// 	int		texX;
-// 	int		texY;
-// 	double	wallX;
-// 	double	step;
+void	draw_line(t_map *map)
+{
+	double	deltaY;
+	double	start;
+	int		color;
 
-
-// 	if (map->side == 0)	wallX = map->mpinf.player_y + map->wdist * map->raydirY;
-// 	else	wallX = map->mpinf.player_x + map->wdist * map->raydirX;
-// 	wallX -= floor((wallX));
-// 	texX = (int)(wallX * (double)(map->mpinf.size[0]));
-// 	step = 1.0 * map->mpinf.size[1] / (map->wEnd - map->wStart);
-// 	texY = map->wStart * step * map->xi;
-// 	if(map->side == 0 && map->raydirX > 0) texX = map->mpinf.size[0] - texX - 1;
-// 	if(map->side == 1 && map->raydirY < 0) texX = map->mpinf.size[0] - texX - 1;
-// 	if (map->side == 0 && map->dirX < 0) // east
-// 		color = my_mlx_pixel_get(&map->EA_img, texX, texY);
-// 	else if (map->side == 0 && map->dirX >= 0) // west
-// 		color = my_mlx_pixel_get(&map->WE_img, texX, texY);
-// 	else if (map->side == 1 && map->dirY < 0) // south
-// 		color = my_mlx_pixel_get(&map->SO_img, texX, texY);
-// 	else if (map->side == 1 && map->dirY >= 0) // north
-// 		color = my_mlx_pixel_get(&map->NO_img, texX, texY);
-// 	return (-1);
-// }
+	start = map->wStart;
+	deltaY = map->wEnd - map->wStart;
+	deltaY /= fabs(deltaY);
+	while (fabs(map->wEnd - start) > 0.01)
+	{
+		color = setTexture(map, start - map->wStart);
+		my_mlx_pixel_put(&map->img, (int)floor(map->xi), (int)floor(start), color);
+		start += deltaY;
+	}
+}
 
 int		draw_ray(t_map *map)
 {
 	double	cameraX;
-	int		texture;
 	
 	map->xi = 0;
 	map->wdist = 0;
+	map->distarr = (double *)malloc(sizeof(double) * map->mpinf.size[0]);
 	while (map->xi < map->mpinf.size[0])
 	{
 		cameraX = ((2 * map->xi) / (double)map->mpinf.size[0]) - 1;
@@ -209,9 +228,8 @@ int		draw_ray(t_map *map)
 		map->raydirY = map->dirY + map->planeY * cameraX;
 		cast_single_ray(map); // 맵 충돌 및 거리 계산
 		dist2wall(map); // 거리기반 세로구하기
-		texture = 0;
-		//texture = setTexture(map); //텍스쳐 지정함수 설정 (side, dir에 따라 동서남북 구분)
-		draw_line(map, texture);
+		map->distarr[map->xi] = map->wdist;
+		draw_line(map);
 		map->xi++;
 	}
 	return (0);
@@ -245,12 +263,82 @@ void	draw_back(t_map *map)
 	}
 }
 
+void	draw_sprite(t_map *map)
+{
+	int	i;
+	int	j;
+	int	tmp;
+
+	i = 0;
+	map->sp_dist = (double *)malloc(sizeof(double) * map->mpinf.spcnt);
+	while (i < map->mpinf.spcnt) // 플레이어 ~ 스프라이트 길이
+	{
+		map->sp_dist[i] = pow((map->mpinf.player_x - map->sp[i].x), 2) + pow((map->mpinf.player_y - map->sp[i].y), 2);
+		i++;
+	}
+	i = 0; // 정렬
+	while (i < map->mpinf.spcnt)
+	{
+		j = 0;
+		while (j < map->mpinf.spcnt - i - 1)
+		{
+			if (map->sp_dist[j] > map->sp_dist[j + 1])
+			{
+				tmp = map->sp_dist[j];
+				map->sp_dist[j] = map->sp_dist[j + 1];
+				map->sp_dist[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+	for(int i = 0; i < map->mpinf.spcnt; i++)
+	{
+		double spriteX = map->sp[i].x - map->mpinf.player_x;
+		double spriteY = map->sp[i].y - map->mpinf.player_y;
+		double invDet = 1.0 / (map->planeX * map->dirY - map->dirX * map->planeY);
+		double transformX = invDet * (map->dirY * spriteX - map->dirX * spriteY);
+		double transformY = invDet * (-map->planeY * spriteX + map->planeX * spriteY);
+		int spriteScreenX = (int)((map->mpinf.size[0] / 2) * (1 + transformX / transformY));
+		int spriteHeight = abs((int)(map->mpinf.size[1] / (transformY)));
+		int drawStartY = -spriteHeight / 2 + map->mpinf.size[1] / 2;
+		if (drawStartY < 0) drawStartY = 0;
+		int drawEndY = spriteHeight / 2 + map->mpinf.size[1] / 2;
+		if (drawEndY >= map->mpinf.size[1]) drawEndY = map->mpinf.size[1] - 1;
+
+		int spriteWidth = abs((int)(map->mpinf.size[1] / (transformY)));
+		int drawStartX = -spriteWidth / 2 + spriteScreenX;
+		if(drawStartX < 0) drawStartX = 0;
+		int drawEndX = spriteWidth / 2 + spriteScreenX;
+		if(drawEndX >= map->mpinf.size[0]) drawEndX = map->mpinf.size[0] - 1;
+
+		for(int stripe = drawStartX; stripe < drawEndX; stripe++)
+		{
+			int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * map->sp_w / spriteWidth) / 256;
+		//the conditions in the if are:
+		//1) it's in front of camera plane so you don't see things behind you
+		//2) it's on the screen (left)
+		//3) it's on the screen (right)
+		//4) ZBuffer, with perpendicular distance
+			if(transformY > 0 && stripe > 0 && stripe < map->mpinf.size[0] && transformY < map->distarr[stripe])
+			for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
+			{
+				int d = (y) * 256 - map->mpinf.size[1] * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
+				int texY = ((d * map->sp_w) / spriteHeight) / 256;
+				int	color = my_mlx_pixel_get(&map->S_img, texX, texY);
+				if((color & 0x00FFFFFF) != 0) my_mlx_pixel_put(&map->img, (int)floor(stripe), (int)floor(y), color);
+				//paint pixel if it isn't black, black is the invisible color
+			}
+		}
+	}
+}
+
 int		draw_loop(t_map *map)
 {
 	draw_back(map);
 	draw_ray(map);
+	draw_sprite(map);
 	mlx_put_image_to_window(map->mlx, map->win, map->img.img, 0, 0);
-	printf("%d %d\n", map->mpinf.size[0], map->mpinf.size[1]);
 	return (0);
 }
 
@@ -399,6 +487,32 @@ int	key_exit()
 	exit(0);
 }
 
+void pst_sp(t_map *map)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	y = 0;
+	i = 0;
+	map->sp = (t_sprite *)malloc(sizeof(t_sprite) * map->mpinf.spcnt);
+	while (y < map->mpinf.map_height)
+	{
+		x = 0;
+		while (x < ft_strlen(map->mpinf.map[y]))
+		{
+			if (map->mpinf.map[y][x] == '2')
+			{
+				map->sp[i].x = x + 0.5;
+				map->sp[i].y = y + 0.5;
+				i++;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 int	cub3d(t_mpinf *mpinf)
 {
 	void	*mlx_ptr;
@@ -425,22 +539,24 @@ int	cub3d(t_mpinf *mpinf)
 	map.mpinf.player_x += 0.5;
 	map.mpinf.player_y += 0.5;
 	map.pressed = 0;
+	pst_sp(&map);
 	player_dir(&map);
 	col2hex(&map);
 	//텍스쳐 초기화
-	// map.NO_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.NO_path, &map.mpinf.size[0], &map.mpinf.size[1]);
-	// map.NO_img.addr = mlx_get_data_addr(map.NO_img.img, &map.NO_img.bpp, &map.NO_img.line_size, &map.NO_img.endian);
-	// map.SO_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.SO_path, &map.mpinf.size[0], &map.mpinf.size[1]);
-	// map.SO_img.addr = mlx_get_data_addr(map.SO_img.img, &map.SO_img.bpp, &map.SO_img.line_size, &map.SO_img.endian);
-	// map.EA_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.EA_path, &map.mpinf.size[0], &map.mpinf.size[1]);
-	// map.EA_img.addr = mlx_get_data_addr(map.EA_img.img, &map.EA_img.bpp, &map.EA_img.line_size, &map.EA_img.endian);
-	// map.WE_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.WE_path, &map.mpinf.size[0], &map.mpinf.size[1]);
-	// map.WE_img.addr = mlx_get_data_addr(map.WE_img.img, &map.WE_img.bpp, &map.WE_img.line_size, &map.WE_img.endian);
+	map.NO_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.NO_path, &map.NO_w, &map.NO_h);
+	map.NO_img.addr = mlx_get_data_addr(map.NO_img.img, &map.NO_img.bpp, &map.NO_img.line_size, &map.NO_img.endian);
+	map.SO_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.SO_path, &map.SO_w, &map.SO_h);
+	map.SO_img.addr = mlx_get_data_addr(map.SO_img.img, &map.SO_img.bpp, &map.SO_img.line_size, &map.SO_img.endian);
+	map.EA_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.EA_path, &map.EA_w, &map.EA_h);
+	map.EA_img.addr = mlx_get_data_addr(map.EA_img.img, &map.EA_img.bpp, &map.EA_img.line_size, &map.EA_img.endian);
+	map.WE_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.WE_path, &map.WE_w, &map.WE_h);
+	map.WE_img.addr = mlx_get_data_addr(map.WE_img.img, &map.WE_img.bpp, &map.WE_img.line_size, &map.WE_img.endian);
+	map.S_img.img = mlx_xpm_file_to_image(map.mlx, map.mpinf.S_path, &map.sp_w, &map.sp_h);
+	map.S_img.addr = mlx_get_data_addr(map.S_img.img, &map.S_img.bpp, &map.S_img.line_size, &map.S_img.endian);
 	//이미지 초기화
 	map.img.img = mlx_new_image(map.mlx, mpinf->size[0], mpinf->size[1]); // 화면크기에 맞는 새로운 이미지 생성
 	map.img.addr = mlx_get_data_addr(map.img.img, &map.img.bpp, &map.img.line_size, &map.img.endian);
 	draw_loop(&map);
-	// mlx_put_image_to_window(map.mlx, map.win, map.SO_img.img, 0, 0);
     mlx_hook(map.win, X_EVENT_KEY_PRESS, 0, key_press, &map);
     mlx_hook(map.win, X_EVENT_KEY_release, 0, key_release, &map);
     mlx_hook(map.win, X_EVENT_KEY_EXIT, 0, key_exit, &map);

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:08:23 by okim              #+#    #+#             */
-/*   Updated: 2021/05/15 23:38:03 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/16 12:12:32 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,13 +294,13 @@ void	draw_sprite(t_map *map)
 	}
 	for(int i = 0; i < map->mpinf.spcnt; i++)
 	{
-		double spriteX = map->sp[i].x - map->mpinf.player_x;
-		double spriteY = map->sp[i].y - map->mpinf.player_y;
+		double spriteX = map->sp[i].x - map->mpinf.player_x; // 스프라이트의 상대적 위치 x
+		double spriteY = map->sp[i].y - map->mpinf.player_y; // 스프라이트의 상대적 위치 y
 		double invDet = 1.0 / (map->planeX * map->dirY - map->dirX * map->planeY);
-		double transformX = invDet * (map->dirY * spriteX - map->dirX * spriteY);
-		double transformY = invDet * (-map->planeY * spriteX + map->planeX * spriteY);
+		double transformX = invDet * (map->dirY * spriteX - map->dirX * spriteY); // 화면평면에 투사된 x
+		double transformY = invDet * (-map->planeY * spriteX + map->planeX * spriteY); // 화면평면에 투사된 y
 		int spriteScreenX = (int)((map->mpinf.size[0] / 2) * (1 + transformX / transformY));
-		int spriteHeight = abs((int)(map->mpinf.size[1] / (transformY)));
+		int spriteHeight = abs((int)(map->mpinf.size[1] / (transformY))); // 스프라이트의 높이
 		int drawStartY = -spriteHeight / 2 + map->mpinf.size[1] / 2;
 		if (drawStartY < 0) drawStartY = 0;
 		int drawEndY = spriteHeight / 2 + map->mpinf.size[1] / 2;
@@ -314,20 +314,13 @@ void	draw_sprite(t_map *map)
 
 		for(int stripe = drawStartX; stripe < drawEndX; stripe++)
 		{
-			int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * map->sp_w / spriteWidth) / 256;
-		//the conditions in the if are:
-		//1) it's in front of camera plane so you don't see things behind you
-		//2) it's on the screen (left)
-		//3) it's on the screen (right)
-		//4) ZBuffer, with perpendicular distance
+			int texX = (int)((stripe - (-spriteWidth / 2 + spriteScreenX)) * map->sp_w / spriteWidth);
 			if(transformY > 0 && stripe > 0 && stripe < map->mpinf.size[0] && transformY < map->distarr[stripe])
 			for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
 			{
-				int d = (y) * 256 - map->mpinf.size[1] * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
-				int texY = ((d * map->sp_w) / spriteHeight) / 256;
+				int texY = (int)((y * 2 + spriteHeight - map->mpinf.size[1]) * map->sp_h / spriteHeight / 2);
 				int	color = my_mlx_pixel_get(&map->S_img, texX, texY);
 				if((color & 0x00FFFFFF) != 0) my_mlx_pixel_put(&map->img, (int)floor(stripe), (int)floor(y), color);
-				//paint pixel if it isn't black, black is the invisible color
 			}
 		}
 	}
@@ -527,13 +520,9 @@ int	cub3d(t_mpinf *mpinf)
 		mpinf->size[0] = mpinf->max_width;
 	if (mpinf->size[1] >= mpinf->max_height)
 		mpinf->size[1] = mpinf->max_height;
-	//새창 띄우기
-	if ((win_ptr = mlx_new_window(mlx_ptr, mpinf->size[0], mpinf->size[1], "cub3d")) == NULL)
-		return (error_msg(-8));
 	//map 구조체 초기화
 	map.mpinf = *mpinf;
 	map.mlx = mlx_ptr;
-	map.win = win_ptr;
 	map.cube_w = mpinf->size[0] / mpinf->map_width;
 	map.cube_h = mpinf->size[1] / mpinf->map_height;
 	map.mpinf.player_x += 0.5;
@@ -556,10 +545,22 @@ int	cub3d(t_mpinf *mpinf)
 	//이미지 초기화
 	map.img.img = mlx_new_image(map.mlx, mpinf->size[0], mpinf->size[1]); // 화면크기에 맞는 새로운 이미지 생성
 	map.img.addr = mlx_get_data_addr(map.img.img, &map.img.bpp, &map.img.line_size, &map.img.endian);
+	if (map.mpinf.save == 1)
+	{
+		draw_back(&map);
+		draw_ray(&map);
+		draw_sprite(&map);
+		//map.img를 bmp 파일로 저장하기
+		return (0);
+	}
+	//새창 띄우기
+	if ((win_ptr = mlx_new_window(mlx_ptr, mpinf->size[0], mpinf->size[1], "cub3d")) == NULL)
+		return (error_msg(-8));
+	map.win = win_ptr;
 	draw_loop(&map);
-    mlx_hook(map.win, X_EVENT_KEY_PRESS, 0, key_press, &map);
-    mlx_hook(map.win, X_EVENT_KEY_release, 0, key_release, &map);
-    mlx_hook(map.win, X_EVENT_KEY_EXIT, 0, key_exit, &map);
+	mlx_hook(map.win, X_EVENT_KEY_PRESS, 0, key_press, &map);
+	mlx_hook(map.win, X_EVENT_KEY_release, 0, key_release, &map);
+	mlx_hook(map.win, X_EVENT_KEY_EXIT, 0, key_exit, &map);
 	mlx_loop(map.mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:08:23 by okim              #+#    #+#             */
-/*   Updated: 2021/05/17 23:25:02 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/17 23:32:02 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -530,7 +530,7 @@ int		write_bmp_header(int fd, int filesize, t_map *map)
 	bmpfileheader[14] = (unsigned char)(40);
 	tmp = map->mpinf.size[0];
 	set_int_in_char(bmpfileheader + 18, tmp);
-	tmp = map->mpinf.size[1];
+	tmp = (map->mpinf.size[1]) * -1;
 	set_int_in_char(bmpfileheader + 22, tmp);
 	bmpfileheader[27] = (unsigned char)(1);
 	bmpfileheader[28] = (unsigned char)(24);
@@ -560,7 +560,7 @@ int		write_bmp_data(int file, t_map *map, int pad)
 		j = 0;
 		while (j < (int)map->mpinf.size[0])
 		{
-			color = get_color(map, j, (int)map->mpinf.size[1] - i - 1);
+			color = get_color(map, j, i);
 			if (write(file, &color, 3) < 0)
 				return (0);
 			if (pad > 0 && write(file, &zero, pad) < 0)

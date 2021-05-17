@@ -9,7 +9,6 @@ OPENGL_DIR = minilibx_opengl_20191021
 LMLX = libmlx.dylib libmlxgl.a
 SRCS = ./srcs/main.c \
 		./srcs/cub3d.c \
-		./srcs/key_handler.c \
 		./srcs/map_parsing.c \
 		./srcs/map_parsing_utils.c \
 		./srcs/map_save.c \

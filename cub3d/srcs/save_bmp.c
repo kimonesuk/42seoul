@@ -6,41 +6,41 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 10:27:08 by okim              #+#    #+#             */
-/*   Updated: 2021/05/19 10:44:54 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/19 22:05:53 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	set_int_in_char(unsigned char *start, int value)
+void	int_char(unsigned char *ptr, int value)
 {
-	start[0] = (unsigned char)(value);
-	start[1] = (unsigned char)(value >> 8);
-	start[2] = (unsigned char)(value >> 16);
-	start[3] = (unsigned char)(value >> 24);
+	ptr[0] = (unsigned char)(value);
+	ptr[1] = (unsigned char)(value >> 8);
+	ptr[2] = (unsigned char)(value >> 16);
+	ptr[3] = (unsigned char)(value >> 24);
 }
 
-int		write_bmp_header(int fd, int filesize, t_map *map)
+int		bmp_header(int fd, int filesize, t_map *map)
 {
 	int				i;
 	int				tmp;
-	unsigned char	bmpfileheader[54];
+	unsigned char	bmpheader[54];
 
 	i = 0;
 	while (i < 54)
-		bmpfileheader[i++] = (unsigned char)(0);
-	bmpfileheader[0] = (unsigned char)('B');
-	bmpfileheader[1] = (unsigned char)('M');
-	set_int_in_char(bmpfileheader + 2, filesize);
-	bmpfileheader[10] = (unsigned char)(54);
-	bmpfileheader[14] = (unsigned char)(40);
+		bmpheader[i++] = (unsigned char)(0);
+	bmpheader[0] = (unsigned char)('B');
+	bmpheader[1] = (unsigned char)('M');
+	int_char(bmpheader + 2, filesize);
+	bmpheader[10] = (unsigned char)(54);
+	bmpheader[14] = (unsigned char)(40);
 	tmp = map->mp.size[0];
-	set_int_in_char(bmpfileheader + 18, tmp);
+	int_char(bmpheader + 18, tmp);
 	tmp = (map->mp.size[1]) * -1;
-	set_int_in_char(bmpfileheader + 22, tmp);
-	bmpfileheader[27] = (unsigned char)(1);
-	bmpfileheader[28] = (unsigned char)(24);
-	return (!(write(fd, bmpfileheader, 54) < 0));
+	int_char(bmpheader + 22, tmp);
+	bmpheader[27] = (unsigned char)(1);
+	bmpheader[28] = (unsigned char)(24);
+	return (!(write(fd, bmpheader, 54) < 0));
 }
 
 int		get_color(t_map *map, int x, int y)
@@ -53,7 +53,7 @@ int		get_color(t_map *map, int x, int y)
 	return (rgb);
 }
 
-int		write_bmp_data(int file, t_map *map, int pad)
+int		bmp_data(int file, t_map *map, int pad)
 {
 	const unsigned char	zero[3] = {0, 0, 0};
 	int					i;
@@ -89,9 +89,9 @@ int		save_bmp(t_map *map)
 	if ((file = open("screenshot.bmp", O_WRONLY | O_CREAT |
 	O_TRUNC | O_APPEND)) < 0)
 		return (0);
-	if (!write_bmp_header(file, filesize, map))
+	if (!bmp_header(file, filesize, map))
 		return (0);
-	if (!write_bmp_data(file, map, pad))
+	if (!bmp_data(file, map, pad))
 		return (0);
 	close(file);
 	return (1);

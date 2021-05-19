@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 08:44:36 by okim              #+#    #+#             */
-/*   Updated: 2021/05/15 22:40:28 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/19 00:09:08 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	init_inf(t_mpinf *mpinf)
 	mpinf->player_v = 0;
 	mpinf->spcnt = 0;
 	mpinf->save = 0;
-	mpinf->FL[0] = 0;
-	mpinf->FL[1] = 0;
-	mpinf->FL[2] = 0;
-	mpinf->CL[0] = 0;
-	mpinf->CL[1] = 0;
-	mpinf->CL[2] = 0;
+	mpinf->fl[0] = -1;
+	mpinf->fl[1] = -1;
+	mpinf->fl[2] = -1;
+	mpinf->cl[0] = -1;
+	mpinf->cl[1] = -1;
+	mpinf->cl[2] = -1;
 }
 
 int		main(int argc, char *argv[])

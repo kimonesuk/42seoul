@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 19:42:58 by okim              #+#    #+#             */
-/*   Updated: 2021/04/25 09:22:25 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/19 00:05:14 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ int	info_chk(t_mpinf *mpinf)
 	i = 0;
 	while (i < 3)
 	{
-		if (mpinf->FL[i] > 255)
+		if (mpinf->fl[i] > 255 || mpinf->fl[i] == -1)
 			return (error_msg(-2));
-		if (mpinf->CL[i] > 255)
+		if (mpinf->cl[i] > 255 || mpinf->cl[i] == -1)
 			return (error_msg(-2));
 		i++;
 	}
-	if (mpinf->size[0] == 0 || mpinf->size[1] == 0 || mpinf->S_path == 0)
+	if (mpinf->size[0] == 0 || mpinf->size[1] == 0 || mpinf->s_path == 0)
 		return (error_msg(-2));
-	if (mpinf->NO_path == 0 || mpinf->SO_path == 0 || mpinf->WE_path == 0 ||
-	mpinf->EA_path == 0)
+	if (mpinf->no_path == 0 || mpinf->so_path == 0 || mpinf->we_path == 0 ||
+	mpinf->ea_path == 0)
 		return (error_msg(-2));
 	return (0);
 }
@@ -44,10 +44,14 @@ int	contents_nmb_save(char *line, t_mpinf *mpinf, char c)
 	{
 		if (ft_isdigit(line[i]))
 		{
+			if (c == 'C' && mpinf->cl[j] == -1)
+				mpinf->cl[j] = 0;
+			if (c == 'F' && mpinf->fl[j] == -1)
+				mpinf->fl[j] = 0;
 			if (c == 'C')
-				mpinf->CL[j] = mpinf->CL[j] * 10 + line[i] - '0';
+				mpinf->cl[j] = mpinf->cl[j] * 10 + line[i] - '0';
 			else if (c == 'F')
-				mpinf->FL[j] = mpinf->FL[j] * 10 + line[i] - '0';
+				mpinf->fl[j] = mpinf->fl[j] * 10 + line[i] - '0';
 		}
 		else if ((j < 3) && (line[i] = ','))
 			j++;
@@ -84,15 +88,15 @@ int	elements_save(char *line, t_mpinf *mpinf)
 
 	rtn = 0;
 	if (ft_strncmp(line, "NO ", 3) == 0)
-		mpinf->NO_path = ft_strdup((line + sizeof(char) * 3));
+		mpinf->no_path = ft_strdup((line + sizeof(char) * 3));
 	else if (ft_strncmp(line, "SO ", 3) == 0)
-		mpinf->SO_path = ft_strdup((line + sizeof(char) * 3));
+		mpinf->so_path = ft_strdup((line + sizeof(char) * 3));
 	else if (ft_strncmp(line, "WE ", 3) == 0)
-		mpinf->WE_path = ft_strdup((line + sizeof(char) * 3));
+		mpinf->we_path = ft_strdup((line + sizeof(char) * 3));
 	else if (ft_strncmp(line, "EA ", 3) == 0)
-		mpinf->EA_path = ft_strdup((line + sizeof(char) * 3));
+		mpinf->ea_path = ft_strdup((line + sizeof(char) * 3));
 	else if (ft_strncmp(line, "S ", 2) == 0)
-		mpinf->S_path = ft_strdup((line + sizeof(char) * 2));
+		mpinf->s_path = ft_strdup((line + sizeof(char) * 2));
 	else if (ft_strncmp(line, "R ", 2) == 0)
 		rtn = contents_size_save(line + sizeof(char) * 2, mpinf);
 	else if (ft_strncmp(line, "F ", 2) == 0)

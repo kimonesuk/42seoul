@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 09:12:06 by okim              #+#    #+#             */
-/*   Updated: 2021/05/19 00:05:23 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/20 19:48:12 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,17 @@
 int	map_content_chk(int j, t_mpinf *mpinf)
 {
 	int i;
-	int	ch;
 
 	i = 0;
-	ch = 0;
 	while (i < ft_strlen(mpinf->map[j]))
 	{
 		if (ft_strchr(" 012NSEW", mpinf->map[j][i]) == 0)
 			return (-1);
-		else if ((ch == 1) && (ft_strchr("NSEW", mpinf->map[j][i]) != 0))
+		if (mpinf->flag == 1 && (ft_strchr("NSEW", mpinf->map[j][i]) != 0))
 			return (-1);
 		else if (ft_strchr("NSEW", mpinf->map[j][i]) != 0)
 		{
-			ch = 1;
+			mpinf->flag = 1;
 			mpinf->player_x = i;
 			mpinf->player_y = j;
 			mpinf->player_v = mpinf->map[j][i];
@@ -70,11 +68,12 @@ int	map_shape_chk(char **map, t_mpinf *mpinf)
 	int	j;
 
 	i = 1;
+	mpinf->flag = 0;
 	while (i < mpinf->map_height)
 	{
-		j = 0;
 		if (map_content_chk(i, mpinf) == -1)
 			return (error_msg(-3));
+		j = 0;
 		while (j < ft_strlen(map[i]))
 		{
 			if (map[i][j] == '0')
@@ -136,5 +135,6 @@ int	map_save(int fd, t_mpinf *mpinf)
 	tmp_list = ft_lstnew(line);
 	ft_lstadd_back(&mpinf->map_lst, tmp_list);
 	line = 0;
+	close(fd);
 	return (lst_to_map(mpinf));
 }

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 09:10:00 by okim              #+#    #+#             */
-/*   Updated: 2021/05/19 10:43:48 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/20 20:22:37 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,23 @@ void	player_dir(t_map *map)
 	map->planey = 0;
 	if (map->mp.player_v == 'N')
 	{
-		map->diry = -1;
-		map->planex = 0.66;
-	}
-	else if (map->mp.player_v == 'S')
-	{
 		map->diry = 1;
 		map->planex = -0.66;
 	}
-	else if (map->mp.player_v == 'E')
+	else if (map->mp.player_v == 'S')
 	{
-		map->dirx = 1;
-		map->planey = 0.66;
+		map->diry = -1;
+		map->planex = 0.66;
 	}
-	else if (map->mp.player_v == 'W')
+	else if (map->mp.player_v == 'E')
 	{
 		map->dirx = -1;
 		map->planey = -0.66;
+	}
+	else if (map->mp.player_v == 'W')
+	{
+		map->dirx = 1;
+		map->planey = 0.66;
 	}
 }
 
@@ -54,7 +54,7 @@ void	my_mlx_pixel_put(t_img *img, double x, double y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (int)floor((y * img->line_size + x * (img->bpp / 8)));
+	dst = img->addr + (int)((y * img->line_size + x * (img->bpp / 8)));
 	*(unsigned int*)dst = color;
 }
 
@@ -63,7 +63,7 @@ int		my_mlx_pixel_get(t_img *img, double x, double y)
 	char	*dst;
 	int		color;
 
-	dst = img->addr + (int)floor((y * img->line_size + x * (img->bpp / 8)));
+	dst = img->addr + (int)((y * img->line_size + x * (img->bpp / 8)));
 	color = *(unsigned int*)dst;
 	return (color);
 }

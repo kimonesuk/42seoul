@@ -10,6 +10,8 @@ LMLX = libmlx.dylib libmlxgl.a
 SRCS = ./srcs/main.c \
 		./srcs/cub3d.c \
 		./srcs/draw.c \
+		./srcs/draw_utils.c \
+		./srcs/set_texture.c \
 		./srcs/sprite.c \
 		./srcs/key_loop.c \
 		./srcs/key_utils.c \

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:08:23 by okim              #+#    #+#             */
-/*   Updated: 2021/05/19 18:03:39 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/20 19:26:41 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,11 @@ int		init_map(t_map *map, t_mpinf *mp)
 	map->img.addr = mlx_get_data_addr(map->img.img, &map->img.bpp,
 	&map->img.line_size, &map->img.endian);
 	if (init_img(map) == -1)
+	{
+		free(mp->map);
+		free(mp);
 		return (-1);
+	}
 	return (0);
 }
 
@@ -121,8 +125,11 @@ int		cub3d(t_mpinf *mp)
 	if (init_map(&map, mp) == -1)
 		return (-1);
 	draw_loop(&map);
-	printf("cub3d is running\n");
-	key_loop(&map);
-	mlx_loop(map.mlx);
+	if (map.mp.save != 1)
+	{
+		printf("cub3d is running\n");
+		key_loop(&map);
+		mlx_loop(map.mlx);
+	}
 	return (0);
 }

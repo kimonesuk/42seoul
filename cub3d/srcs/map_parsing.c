@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 19:42:58 by okim              #+#    #+#             */
-/*   Updated: 2021/05/19 00:05:14 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/20 16:23:03 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ int	info_chk(t_mpinf *mpinf)
 			return (error_msg(-2));
 		i++;
 	}
-	if (mpinf->size[0] == 0 || mpinf->size[1] == 0 || mpinf->s_path == 0)
-		return (error_msg(-2));
-	if (mpinf->no_path == 0 || mpinf->so_path == 0 || mpinf->we_path == 0 ||
-	mpinf->ea_path == 0)
+	if (mpinf->size[0] == 0 || mpinf->size[1] == 0 || mpinf->s_path == 0
+	|| mpinf->no_path == 0 || mpinf->so_path == 0 || mpinf->we_path == 0 ||
+	mpinf->ea_path == 0 || mpinf->player_v == 0)
 		return (error_msg(-2));
 	return (0);
 }

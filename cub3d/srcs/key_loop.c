@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 10:27:16 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 09:01:16 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/20 19:28:09 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int		key_press(int keycode, t_map *map)
 	{
 		printf("window is stopped.\n");
 		free(map->sp);
-		free(map->distarr);
 		free(map->mp.map);
 		exit(0);
 	}
@@ -42,7 +41,6 @@ int		key_exit(t_map *map)
 {
 	printf("window is stopped.\n");
 	free(map->sp);
-	free(map->distarr);
 	free(map->mp.map);
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 08:41:59 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/20 20:18:10 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_map_inf
 	int		map_height;
 	int		spcnt;
 	int		save;
+	int		flag;
 	double	player_x;
 	double	player_y;
 	char	player_v;
@@ -112,6 +113,11 @@ typedef struct	s_map
 	double		wdist;
 	double		*distarr;
 	double		*sp_dist;
+	int			color;
+	double		texx;
+	double		texy;
+	double		wallx;
+	double		wally;
 	t_img		no_img;
 	t_img		so_img;
 	t_img		we_img;
@@ -162,6 +168,8 @@ int				save_bmp(t_map *map);
 void			player_dir(t_map *map);
 void			my_mlx_pixel_put(t_img *img, double x, double y, int color);
 int				my_mlx_pixel_get(t_img *img, double x, double y);
+double			cast_single_ray(t_map *map);
+int				set_texture(t_map *map, double dy);
 void			draw_sprite(t_map *map);
 void			draw_loop(t_map *map);
 void 			press_ad(int key, t_map *map);

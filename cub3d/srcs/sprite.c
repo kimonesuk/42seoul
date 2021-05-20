@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 14:22:09 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 09:01:25 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/20 12:04:42 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	dist_sprites(t_map *map)
 	while (i < map->mp.spcnt)
 	{
 		map->sp_dist[i] = pow((map->mp.player_x - map->sp[i].x), 2)
-		+ pow((map->mp.player_y - map->sp[i].y), 2); //check
+		+ pow((map->mp.player_y - map->sp[i].y), 2);
 		i++;
 	}
 }
@@ -59,14 +59,14 @@ void	init_sprd(t_sprd *sd, t_map *map, int i)
 	sd->transy = sd->invd * (-map->planey * sd->sprx + map->planex * sd->spry);
 	sd->sprsnx = (int)((map->mp.size[0] / 2) * (1 + sd->transx / sd->transy));
 	sd->sprh = (int)(map->mp.size[1] / (sd->transy));
-	sd->starty = (-1 * sd->sprh) / 2 + map->mp.size[1] / 2;
+	sd->starty = -sd->sprh / 2 + map->mp.size[1] / 2;
 	if (sd->starty < 0)
 		sd->starty = 0;
 	sd->endy = sd->sprh / 2 + map->mp.size[1] / 2;
 	if (sd->endy >= map->mp.size[1])
 		sd->endy = map->mp.size[1] - 1;
-	sd->sprw = abs((int)(map->mp.size[1] / (sd->transy)));
-	sd->startx = (-1 * sd->sprw) / 2 + sd->sprsnx;
+	sd->sprw = (int)(map->mp.size[1] / (sd->transy));
+	sd->startx = -sd->sprw / 2 + sd->sprsnx;
 	if (sd->startx < 0)
 		sd->startx = 0;
 	sd->endx = sd->sprw / 2 + sd->sprsnx;

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/05/19 18:03:13 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/20 08:41:59 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,28 @@ typedef struct	s_map
 	t_sprite	*sp;
 }				t_map;
 
+typedef	struct	s_sprite_draw
+{
+	double		sprx;
+	double		spry;
+	double		invd;
+	double		transx;
+	double		transy;
+	int			sprsnx;
+	int			stripe;
+	int			sprh;
+	int			starty;
+	int			endy;
+	int			sprw;
+	int			startx;
+	int			endx;
+	int			texx;
+	int			texy;
+	int			color;
+	int			y;
+}				t_sprd;
+
+
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_isdigit(int c);
 char			*ft_strchr(const char *s, int c);
@@ -142,6 +164,8 @@ void			my_mlx_pixel_put(t_img *img, double x, double y, int color);
 int				my_mlx_pixel_get(t_img *img, double x, double y);
 void			draw_sprite(t_map *map);
 void			draw_loop(t_map *map);
+void 			press_ad(int key, t_map *map);
+void 			press_ws(int key, t_map *map);
 void 			press_arrow(int key, t_map *map);
 void 			release_arrow(int key, t_map *map);
 void			key_loop(t_map *map);

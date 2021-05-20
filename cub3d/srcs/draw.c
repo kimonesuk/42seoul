@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 10:39:54 by okim              #+#    #+#             */
-/*   Updated: 2021/05/19 16:46:33 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/20 08:00:49 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		setTexture(t_map *map, double dy)
 	wallY = dy / abs(map->wend - map->wstart);
 	if (map->side == 0 && map->raydirx < 0) // east
 	{
-		texX = (int)(wallX * map->ea_w);
+		texX = (int)((1 - wallX) * map->ea_w);
 		texY = (int)(wallY * map->ea_h);
 		color = my_mlx_pixel_get(&map->ea_img, texX, texY);
 	}
@@ -122,7 +122,7 @@ int		setTexture(t_map *map, double dy)
 	}
 	else if (map->side == 1 && map->raydiry >= 0) // north
 	{
-		texX = (int)(wallX * map->no_w);
+		texX = (int)((1 - wallX) * map->no_w);
 		texY = (int)(wallY * map->no_h);
 		color = my_mlx_pixel_get(&map->no_img, texX, texY);
 	}
@@ -211,3 +211,4 @@ void	draw_loop(t_map *map)
 	else
 		mlx_put_image_to_window(map->mlx, map->win, map->img.img, 0, 0);
 }
+// 화면 높이보다 큰 경우 문제가 생김

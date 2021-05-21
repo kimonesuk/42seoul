@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 10:39:54 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 20:57:07 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/22 07:39:50 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	draw_line(t_map *map)
 	double	deltay;
 	double	start;
 	int		color;
-	int	lineh;
+	int		lineh;
 
 	lineh = (int)(map->mp.size[1] / map->wdist);
 	map->wstart = -(lineh / 2) + (map->mp.size[1] / 2);
@@ -27,7 +27,7 @@ void	draw_line(t_map *map)
 	start = map->wstart;
 	while (fabs(map->wend - start) > 0.01)
 	{
-		if (start > 0 && start <= map->mp.size[1])
+		if (start > 0 && start < map->mp.size[1] && start > map->wstart)
 		{
 			color = set_texture(map, start - map->wstart);
 			my_mlx_pixel_put(&map->img, (int)floor(map->xi),

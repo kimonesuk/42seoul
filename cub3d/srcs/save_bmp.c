@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 10:27:08 by okim              #+#    #+#             */
-/*   Updated: 2021/05/19 22:05:53 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/22 23:26:11 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ int		save_bmp(t_map *map)
 
 	pad = (4 - ((int)map->mp.size[0] * 3) % 4) % 4;
 	filesize = 54 + (3 * ((int)map->mp.size[0] + pad) * (int)map->mp.size[1]);
-	if ((file = open("screenshot.bmp", O_WRONLY | O_CREAT |
-	O_TRUNC | O_APPEND)) < 0)
+	if ((file = open("screenshot.bmp", O_WRONLY | O_CREAT, 0644 | O_TRUNC)) < 0)
 		return (0);
 	if (!bmp_header(file, filesize, map))
 		return (0);

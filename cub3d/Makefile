@@ -42,6 +42,14 @@ $(NAME): $(SRCS)
 	$(CC) $(FLAGS) -I ./include/ $(LMLX) -o $@ $^
 	echo "\x1B[32;1m"">>>>> cub3D is successfully made <<<<<""\x1B[m"
 
+debug:
+	$(MAKE) lmx
+	$(CC) $(FLAGS) -I ./include/ -g3 -fsanitize=address $(LMLX) $(SRCS) -o $(NAME)
+	echo "\x1B[32;1m"">>>>> cub3D is successfully made <<<<<""\x1B[m"
+
+norm:
+	norminette ./srcs/*.c ./include/cub3d.h ./include/get_next_line.h
+
 clean:
 	RM $(NAME)
 

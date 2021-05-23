@@ -6,11 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 22:20:43 by okim              #+#    #+#             */
-/*   Updated: 2021/04/13 23:19:01 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 17:29:53 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 char	*ft_strchr(const char *s, int c)
 {

@@ -6,11 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 22:51:25 by okim              #+#    #+#             */
-/*   Updated: 2021/04/07 18:24:29 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 17:29:49 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

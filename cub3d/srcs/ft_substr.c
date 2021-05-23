@@ -6,11 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 20:35:38 by okim              #+#    #+#             */
-/*   Updated: 2021/04/13 23:21:13 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 17:30:21 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

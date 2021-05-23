@@ -6,11 +6,11 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 23:08:32 by okim              #+#    #+#             */
-/*   Updated: 2021/04/13 23:19:05 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 17:30:02 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 static int			chk_over_range(unsigned long long int sum, int sign)
 {

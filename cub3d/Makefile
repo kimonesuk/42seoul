@@ -40,7 +40,7 @@ lmx:
 $(NAME): $(SRCS)
 	$(MAKE) lmx
 	$(CC) $(FLAGS) -I ./include/ $(LMLX) -o $@ $^
-	echo "\x1B[32;1m"">>>>> cub3D is successfully made.""\x1B[m"
+	echo "\x1B[32;1m"">>>>> cub3D is successfully made <<<<<""\x1B[m"
 
 clean:
 	RM $(NAME)

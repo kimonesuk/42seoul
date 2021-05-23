@@ -1,12 +1,11 @@
 NAME = cub3D
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -O3
 RM = rm -rf
 
 MMS_DIR = minilibx_mms_20200219
-OPENGL_DIR = minilibx_opengl_20191021
-LMLX = libmlx.dylib libmlxgl.a
+LMLX = libmlx.dylib
 SRCS = ./srcs/main.c \
 		./srcs/cub3d.c \
 		./srcs/draw.c \
@@ -34,14 +33,13 @@ SRCS = ./srcs/main.c \
 
 all: $(NAME)
 
-$(LMLX):
+lmx:
 	$(MAKE) -C $(MMS_DIR)
-	$(MAKE) -C $(OPENGL_DIR)
-
-$(NAME): $(LMLX)
-	cp $(MMS_DIR)/libmlx.dylib .
-	cp $(OPENGL_DIR)/libmlxgl.a .
-	$(CC) $(FLAGS) -I ./include/ $(LMLX) $(SRCS) -o $(NAME)
+	cp $(MMS_DIR)/$(LMLX) .
+	
+$(NAME): $(SRCS)
+	$(MAKE) lmx
+	$(CC) $(FLAGS) -I ./include/ $(LMLX) -o $@ $^
 	echo "\x1B[32;1m"">>>>> cub3D is successfully made.""\x1B[m"
 
 clean:
@@ -50,8 +48,7 @@ clean:
 fclean: clean
 	RM $(LMLX)
 	$(MAKE) -C $(MMS_DIR) clean
-	$(MAKE) -C $(OPENGL_DIR) clean
-
+	
 re: fclean all
 
 bonus: all

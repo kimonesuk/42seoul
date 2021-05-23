@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 10:27:16 by okim              #+#    #+#             */
-/*   Updated: 2021/05/23 12:43:47 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 15:49:31 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,6 @@ int		key_press(int keycode, t_map *map)
 	return (0);
 }
 
-int		key_release(int keycode, t_map *map)
-{
-	if (keycode == 123 || keycode == 124)
-		release_arrow(keycode, map);
-	return (0);
-}
-
 int		key_exit(void)
 {
 	printf("window is stopped.\n");
@@ -44,6 +37,5 @@ int		key_exit(void)
 void	key_loop(t_map *map)
 {
 	mlx_hook(map->win, X_EVENT_KEY_PRESS, 0, key_press, map);
-	mlx_hook(map->win, X_EVENT_KEY_RELEASE, 0, key_release, map);
 	mlx_hook(map->win, X_EVENT_KEY_EXIT, 0, key_exit, map);
 }

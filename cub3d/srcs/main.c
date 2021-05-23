@@ -6,13 +6,28 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 08:44:36 by okim              #+#    #+#             */
-/*   Updated: 2021/05/23 12:29:23 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 16:26:18 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	init_inf(char *map_path, t_mpinf *mpinf)
+void	init_contents(t_mpinf *mpinf)
+{
+	mpinf->fl[0] = -1;
+	mpinf->fl[1] = -1;
+	mpinf->fl[2] = -1;
+	mpinf->cl[0] = -1;
+	mpinf->cl[1] = -1;
+	mpinf->cl[2] = -1;
+	mpinf->no_path = 0;
+	mpinf->so_path = 0;
+	mpinf->ea_path = 0;
+	mpinf->we_path = 0;
+	mpinf->s_path = 0;
+}
+
+int		init_inf(char *map_path, t_mpinf *mpinf)
 {
 	mpinf->size[0] = 0;
 	mpinf->size[1] = 0;
@@ -23,12 +38,7 @@ int	init_inf(char *map_path, t_mpinf *mpinf)
 	mpinf->player_v = 0;
 	mpinf->spcnt = 0;
 	mpinf->save = 0;
-	mpinf->fl[0] = -1;
-	mpinf->fl[1] = -1;
-	mpinf->fl[2] = -1;
-	mpinf->cl[0] = -1;
-	mpinf->cl[1] = -1;
-	mpinf->cl[2] = -1;
+	init_contents(mpinf);
 	if (map_parsing(map_path, mpinf) == -1)
 	{
 		free(map_path);
@@ -39,7 +49,7 @@ int	init_inf(char *map_path, t_mpinf *mpinf)
 	return (0);
 }
 
-int	main(int argc, char *argv[])
+int		main(int argc, char *argv[])
 {
 	char	*map_path;
 	int		map_len;

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 09:10:00 by okim              #+#    #+#             */
-/*   Updated: 2021/05/23 10:01:00 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 14:54:02 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,5 @@ int		error_msg(int error_n)
 		write(1, "Can't open a new window\n", 24);
 	else
 		return (0);
-	return (-1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 19:42:58 by okim              #+#    #+#             */
-/*   Updated: 2021/05/23 13:13:43 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 13:51:59 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,15 @@ int	elements_save(char *line, t_mpinf *mpinf)
 	int	rtn;
 
 	rtn = 0;
-	if (ft_strncmp(line, "NO ", 3) == 0)
+	if (ft_strncmp(line, "NO ", 3) == 0 && mpinf->no_path == 0)
 		mpinf->no_path = ft_strdup((line + sizeof(char) * 3));
-	else if (ft_strncmp(line, "SO ", 3) == 0)
+	else if (ft_strncmp(line, "SO ", 3) == 0 && mpinf->so_path == 0)
 		mpinf->so_path = ft_strdup((line + sizeof(char) * 3));
-	else if (ft_strncmp(line, "WE ", 3) == 0)
+	else if (ft_strncmp(line, "WE ", 3) == 0 && mpinf->we_path == 0)
 		mpinf->we_path = ft_strdup((line + sizeof(char) * 3));
-	else if (ft_strncmp(line, "EA ", 3) == 0)
+	else if (ft_strncmp(line, "EA ", 3) == 0 && mpinf->ea_path == 0)
 		mpinf->ea_path = ft_strdup((line + sizeof(char) * 3));
-	else if (ft_strncmp(line, "S ", 2) == 0)
+	else if (ft_strncmp(line, "S ", 2) == 0 && mpinf->s_path == 0)
 		mpinf->s_path = ft_strdup((line + sizeof(char) * 2));
 	else if (ft_strncmp(line, "R ", 2) == 0)
 		rtn = contents_size_save(line + sizeof(char) * 2, mpinf);

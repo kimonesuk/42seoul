@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 09:12:06 by okim              #+#    #+#             */
-/*   Updated: 2021/05/23 13:38:17 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 16:48:45 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	map_content_chk(int j, t_mpinf *mpinf)
 			mpinf->player_x = i;
 			mpinf->player_y = j;
 			mpinf->player_v = mpinf->map[j][i];
+			mpinf->map[j][i] = '0';
 		}
 		else if (mpinf->map[j][i] == '2')
 			mpinf->spcnt++;
@@ -111,8 +112,8 @@ int	lst_to_map(t_mpinf *mpinf)
 		tmp_lst = tmp_lst->next;
 	}
 	ft_lstclear(&mpinf->map_lst);
-	free_map(mpinf, tmp_map);
 	rtn = map_shape_chk(tmp_map, mpinf);
+	free_map(mpinf, tmp_map);
 	return (rtn);
 }
 
@@ -123,6 +124,8 @@ int	map_save(int fd, t_mpinf *mpinf)
 
 	while (get_next_line(fd, &line) > 0)
 	{
+		if (ft_strlen(skip_space(line)) == 0)
+			return (error_msg(-3));
 		if (ft_strlen(line) > mpinf->map_width)
 			mpinf->map_width = ft_strlen(line);
 		mpinf->map_height++;

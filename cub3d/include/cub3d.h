@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/05/23 13:38:55 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 15:49:18 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CUB3D_H
 
 # include "mlx.h"
-# include "mlxgl.h"
 # include "get_next_line.h"
 # include <unistd.h>
 # include <stdlib.h>
@@ -24,7 +23,6 @@
 
 # define _USE_MATH_DEFINES
 # define X_EVENT_KEY_PRESS		2
-# define X_EVENT_KEY_RELEASE	3
 # define X_EVENT_KEY_EXIT		17
 
 typedef struct	s_list

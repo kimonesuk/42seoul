@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 19:42:58 by okim              #+#    #+#             */
-/*   Updated: 2021/05/23 10:21:12 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 11:07:03 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	info_chk(t_mpinf *mpinf)
 	i = 0;
 	while (i < 3)
 	{
-		if (mpinf->fl[i] > 255 || mpinf->fl[i] == -1)
+		if (mpinf->fl[i] > 255 || mpinf->fl[i] < 0)
 			return (error_msg(-2));
-		if (mpinf->cl[i] > 255 || mpinf->cl[i] == -1)
+		if (mpinf->cl[i] > 255 || mpinf->cl[i] < 0)
 			return (error_msg(-2));
 		i++;
 	}
-	if (mpinf->size[0] == 0 || mpinf->size[1] == 0 || mpinf->s_path == 0
+	if (mpinf->size[0] <= 0 || mpinf->size[1] <= 0 || mpinf->s_path == 0
 	|| mpinf->no_path == 0 || mpinf->so_path == 0 || mpinf->we_path == 0 ||
 	mpinf->ea_path == 0 || mpinf->player_v == 0)
 		return (error_msg(-2));
@@ -45,7 +45,7 @@ int	contents_nmb_save(char *line, t_mpinf *mpinf, char c)
 		{
 			if (c == 'C' && mpinf->cl[j] == -1)
 				mpinf->cl[j] = 0;
-			if (c == 'F' && mpinf->fl[j] == -1)
+			else if (c == 'F' && mpinf->fl[j] == -1)
 				mpinf->fl[j] = 0;
 			if (c == 'C')
 				mpinf->cl[j] = mpinf->cl[j] * 10 + line[i] - '0';
@@ -77,6 +77,13 @@ int	contents_size_save(char *line, t_mpinf *mpinf)
 		else
 			return (-1);
 		i++;
+		if (j == 0 && mpinf->size[0] > 9000)
+		{
+			while (ft_isdigit(line[i]) == 1)
+				i++;
+		}
+		if (mpinf->size[1] > 9000)
+			break ;
 	}
 	return (0);
 }

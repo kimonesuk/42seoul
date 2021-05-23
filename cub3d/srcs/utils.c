@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 09:10:00 by okim              #+#    #+#             */
-/*   Updated: 2021/05/23 20:40:47 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 21:06:15 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ int		error_msg(int error_n)
 	else if (error_n == -8)
 		printf("Can't open a new window\n");
 	else
-		return (0);
-	return (0);
+		return (-1);
+	return (-1);
 }

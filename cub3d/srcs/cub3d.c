@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:08:23 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 19:26:41 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 09:02:37 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,14 @@ int		cub3d(t_mpinf *mp)
 
 	if ((mlx_ptr = mlx_init()) == NULL)
 		return (error_msg(-7));
-	if ((win_ptr = mlx_new_window(mlx_ptr, mp->size[0], mp->size[1],
-	"cub3d")) == NULL)
-		return (error_msg(-8));
 	map.mlx = mlx_ptr;
-	map.win = win_ptr;
 	mlx_get_screen_size(mlx_ptr, &mp->max_width, &mp->max_height);
 	if (init_map(&map, mp) == -1)
 		return (-1);
+	if ((win_ptr = mlx_new_window(mlx_ptr, mp->size[0], mp->size[1],
+	"cub3d")) == NULL)
+		return (error_msg(-8));
+	map.win = win_ptr;
 	draw_loop(&map);
 	if (map.mp.save != 1)
 	{

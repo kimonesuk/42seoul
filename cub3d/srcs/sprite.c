@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 14:22:09 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 12:04:42 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 10:32:53 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	dist_sprites(t_map *map)
 
 void	sort_sprites(t_map *map)
 {
-	int	i;
-	int	j;
-	int	tmp;
+	int			i;
+	int			j;
+	int			tmp;
+	t_sprite	tmpp;
 
 	i = 0;
 	while (i < map->mp.spcnt)
@@ -38,11 +39,14 @@ void	sort_sprites(t_map *map)
 		j = 0;
 		while (j < map->mp.spcnt - i - 1)
 		{
-			if (map->sp_dist[j] > map->sp_dist[j + 1])
+			if (map->sp_dist[j] < map->sp_dist[j + 1])
 			{
 				tmp = map->sp_dist[j];
+				tmpp = map->sp[j];
 				map->sp_dist[j] = map->sp_dist[j + 1];
+				map->sp[j] = map->sp[j + 1];
 				map->sp_dist[j + 1] = tmp;
+				map->sp[j + 1] = tmpp;
 			}
 			j++;
 		}

@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
@@ -41,8 +41,8 @@ $(LMLX):
 $(NAME): $(LMLX)
 	cp $(MMS_DIR)/libmlx.dylib .
 	cp $(OPENGL_DIR)/libmlxgl.a .
-	$(CC) $(FLAGS) -g3 -fsanitize=address -I ./include/ $(LMLX) $(SRCS) -o $(NAME)
-	echo "\x1B[32;1m"">>>>> cub3d is successfully made.""\x1B[m"
+	$(CC) $(FLAGS) -I ./include/ $(LMLX) $(SRCS) -o $(NAME)
+	echo "\x1B[32;1m"">>>>> cub3D is successfully made.""\x1B[m"
 
 clean:
 	RM $(NAME)

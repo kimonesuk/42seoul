@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 09:10:00 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 23:08:24 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 10:01:00 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,23 @@ void	player_dir(t_map *map)
 	map->planey = 0;
 	if (map->mp.player_v == 'N')
 	{
-		map->diry = 1;
-		map->planex = -0.66;
-	}
-	else if (map->mp.player_v == 'S')
-	{
 		map->diry = -1;
 		map->planex = 0.66;
 	}
-	else if (map->mp.player_v == 'E')
+	else if (map->mp.player_v == 'S')
 	{
-		map->dirx = -1;
-		map->planey = -0.66;
+		map->diry = 1;
+		map->planex = -0.66;
 	}
-	else if (map->mp.player_v == 'W')
+	else if (map->mp.player_v == 'E')
 	{
 		map->dirx = 1;
 		map->planey = 0.66;
+	}
+	else if (map->mp.player_v == 'W')
+	{
+		map->dirx = -1;
+		map->planey = -0.66;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 20:18:10 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 09:09:12 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ typedef	struct	s_sprite_draw
 	int			y;
 }				t_sprd;
 
-
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_isdigit(int c);
 char			*ft_strchr(const char *s, int c);
@@ -172,10 +171,10 @@ double			cast_single_ray(t_map *map);
 int				set_texture(t_map *map, double dy);
 void			draw_sprite(t_map *map);
 void			draw_loop(t_map *map);
-void 			press_ad(int key, t_map *map);
-void 			press_ws(int key, t_map *map);
-void 			press_arrow(int key, t_map *map);
-void 			release_arrow(int key, t_map *map);
+void			press_ad(int key, t_map *map);
+void			press_ws(int key, t_map *map);
+void			press_arrow(int key, t_map *map);
+void			release_arrow(int key, t_map *map);
 void			key_loop(t_map *map);
 int				cub3d(t_mpinf *mpinf);
 

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 19:42:58 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 16:23:03 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 10:21:12 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	contents_nmb_save(char *line, t_mpinf *mpinf, char c)
 			else if (c == 'F')
 				mpinf->fl[j] = mpinf->fl[j] * 10 + line[i] - '0';
 		}
-		else if ((j < 3) && (line[i] = ','))
+		else if (j < 3 && (line[i] == ','))
 			j++;
 		else
 			return (-1);
@@ -72,7 +72,7 @@ int	contents_size_save(char *line, t_mpinf *mpinf)
 	{
 		if (ft_isdigit(line[i]))
 			mpinf->size[j] = mpinf->size[j] * 10 + line[i] - '0';
-		else if ((j == 0) && (line[i] = ' '))
+		else if ((j < 1) && (line[i] = ' '))
 			j++;
 		else
 			return (-1);

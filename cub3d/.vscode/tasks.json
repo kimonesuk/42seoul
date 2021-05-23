@@ -5,18 +5,18 @@
             "label": "cub3d gcc build", // ui에 나타나는 이름
             "command": "/usr/bin/gcc", // 명령어
             "args": [ // 명령어 인자
-                "-g3",
-                "-fsanitize=address",
+                // "-g3",
+                // "-fsanitize=address",
                 "-Wall",
                 "-Wextra",
                 "-Werror",
                 "-I",
                 "${workspaceFolder}/include/",
                 "${workspaceFolder}/libmlx.dylib",
-                "${workspaceFolder}/libmlx.a",
+                "${workspaceFolder}/libmlxgl.a",
                 "${workspaceFolder}/srcs/*.c",
                 "-o",
-                "cub3d"
+                "cub3D"
             ],
             "options": { // 여러가지 환경 변수
                 "cwd": "${workspaceFolder}"

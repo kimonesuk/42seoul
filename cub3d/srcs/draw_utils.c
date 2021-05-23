@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 09:24:36 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 11:17:57 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 13:38:39 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,17 @@ double	cast_single_ray(t_map *map)
 			map->hit = 1;
 	}
 	return (ray2wall(map));
+}
+
+void	free_map(t_mpinf *mpinf, char **tmp_map)
+{
+	int i;
+
+	i = 0;
+	while (i < mpinf->map_height + 1)
+	{
+		free(tmp_map[i]);
+		i++;
+	}
+	free(tmp_map);
 }

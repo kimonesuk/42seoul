@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 08:44:36 by okim              #+#    #+#             */
-/*   Updated: 2021/05/23 09:42:29 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 12:29:23 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,5 @@ int	main(int argc, char *argv[])
 		free(mpinf);
 		return (error_msg(-5));
 	}
-	cub3d(mpinf);
-	free(mpinf);
-	return (0);
+	return (cub3d(mpinf));
 }

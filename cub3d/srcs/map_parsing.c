@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 19:42:58 by okim              #+#    #+#             */
-/*   Updated: 2021/05/23 11:07:03 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 13:13:43 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int	map_parsing(char *map_path, t_mpinf *mpinf)
 		if (ft_strncmp(tmp, "1", 1) == 0)
 			break ;
 		else if (*tmp == 0)
-			continue;
+			free(line);
 		else
 		{
 			if (elements_save(line, mpinf) == -1)

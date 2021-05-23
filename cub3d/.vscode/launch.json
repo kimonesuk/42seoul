@@ -5,7 +5,7 @@
 			"name": "cub3d launch debuger(lldb)",
 			"type": "lldb",
 			"request": "launch",
-			"program": "${workspaceFolder}/cub3d", // 디버깅할 프로그램 이름
+			"program": "${workspaceFolder}/cub3D", // 디버깅할 프로그램 이름
 			"args": [ // 프로그램에 넣어줄 인자
 				//"./cub3D_map_tester/maps/test_MAP32.cub"
 				"map.cub",

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:32:45 by okim              #+#    #+#             */
-/*   Updated: 2021/05/23 09:09:12 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 13:38:55 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int				error_msg(int error_n);
 int				map_parsing(char *map_path, t_mpinf *mpinf);
 int				map_save(int fd, t_mpinf *mpinf);
 int				save_bmp(t_map *map);
+void			free_map(t_mpinf *mpinf, char **tmp_map);
 void			player_dir(t_map *map);
 void			my_mlx_pixel_put(t_img *img, double x, double y, int color);
 int				my_mlx_pixel_get(t_img *img, double x, double y);

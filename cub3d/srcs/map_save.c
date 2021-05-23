@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 09:12:06 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 19:48:12 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 13:38:17 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	lst_to_map(t_mpinf *mpinf)
 	mpinf->map = (char **)malloc(sizeof(char *) * (mpinf->map_height));
 	tmp_map = (char **)malloc(sizeof(char *) * (mpinf->map_height + 2));
 	frame = 0;
-	ft_memset(frame, ' ', mpinf->map_width);
+	frame = ft_memset(frame, ' ', mpinf->map_width);
 	tmp_map[0] = frame;
 	tmp_map[mpinf->map_height + 1] = frame;
 	tmp_lst = mpinf->map_lst;
@@ -111,8 +111,8 @@ int	lst_to_map(t_mpinf *mpinf)
 		tmp_lst = tmp_lst->next;
 	}
 	ft_lstclear(&mpinf->map_lst);
+	free_map(mpinf, tmp_map);
 	rtn = map_shape_chk(tmp_map, mpinf);
-	free(tmp_map);
 	return (rtn);
 }
 

@@ -6,7 +6,7 @@
 /*   By: okim <okim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 10:27:16 by okim              #+#    #+#             */
-/*   Updated: 2021/05/20 19:28:09 by okim             ###   ########.fr       */
+/*   Updated: 2021/05/23 12:43:47 by okim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int		key_press(int keycode, t_map *map)
 	if (keycode == 53)
 	{
 		printf("window is stopped.\n");
-		free(map->sp);
-		free(map->mp.map);
 		exit(0);
 	}
 	return (0);
@@ -37,11 +35,9 @@ int		key_release(int keycode, t_map *map)
 	return (0);
 }
 
-int		key_exit(t_map *map)
+int		key_exit(void)
 {
 	printf("window is stopped.\n");
-	free(map->sp);
-	free(map->mp.map);
 	exit(0);
 }
 
